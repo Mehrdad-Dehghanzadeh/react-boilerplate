@@ -1,0 +1,5 @@
+@mixin card($name, $border-color) {
+  &-#{$name} {
+    border: 1px solid $border-color
+  }
+}

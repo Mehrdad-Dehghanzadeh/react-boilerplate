@@ -1,0 +1,13 @@
+:root {
+  --radius-full: 99999px;
+  --radius-half: 50%;
+  --padding-x: 16px;
+  --padding-top: 16px;
+  --max-width-container: 1280px;
+  --top-bar-hight: 38px;
+  --header-hight: 80px;
+  --hight-full-screen: calc(100vh - var(--padding-top) - var(--header-hight));
+  --hight-full-screen-with-to-bar: calc(
+    100vh - var(--padding-top) - var(--top-bar-hight) -var(--header-hight)
+  );
+}

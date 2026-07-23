@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+    <defs>
+        <clipPath id="clip-path">
+            <path d="M0 0H48V48H0z" class="cls-ts"/>
+        </clipPath>
+        <style>
+            .cls-ts{fill:none}
+        </style>
+    </defs>
+    <g id="Bank_Tosee_Saderat_Color" clip-path="url(#clip-path)" data-name="Bank / Tosee Saderat / Color">
+        <path id="Boundary" d="M0 0H48V48H0z" class="cls-ts"/>
+        <path id="Shape" fill="#006d08" d="M33.941 48H14.059L0 33.941V14.059L14.059 0h19.882L48 14.059v19.882L33.941 48zM16.959 7L7 16.959v14.083L16.959 41h14.083L41 31.042V16.959L31.042 7zm6.98 33.5L12.2 28.758 7.5 24l5.812-5.749H22.7L16.893 24l11.742 11.8-4.7 4.7zm10.749-10.751H25.3L31.107 24 19.364 12.2l4.7-4.7L35.8 19.242 40.5 24l-5.812 5.748z"/>
+    </g>
+</svg>

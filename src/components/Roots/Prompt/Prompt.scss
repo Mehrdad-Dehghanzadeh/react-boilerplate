@@ -1,0 +1,72 @@
+@use '@styles/mixins' as *;
+
+.prompt {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  display: none;
+  transition: opacity 200ms ease;
+  z-index: var(--index-prompt);
+
+  &--show {
+    display: block;
+    opacity: 1;
+    background-color: var(--color-bg-overlay);
+    @include cover-fixed(100vw, 100vh);
+    @include flex-center(column);
+  }
+
+  &__container {
+    background-color: rgb(44, 44, 44);
+    border-radius: 16px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+    padding: 12px;
+    max-width: 458px;
+    width: 90%;
+    overflow: hidden;
+  }
+
+  &__header {
+    margin: -12px -12px 12px;
+    padding: 20px 12px;
+    background-color: rgba(250, 105, 80, 0.2);
+    color: rgb(255, 102, 102);
+    @include flex-center();
+
+    &-icon {
+      display: block;
+      margin-left: 4px;
+      @include create-square(24px);
+    }
+  }
+
+  &__title {
+    text-align: center;
+    @include text-size(var(--text-size-subtitle), 1.5, var(--text-weight-semi-bold));
+  }
+
+  &__btn {
+    &-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2px 4px;
+    }
+
+    &-text {
+      display: block;
+      width: 90px;
+      padding: 2px;
+    }
+  }
+
+  &__hr {
+    margin: 12px -12px;
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+
+  &__description {
+    padding: 8px;
+    text-align: center;
+  }
+}

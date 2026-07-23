@@ -1,0 +1,32 @@
+@use '@styles/mixins' as *;
+
+.snackbar {
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid currentColor;
+  align-items: center;
+  position: fixed;
+  display: flex;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 380px;
+  transition: bottom 0.3s ease;
+  width: calc(100% - 32px);
+  z-index: var(--index-prompt);
+
+  &--show {
+    bottom: 72px;
+  }
+
+  &-error {
+    background-color: var(--color-tag-fault);
+    color: var(--color-status-error);
+  }
+
+  &__icon {
+    display: block;
+    margin-left: 8px;
+    @include create-square(24px);
+  }
+}

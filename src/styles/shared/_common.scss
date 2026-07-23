@@ -1,0 +1,66 @@
+@use '@styles/mixins' as *;
+@use '@styles/abstracts' as *;
+
+.full-page-relative {
+  min-height: var(--hight-full-screen);
+  position: relative;
+  padding-bottom: 100px;
+}
+
+.full-page-relative-with-top-bar {
+  min-height: var(--hight-full-screen-with-to-bar);
+  position: relative;
+  padding-bottom: 100px;
+}
+
+.bottom-screen-button {
+  position: fixed;
+  bottom: 16px;
+  left: var(--padding-x);
+  right: var(--padding-x);
+  width: calc(100% - 2 * var(--padding-x));
+  z-index: 10;
+}
+
+.card-alert {
+  padding: 12px 16px;
+  border-radius: 16px;
+  @include create-gradient-border(var(--stroke-disabled), var(--bg-gr-disabled));
+}
+
+.card-info {
+  padding: 8px 12px 8px 16px;
+  background-color: rgba(97, 170, 255, 0.102);
+  color: var(--color-info);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.flex-center {
+  @include flex-center();
+}
+
+.flex-center-column {
+  @include flex-center(column);
+}
+
+.dir-ltr {
+  direction: ltr;
+}
+
+.body-dialog-is-open {
+  @extend %body-overflow-hidden;
+}
+
+.pointer-none {
+  @include pointer-none();
+}
+
+.expander-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+  @include rotate-z();
+}

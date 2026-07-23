@@ -1,0 +1,27 @@
+@use '@styles/mixins' as *;
+
+.cart-badge {
+  @include flex-center();
+  background-color: #00000033;
+  border-radius: 12px;
+  user-select: none;
+
+  &--md {
+    $size: 48px;
+    padding: 8px;
+    @include create-square($size);
+  }
+
+  &--sm {
+    $size: 24px;
+    padding: 3px;
+    border-radius: 4px;
+    @include create-square($size);
+  }
+
+  &__img {
+    display: block;
+    object-fit: contain;
+    @include full();
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "types": ["vite/client"],
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "erasableSyntaxOnly": false,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    /* Path aliases */
+    "paths": {
+      "@/*": ["./src/*"],
+      "@assets": ["./src/assets"],
+      "@assets/*": ["./src/assets/*"],
+      "@ts": ["./src/ts"],
+      "@ts/*": ["./src/ts/*"],
+      "@styles": ["./src/styles"],
+      "@styles/*": ["./src/styles/*"],
+      "@locales": ["./src/locales"],
+      "@locales/*": ["./src/locales/*"],
+      "@store": ["./src/store"],
+      "@store/*": ["./src/store/*"],
+      "@bridge": ["./src/bridge"],
+      "@bridge/*": ["./src/bridge/*"],
+      "@constants": ["./src/constants"],
+      "@constants/*": ["./src/constants/*"],
+      "@layout": ["./src/layout"],
+      "@layout/*": ["./src/layout/*"],
+      "@pages": ["./src/pages"],
+      "@pages/*": ["./src/pages/*"],
+      "@utils": ["./src/utils"],
+      "@utils/*": ["./src/utils/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@hooks": ["./src/hooks"],
+      "@components": ["./src/components"],
+      "@components/*": ["./src/components/*"],
+      "@shared": ["./src/components/shared"],
+      "@shared/*": ["./src/components/shared/*"],
+      "@Roots": ["./src/components/Roots"],
+      "@Roots/*": ["./src/components/Roots/*"],
+      "@services": ["./src/services"],
+      "@services/*": ["./src/services/*"],
+      "@UIKit": ["./src/components/UIKit"],
+      "@UIKit/*": ["./src/components/UIKit/*"],
+      "@web-engage": ["./src/web-engage"],
+      "@web-engage/*": ["./src/web-engage/*"]
+    }
+  },
+  "include": ["src", "./global.d.ts"]
+}

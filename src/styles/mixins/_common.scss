@@ -1,0 +1,85 @@
+@mixin cover($w: 100%, $h: 100%) {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: $w;
+  height: $h;
+}
+
+@mixin fixed() {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+@mixin full() {
+  width: 100%;
+  height: 100%;
+}
+
+@mixin position-center {
+  left: 50%;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+@mixin background-full($repeat: no-repeat) {
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: $repeat;
+}
+
+@mixin create-circle($size) {
+  border-radius: 50%;
+  width: $size;
+  height: $size;
+}
+
+@mixin create-square($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin create-gradient-border(
+  $border-gradient,
+  $bg-gradient: var(--bg-gr-1),
+  $border-width: 1px
+) {
+  background:
+    $bg-gradient padding-box,
+    $border-gradient border-box;
+  border: $border-width solid transparent;
+}
+
+@mixin text-ellipsis() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin pointer-none() {
+  cursor: pointer;
+  user-select: none;
+}
+
+@mixin cover-fixed($w: 100%, $h: 100%) {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: $w;
+  height: $h;
+}
+
+@mixin rotate-z($deg: 180deg) {
+  transition: transform ease 150ms;
+
+  &.active {
+    transform: rotateZ($deg);
+  }
+}

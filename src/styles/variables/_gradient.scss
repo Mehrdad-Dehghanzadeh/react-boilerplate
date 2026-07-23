@@ -1,0 +1,62 @@
+:root {
+  --stroke-green: linear-gradient(
+    229.06deg,
+    rgba(0, 158, 154, 0.5) -0.79%,
+    rgba(0, 158, 154, 0) 41.33%,
+    rgba(0, 158, 154, 0) 80.59%,
+    rgba(0, 158, 154, 0.5) 98.78%
+  );
+
+  --stroke-primary-light: linear-gradient(
+    90deg,
+    var(--color-primary-light) 0%,
+    var(--color-primary-light) 100%
+  );
+
+  --stroke-green-dark: linear-gradient(
+    90deg,
+    var(--color-green-dark) 0%,
+    var(--color-green-dark) 100%
+  );
+
+  --white-stroke-1: linear-gradient(
+    253.38deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0) 50.61%,
+    rgba(255, 255, 255, 0.1) 100.25%
+  );
+
+  --white-gr: linear-gradient(90deg, #ffffff 0%, #fff 100%);
+
+  --transparent-gr: linear-gradient(
+    90deg,
+    rgba(251, 251, 251, 0) 0%,
+    rgba(251, 251, 251, 0) 100%
+  );
+
+  --bg-gr-1: linear-gradient(
+    90deg,
+    var(--color-background) 0%,
+    var(--color-background) 100%
+  );
+
+  --bg-gr-disabled: linear-gradient(
+    90deg,
+    var(--color-disabled) 0%,
+    var(--color-disabled) 100%
+  );
+
+  --stroke-disabled: linear-gradient(
+    85.62deg,
+    rgba(255, 255, 255, 0.1) -3.06%,
+    rgba(255, 255, 255, 0) 14.56%,
+    rgba(255, 255, 255, 0) 47.8%,
+    rgba(255, 255, 255, 0.1) 99.62%
+  );
+
+  --gr-main: linear-gradient(
+    180deg,
+    rgba(18, 18, 18, 0) 0%,
+    rgba(18, 18, 18, 0.95) 43.79%
+  );
+}

@@ -1,0 +1,21 @@
+@use '@styles/mixins' as *;
+
+.no-result {
+  @include flex-center();
+  @include flex-column();
+  position: absolute;
+  right: 50%;
+  transform: translate(50%, -50%);
+  top: 50%;
+  width: 100%;
+  max-width: 320px;
+
+  &__icon {
+    @include create-square(220px);
+  }
+
+  &__title {
+    text-align: center;
+    @include text-size();
+  }
+}

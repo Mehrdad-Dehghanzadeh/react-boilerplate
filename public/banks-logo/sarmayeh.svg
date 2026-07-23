@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+    <g id="Bank_Sarmayeh_Color" data-name="Bank / Sarmayeh / Color" transform="translate(.184)">
+        <path id="Boundary" fill="none" d="M0 0H22V22H0z" transform="translate(-.184)"/>
+        <path id="Shape" fill="#1f1f48" d="M3.211 19.086a2.749 2.749 0 1 1 2.749 2.746 2.752 2.752 0 0 1-2.749-2.746zM0 7.446C4.537 7.3 8.555 4.454 12.263 0l.018 7.3C8.186 12.188 4.093 13.752 0 13.829z" transform="translate(6.58)"/>
+        <path id="Shape-2" fill="#afb2ae" d="M12.269 0v6.383C7.736 6.529 3.722 9.375.017 13.829L0 6.525C4.09 1.642 8.179.077 12.269 0z" data-name="Shape" transform="translate(2.941 8.002)"/>
+    </g>
+</svg>

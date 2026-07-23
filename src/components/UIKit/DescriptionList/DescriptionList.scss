@@ -1,0 +1,20 @@
+@use '@styles/mixins' as *;
+
+.description-list {
+  &__key {
+    float: right;
+    @include text-size(
+      var(--text-size-lg),
+      var(--text-height-md),
+      var(--text-weight-light)
+    );
+    padding-left: 12px;
+  }
+
+  &__value {
+    text-align: left;
+    word-wrap: break-word;
+    margin-bottom: 20px;
+    @include text-size(var(--text-size-lg), var(--text-height-md));
+  }
+}

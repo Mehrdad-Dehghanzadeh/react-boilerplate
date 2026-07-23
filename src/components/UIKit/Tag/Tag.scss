@@ -1,0 +1,62 @@
+@use '@styles/mixins' as *;
+
+.tag {
+  border-radius: 9999px;
+  padding: 10px 16px;
+  text-align: center;
+  width: fit-content;
+  position: relative;
+  overflow: hidden;
+  @include flex-center();
+  @include pointer-none();
+
+  &:after {
+    content: '';
+    display: block;
+    z-index: 0;
+    @include cover();
+  }
+
+  &__content {
+    position: relative;
+    z-index: 3;
+  }
+
+  &-default {
+    @include create-gradient-border(
+      linear-gradient(
+        216.87deg,
+        rgba(255, 255, 255, 0.2) 5.36%,
+        rgba(255, 255, 255, 0) 29%,
+        rgba(255, 255, 255, 0) 76.37%,
+        rgba(255, 255, 255, 0.2) 94.64%
+      ),
+      linear-gradient(180deg, var(--color-card-dp2)),
+      2px
+    );
+    color: var(--color-text-t5);
+
+    &:after {
+      background-color: var(--color-card-dp2);
+    }
+  }
+
+  &-green {
+    @include create-gradient-border(
+      linear-gradient(
+        216.87deg,
+        #37b399 5.36%,
+        rgba(55, 179, 153, 0) 29%,
+        rgba(55, 179, 153, 0) 76.37%,
+        #37b399 94.64%
+      ),
+      linear-gradient(180deg, var(--color-card-dp2)),
+      1px
+    );
+    color: var(--color-green);
+
+    &:after {
+      background-color: var(--color-tag-green);
+    }
+  }
+}

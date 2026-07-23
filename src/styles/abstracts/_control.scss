@@ -1,0 +1,44 @@
+@use '@styles/mixins' as *;
+
+%active-legend {
+  top: calc(24% - var(--text-size-xs));
+  @include text-size(var(--text-size-xs), 1.5, var(--text-weight-light));
+}
+
+%control-input {
+  display: block;
+  padding: 18px 12px;
+  width: 100%;
+  background-color: var(--color-bg-control);
+  color: var(--color-fg);
+  border-radius: 8px;
+  border: none;
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+%control-error {
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid var(--color-error);
+
+  & + .control__legend {
+    color: var(--color-error);
+  }
+
+  &:focus {
+    border: none;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px solid var(--color-error);
+
+    & + .control__legend {
+      @extend %active-legend;
+      color: var(--color-error);
+    }
+  }
+
+  & > .select-field__icon {
+    color: var(--color-error);
+  }
+}

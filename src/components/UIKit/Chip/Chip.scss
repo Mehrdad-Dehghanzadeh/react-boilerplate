@@ -1,0 +1,68 @@
+@use '@styles/mixins' as *;
+
+.chip {
+  width: fit-content;
+  @include flex-center();
+  @include pointer-none();
+
+  &__icon {
+    margin-left: 8px;
+  }
+
+  &-solid {
+    border-radius: 12px;
+    @include create-solid-chip('default', var(--color-fg), var(--color-card-dp48));
+    @include create-solid-chip('success', var(--color-success), var(--color-tag-success));
+    @include create-solid-chip('error', var(--color-error), var(--color-tag-error));
+    @include create-solid-chip('red', var(--color-red), var(--color-tag-error));
+    @include create-solid-chip(
+      'yellow',
+      var(--color-yellow-warning),
+      var(--color-tag-yellow)
+    );
+  }
+
+  &-outlined {
+    border-radius: 12px;
+    @include create-outlined-chip('default', var(--color-card-dp48));
+    @include create-outlined-chip('success', var(--color-success), var(--color-success));
+    @include create-outlined-chip(
+      'disabled',
+      var(--color-disabled),
+      var(--color-text-t5)
+    );
+  }
+
+  &-md {
+    padding: 8px 16px;
+  }
+
+  &-sm {
+    border-radius: 8px;
+  }
+
+  &-full {
+    width: 100%;
+    padding: 4px 8px;
+  }
+
+  &-fit {
+    padding: 4px 8px;
+  }
+
+  &--dense {
+    padding: 0 8px;
+  }
+
+  &.is-selected {
+    @include create-gradient-border(
+      linear-gradient(262.57deg, #7c9dec 0.41%, rgba(124, 157, 236, 0.3) 100.41%),
+      linear-gradient(180deg, var(--color-card-dp6), var(--color-card-dp6))
+    );
+    color: var(--color-violet);
+
+    .chip__value {
+      font-weight: var(--text-weight-bold);
+    }
+  }
+}

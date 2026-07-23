@@ -1,0 +1,18 @@
+.expander {
+  overflow: hidden;
+  transition: height ease 200ms;
+
+  &__content {
+    height: 0;
+    transition: height ease 200ms;
+    overflow: hidden;
+  }
+
+  &--open {
+    height: fit-content;
+
+    .expander__content {
+      height: fit-content;
+    }
+  }
+}

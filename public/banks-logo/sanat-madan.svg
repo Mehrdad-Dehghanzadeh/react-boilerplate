@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48.001" viewBox="0 0 48 48.001">
+    <defs>
+        <clipPath id="clip-path">
+            <path d="M0 0H48V48.001H0z" class="cls-samt"/>
+        </clipPath>
+        <style>
+            .cls-samt{fill:none}
+        </style>
+    </defs>
+    <g id="Bank_Sanat_Madan_Color" clip-path="url(#clip-path)" data-name="Bank / Sanat Madan / Color">
+        <path id="Boundary" d="M0 0H48V48H0z" class="cls-samt"/>
+        <path id="Shape" fill="#9b814c" d="M48 48H0V0h13.009L24 10.992 34.991 0H48v48zM5.5 29.5v13h37V5.49h-5.233l-9.382 9.382 3.628 3.628h10.99L37.009 24h-7.772l3.885 3.885L24 37.009 16.487 29.5zm0-24v24l5.491-5.5h7.772l-3.886-3.886 5.237-5.236L10.732 5.5zM24 18.764L18.763 24 24 29.236 29.237 24 24 18.764z"/>
+    </g>
+</svg>

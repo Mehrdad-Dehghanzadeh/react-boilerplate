@@ -1,0 +1,79 @@
+@use '@styles/mixins' as *;
+@use '@styles/abstracts' as *;
+
+.button {
+  border-radius: 12px;
+  width: 100%;
+  padding: 12px 20px;
+  font-weight: var(--text-weight-bold);
+  @include flex-center();
+  @include button-outlined(var(--color-white));
+
+  &-primary {
+    color: var(--color-white);
+    background: linear-gradient(45.05deg, #eb6750 0%, #e64225 100%);
+  }
+
+  &-sm {
+    padding: 4px 8px;
+    width: fit-content;
+  }
+
+  &-white {
+    @include button-color(var(--color-white), var(--color-black));
+  }
+
+  &-green {
+    @include button-color(var(--color-green));
+    @include button-outlined(var(--color-green));
+  }
+
+  &-gray-1 {
+    @include button-outlined(var(--color-text-t5));
+  }
+
+  &-bg-50 {
+    @include button-color(var(--color-background-50));
+  }
+
+  &:active {
+    opacity: 0.75;
+  }
+
+  &__icon {
+    margin-left: 8px;
+    @extend %icon;
+  }
+
+  &.button--loading {
+    opacity: 0.6;
+  }
+
+  & .spinner {
+    width: 24px;
+    height: 24px;
+    animation-name: spinners;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-duration: 750ms;
+    display: block;
+  }
+
+  &--dense {
+    padding: 4px 8px;
+  }
+
+  &--curve {
+    border-radius: 9999px;
+  }
+
+  &--disabled {
+    background-color: var(--color-btm-disabled);
+    color: var(--color-text-t6);
+    background-image: none;
+
+    &:active {
+      opacity: 1;
+    }
+  }
+}

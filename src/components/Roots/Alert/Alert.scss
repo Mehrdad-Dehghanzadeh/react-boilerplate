@@ -1,0 +1,35 @@
+@use '@styles/mixins' as *;
+
+.alert {
+  display: none;
+
+  &__icon {
+    margin-bottom: 22px;
+    @include create-square(48px);
+
+    &--success {
+      color: var(--color-success);
+    }
+
+    &--warring {
+      color: var(--color-yellow-warning);
+    }
+
+    &--error {
+      color: var(--color-error-light)
+    }
+  }
+
+  &__container {
+    @include flex-center(column);
+  }
+
+  &__text {
+    text-align: center;
+    @include text-size(var(--text-size-xl), var(--text-height-md));
+  }
+
+  &--show {
+    @include flex-center(column);
+  }
+}

@@ -1,0 +1,70 @@
+@use '@styles/mixins' as *;
+
+.tabs {
+  padding: 20px 12px 8px;
+  background-color: var(--color-card-dp2);
+  border-radius: 12px;
+
+  &-nav {
+    padding: 4px;
+    border-radius: 9999px;
+    margin-bottom: 20px;
+    @include create-gradient-border(var(--white-stroke-1));
+
+    &__list {
+      display: flex;
+      align-items: center;
+      border-radius: 9999px;
+      width: 100%;
+      position: relative;
+    }
+
+    &__item {
+      padding: 4px 8px;
+      width: 100%;
+      border-radius: 999px;
+      min-height: 40px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      cursor: pointer;
+      transition: color ease 200ms;
+      @include flex-center();
+      @include text-size(var(--text-size-lg), var(--text-height-md));
+
+      &--active {
+        color: var(--color-red-2);
+        font-weight: var(--text-weight-semi-bold);
+      }
+    }
+
+    &__active-background {
+      height: 100%;
+      border-radius: 999px;
+      position: absolute;
+      background-color: var(--color-card-dp6);
+      z-index: 0;
+      cursor: pointer;
+      transition: transform ease 150ms;
+    }
+
+    &--disabled {
+      opacity: 0.5;
+    }
+  }
+
+  .swiper-slide {
+    cursor: grab;
+    user-select: none;
+  }
+
+  &__content {
+    &--lazy {
+      display: none;
+    }
+
+    &--active {
+      display: block;
+    }
+  }
+}

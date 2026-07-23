@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+    <defs>
+        <clipPath id="clip-path">
+            <path d="M0 0H48V48H0z" class="cls-saderat"/>
+        </clipPath>
+        <style>
+            .cls-saderat{fill:none}
+        </style>
+    </defs>
+    <g id="Bank_Saderat_Color" clip-path="url(#clip-path)" data-name="Bank / Saderat / Color">
+        <path id="Boundary" d="M0 0H48V48H0z" class="cls-saderat"/>
+        <path id="Shape" fill="#2d2a68" d="M13.482 48C8.113 48 2.547 45.9 0 39.876V0h15.69v41.348c1.841 4.271 5.85 3.726 10.669 1.035C25.613 45.2 19.679 48 13.485 48zm17.828 0V6.652c-1.84-4.27-5.85-3.726-10.669-1.035C22.034.358 41.514-4.841 47 8.123V48zm-15.5-24a7.685 7.685 0 1 1 7.69 7.633A7.674 7.674 0 0 1 15.815 24z" transform="translate(.5)"/>
+    </g>
+</svg>

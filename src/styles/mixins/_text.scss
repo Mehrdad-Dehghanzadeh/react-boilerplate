@@ -1,0 +1,12 @@
+/**
+* Text And Paragraph
+*********************************/
+@mixin text-size(
+  $font-size: var(--text-size-md),
+  $line-height: var(--text-height-md),
+  $font-weight: var(--text-weight-regular)
+) {
+  font-size: $font-size;
+  line-height: $line-height;
+  font-weight: $font-weight;
+}

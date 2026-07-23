@@ -1,0 +1,72 @@
+@use '@styles/mixins' as *;
+
+%bottom-links {
+  width: 100%;
+  height: 48px;
+  padding: 12px;
+  text-align: center;
+  border-radius: var(--radius-full);
+  position: relative;
+  z-index: var(--index-2);
+  @include flex-center();
+  @include pointer-none();
+
+  &:active {
+    opacity: 0.7;
+  }
+}
+
+.home-page {
+  $bottom-links-height: 94px;
+  padding-bottom: $bottom-links-height;
+
+  &__bottom-links {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: $bottom-links-height;
+    background-image: var(--gr-main);
+    padding: 26px 40px 20px;
+    display: flex;
+    align-items: center;
+    z-index: var(--index-home-button);
+    @include text-size(var(--text-size-xl), var(--text-height-md));
+  }
+
+  &__bottom-link-sell {
+    @extend %bottom-links;
+    box-shadow:
+      0px 5px 20px 0px #e6422580,
+      0px 1px 2px 0px #ffffff4d inset;
+
+    @include create-gradient-border(
+      linear-gradient(
+        101.77deg,
+        #ffc4ba 0.09%,
+        rgba(255, 150, 131, 0) 20.47%,
+        rgba(255, 150, 131, 0) 72.47%,
+        #ff9683 93.78%
+      ),
+      var(--stroke-primary-light)
+    );
+  }
+
+  &__bottom-link-buy {
+    @extend %bottom-links;
+    box-shadow:
+      0px 5px 50px 0px rgba(5, 161, 128, 0.302),
+      0px 1px 2px 0px rgba(255, 255, 255, 0.302) inset;
+    margin-left: 12px;
+    @include create-gradient-border(
+      linear-gradient(
+        101.77deg,
+        #22f0c5 0.09%,
+        rgba(34, 240, 197, 0) 20.47%,
+        rgba(34, 240, 197, 0) 72.47%,
+        #22f0c5 93.78%
+      ),
+      var(--stroke-green-dark)
+    );
+  }
+}

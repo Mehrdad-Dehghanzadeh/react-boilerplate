@@ -1,0 +1,56 @@
+@use '@styles/mixins' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  direction: rtl;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+html {
+  overflow-y: auto;
+  background-color: var(--color-background);
+  color: var(--color-fg);
+}
+
+body,
+button {
+  @include text-size();
+  font-family: Vazirmatn;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input,
+textarea {
+  outline: none;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+svg {
+  height: 1rem;
+}

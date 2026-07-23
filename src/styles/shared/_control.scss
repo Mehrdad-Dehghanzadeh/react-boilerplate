@@ -1,0 +1,169 @@
+@use '@styles/mixins' as *;
+@use '@styles/abstracts' as *;
+
+@keyframes barLoading {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-500%);
+  }
+}
+
+.control {
+  &__wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  &__legend {
+    color: var(--color-text-t5);
+    position: absolute;
+    top: calc(50% - var(--text-size-md));
+    right: 12px;
+    pointer-events: none;
+    user-select: none;
+    transition: all ease 150ms;
+    @include text-size(var(--text-size-md), 1.8, var(--text-weight-light));
+  }
+
+  &__input {
+    @extend %control-input;
+
+    &:focus {
+      border: none;
+      border-radius: 8px 8px 0 0;
+      border-bottom: 1px solid var(--color-fg);
+
+      & + .control__legend {
+        @extend %active-legend;
+      }
+
+      &.control--has-label {
+        padding-top: 24px;
+        padding-bottom: 12px;
+      }
+    }
+
+    &__error-message {
+      color: var(--color-error);
+      @include text-size(var(--text-size-sm), 1.5, var(--text-weight-light));
+    }
+
+    &--error {
+      @extend %control-error;
+    }
+
+    &--ltr {
+      direction: ltr;
+      text-align: right;
+    }
+  }
+
+  &__suffix {
+    position: absolute;
+    left: 20px;
+    top: 19px;
+    user-select: none;
+    color: var(--color-text-t5);
+    font-weight: var(--text-weight-light);
+  }
+
+  &__error-message {
+    font-size: var(--text-size-xs);
+    color: var(--color-error);
+    padding: 8px 8px 8px 0;
+  }
+
+  &__clear {
+    $size: 10px;
+    position: absolute;
+    left: 8px;
+    top: 24px;
+    color: var(--color-gray-4);
+    cursor: pointer;
+    @include flex-center();
+
+    &-icon {
+      @include create-square($size);
+    }
+  }
+
+  &__loading {
+    margin: 2px 4px 0;
+    height: 4px;
+    border-radius: 12px;
+    overflow-x: hidden;
+    background-color: var(--color-card-dp56);
+
+    &-fill {
+      height: 100%;
+      display: block;
+      width: 20%;
+      border-radius: 12px;
+      transform: translateX(0);
+      background-color: var(--color-primary);
+      animation-name: barLoading;
+      animation-duration: 1000ms;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease;
+    }
+  }
+
+  &__helper-text {
+    display: block;
+    font-style: normal;
+    padding-right: 16px;
+    color: var(--color-gray-4);
+    margin-top: 4px;
+    @include text-size(
+      var(--text-size-sm),
+      var(--text-height-sm),
+      var(--text-weight-bold)
+    );
+  }
+
+  &--has-suffix {
+    .control__input {
+      padding-left: 60px;
+
+      & ~ .control__clear {
+        left: 48px;
+      }
+    }
+  }
+
+  &--has-value {
+    .control__legend {
+      @extend %active-legend;
+    }
+
+    & .control--has-label {
+      padding-top: 24px;
+      padding-bottom: 12px;
+    }
+  }
+
+  &--has-icon {
+    $right-space: 56px;
+
+    .control__input {
+      padding-right: $right-space;
+    }
+
+    .control__legend {
+      right: $right-space;
+    }
+  }
+
+  &--has-clearable {
+    .control__input {
+      padding-left: 30px;
+    }
+  }
+
+  &--loading {
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,37 @@
+@use '@styles/mixins' as *;
+
+.tab-select {
+  padding: 2px;
+  background-color: var(--color-disabled);
+  border-radius: 999px;
+
+  &__list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  &__item {
+    padding: 4px 16px;
+    width: 100%;
+    border-radius: 999px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    transition: color ease 200ms;
+    @include flex-center();
+  }
+
+  &__active-background {
+    height: 100%;
+    border-radius: 999px;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.102);
+    z-index: 0;
+    cursor: pointer;
+    transition: transform ease 150ms;
+  }
+}

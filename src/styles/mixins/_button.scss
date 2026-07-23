@@ -1,0 +1,28 @@
+@mixin button-color($bg-color, $fg-color: var(--color-white)) {
+  color: $fg-color;
+  background-color: $bg-color;
+  @content;
+}
+
+@mixin button-size($name, $min-width, $height) {
+  &-#{$name} {
+    min-width: $min-width;
+    height: $height;
+    @content;
+  }
+}
+
+@mixin button-outlined($br-color) {
+  &.button-outlined {
+    color: $br-color;
+    border: 1px solid $br-color;
+    background-color: transparent;
+    @content;
+
+    &.button--loading,
+    &:disabled {
+      opacity: 0.75;
+      background-color: transparent;
+    }
+  }
+}

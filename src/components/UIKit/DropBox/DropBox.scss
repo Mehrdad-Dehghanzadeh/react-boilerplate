@@ -1,0 +1,41 @@
+@use '@styles/mixins' as *;
+
+.drop-box {
+  width: 100%;
+  border-radius: 12px;
+  height: 0px;
+  overflow: hidden;
+  transition: ease height 200ms;
+  display: flex;
+  align-items: center;
+
+  &-success {
+    color: var(--color-success);
+    background-color: var(--color-tag-success);
+  }
+
+  &-error {
+    color: var(--color-error);
+    background-color: rgba(102, 51, 51, 0.38);
+  }
+
+  &-info {
+    color: var(--color-info);
+    background-color: rgba(97, 171, 255, 0.205);
+  }
+
+  &__icon {
+    margin-left: 12px;
+    @include create-square(24px);
+  }
+
+  &__text {
+    font-weight: var(--text-weight-bold);
+  }
+
+  &--show {
+    border: solid 1px currentColor;
+    height: fit-content;
+    padding: 12px 16px;
+  }
+}

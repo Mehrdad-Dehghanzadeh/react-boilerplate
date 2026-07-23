@@ -1,0 +1,73 @@
+@use '@styles/mixins' as *;
+
+.range {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+
+  &-field {
+    &__overlay {
+      height: 100vh;
+      width: 100vw;
+      z-index: var(--index-select-field-overlay-menu);
+      @include fixed();
+    }
+
+    &__amount {
+      display: flex;
+      align-items: center;
+      color: var(--color-success);
+    }
+
+    &__unit {
+      margin-right: 8px;
+    }
+  }
+
+  &__slider-track {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    background-color: var(--color-bg-overlay);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  &__slider-fill {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 0; /* مقدار پیش فرض */
+    background: linear-gradient(90deg, #3bd0b1 0%, #154f41 100%);
+    border-radius: 4px;
+  }
+
+  &__slider-thumb {
+    position: absolute;
+    right: 0; /* مقدار پیش فرض */
+    transform: translateX(50%);
+    background-color: #ffffff;
+    @include create-circle(10px);
+    box-shadow: 0px 0px 4px 2px #ffffff80;
+    cursor: grab;
+    transition:
+      transform 0.1s ease,
+      box-shadow 0.1s ease;
+  }
+
+  &:active .slider-thumb {
+    cursor: grabbing;
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  &:focus .slider-thumb {
+    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.3);
+  }
+}
