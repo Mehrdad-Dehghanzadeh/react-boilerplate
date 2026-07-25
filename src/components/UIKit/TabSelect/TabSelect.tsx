@@ -1,5 +1,5 @@
 import type { TTabSelectProps } from './TTabSelect'
-import { useState, useMemo, useEffect, type FC } from 'react'
+import { useState, useEffect, type FC } from 'react'
 import clsx from 'clsx'
 import { hasItem } from '@utils'
 import './TabSelect.scss'
@@ -15,10 +15,11 @@ export const TabSelect: FC<TTabSelectProps> = ({
   const [activeIndex, setActiveIndex] = useState<number>(defaultActiveIndex)
   const [titleTranslate, setTitleTranslate] = useState<NumberString>('0')
 
-  const titleWidth = useMemo<string>(
-    () => (hasItem(items) ? `${100 / items.length}%` : '0px'),
-    [items]
-  )
+  const setTitleWidth = (): string => {
+    return hasItem(items) ? `${100 / items.length}%` : '0px'
+  }
+
+  const titleWidth = setTitleWidth()
 
   useEffect(() => {
     setTitleTranslate(`${activeIndex * -100}`)

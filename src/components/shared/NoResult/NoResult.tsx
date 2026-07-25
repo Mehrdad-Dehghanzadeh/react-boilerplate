@@ -1,5 +1,5 @@
 import type { TNoResultProps, TSVGsNOResultType } from './TNoResult'
-import { type FC, useMemo } from 'react'
+import { type FC, type ReactNode } from 'react'
 import clsx from 'clsx'
 import NoResultSvg from '@assets/svg/no-result.svg?react'
 import NoCartSvg from '@assets/svg/no-carts-result.svg?react'
@@ -12,12 +12,18 @@ export const NoResult: FC<TNoResultProps> = ({
   children,
   ...props
 }) => {
-  const svgs: Record<TSVGsNOResultType, any> = {
-    cart: <NoCartSvg className="no-result__icon" />,
-    report: <NoResultSvg className="no-result__icon" />,
-    default: null
+  const mapSvgIcon = () => {
+    const svgIcons: Record<TSVGsNOResultType, ReactNode> = {
+      cart: <NoCartSvg className="no-result__icon" />,
+      report: <NoResultSvg className="no-result__icon" />,
+      default: null
+    }
+
+    return svgIcons[type]
   }
-  const svgIcon = useMemo<any>(() => svgs[type], [type])
+
+  const svgIcon = mapSvgIcon()
+
   return (
     <div className={clsx('no-result', className)} {...props}>
       {svgIcon}

@@ -1,5 +1,5 @@
 import type { TButtonProps } from './TButton'
-import { useMemo, type FC } from 'react'
+import { type FC } from 'react'
 import clsx from 'clsx'
 import SpinnerSVG from '@assets/svg/spinner.svg?react'
 import './Button.scss'
@@ -17,12 +17,16 @@ export const Button: FC<TButtonProps> = ({
   curve = false,
   ...props
 }) => {
-  const variantClassName = useMemo<string>(
-    () => variant && `button-${variant}`,
-    [variant]
-  )
+  const variantClassNaming = () => {
+    return variant && `button-${variant}`
+  }
 
-  const sizeClassName = useMemo<string>(() => size && `button-${size}`, [size])
+  const sizeClassNaming = () => {
+    return size && `button-${size}`
+  }
+
+  const variantClassName = variantClassNaming()
+  const sizeClassName: string = sizeClassNaming()
 
   return (
     <button

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, type FC } from 'react'
+import { useEffect, type FC } from 'react'
 import { useRootPopUp } from '@hooks'
 import type { TSnackbarDetails, TIcons } from './TSnackbar'
 import clsx from 'clsx'
@@ -13,7 +13,7 @@ export const Snackbar: FC = () => {
     defaultDetails: { type: 'error' }
   })
 
-  const Icon = useMemo(() => {
+  const mapIcon = () => {
     const icons: TIcons = {
       error: <CrossCircle className="snackbar__icon" />,
       success: <CheckCircle className="snackbar__icon" />,
@@ -21,7 +21,9 @@ export const Snackbar: FC = () => {
     }
 
     return detail?.type ? icons[detail.type] : null
-  }, [detail?.type])
+  }
+
+  const Icon = mapIcon()
 
   const handleShow = () => {
     if (show) {

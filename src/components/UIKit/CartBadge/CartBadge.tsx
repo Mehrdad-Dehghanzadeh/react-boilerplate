@@ -1,5 +1,5 @@
 import type { TCartBadgeProps } from './TCartBadge'
-import { type FC, useMemo } from 'react'
+import { type FC } from 'react'
 import clsx from 'clsx'
 import { imgSrc } from '@utils'
 import { BANKS_LIST } from '@constants'
@@ -11,7 +11,7 @@ export const CartBadge: FC<TCartBadgeProps> = ({
   size = 'md',
   ...props
 }) => {
-  const icon = useMemo<string>(() => {
+  const setIcon = (): string => {
     let val = ''
     const srt = String(cartNumber)
     const prefix = Number(srt.substring(0, 6))
@@ -22,7 +22,10 @@ export const CartBadge: FC<TCartBadgeProps> = ({
     }
 
     return val
-  }, [cartNumber])
+  }
+
+  const icon = setIcon()
+
   return (
     <div className={clsx('cart-badge', `cart-badge--${size}`, className)} {...props}>
       <img className="cart-badge__img" src={imgSrc(`banks-logo/${icon}`)} />

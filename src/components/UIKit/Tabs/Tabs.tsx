@@ -1,4 +1,4 @@
-import { type FC, Children, useRef, useState, useEffect, useMemo } from 'react'
+import { type FC, Children, useRef, useState, useEffect } from 'react'
 import clsx from 'clsx'
 import type { TTabsProps } from './TTabs'
 import { Swiper, SwiperSlide, type SwiperRef } from 'swiper/react'
@@ -24,10 +24,11 @@ export const Tabs: FC<TTabsProps> = ({
 
   const swiperRef = useRef<SwiperRef>(null)
 
-  const titleWidth = useMemo<string>(
-    () => (hasItem(titles) ? `${100 / titles.length}%` : '0px'),
-    [titles]
-  )
+  const setTitleWidth = (): string => {
+    return hasItem(titles) ? `${100 / titles.length}%` : '0px'
+  }
+
+  const titleWidth = setTitleWidth()
 
   useEffect(() => {
     swiperRef.current?.swiper.slideTo(activeSlideIndex)

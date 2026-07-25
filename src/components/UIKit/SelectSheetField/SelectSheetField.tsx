@@ -1,6 +1,5 @@
 import {
   useEffect,
-  useMemo,
   useRef,
   useState,
   type FC,
@@ -44,18 +43,24 @@ export const SelectSheetField: FC<TSelectSheetFieldProps> = ({
 
   const { selfId } = useFormElements({ id })
 
-  const hasItems = useMemo<boolean>(() => hasItem(items), [items])
-  const blockDialogOpen = useMemo<boolean>(
-    () => (noItemsAction ? !hasItem(items) : true),
-    [items, noItemsAction]
-  )
+  const setHasItems = (): boolean => {
+    return hasItem(items)
+  }
+
+  const blockDialogOpening = (): boolean => {
+    return noItemsAction ? !hasItem(items) : true
+  }
+
+  const hasItems = setHasItems()
+  const blockDialogOpen = blockDialogOpening()
 
   const renderFC: RenderFC = {
     render({ field, fieldState }) {
-      const hasValue = useMemo<boolean>(
-        () => (hasItems ? !!items?.find?.((item) => item.value == field.value) : false),
-        [items, field.value]
-      )
+      const setHasValue = (): boolean => {
+        return hasItems ? !!items?.find?.((item) => item.value == field.value) : false
+      }
+
+      const hasValue = setHasValue()
 
       const onChangeEvent: React.ChangeEventHandler<HTMLSelectElement> = async (e) => {
         e.isTrusted = true

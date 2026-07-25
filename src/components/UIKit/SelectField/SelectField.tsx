@@ -1,11 +1,4 @@
-import {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type FC,
-  type MouseEventHandler
-} from 'react'
+import { useEffect, useRef, useState, type FC, type MouseEventHandler } from 'react'
 import type { TSelectFieldProps, TSelectOptionItem, TDomRect } from './TSelectField'
 import type { RenderFC } from '@ts/Forms'
 import { Controller } from 'react-hook-form'
@@ -46,15 +39,19 @@ export const SelectField: FC<TSelectFieldProps> = ({
 
   const { selfId } = useFormElements({ id })
 
-  const hasOptions = useMemo<boolean>(() => hasItem(options), [options])
+  const hasOptioning = (): boolean => {
+    return hasItem(options)
+  }
+
+  const hasOptions = hasOptioning()
 
   const renderFC: RenderFC = {
     render({ field, fieldState }) {
-      const hasValue = useMemo<boolean>(
-        () =>
-          hasOptions ? !!options?.find?.((item) => item.value == field.value) : false,
-        [options, field.value]
-      )
+      const setHasValue = () => {
+        return hasOptions ? !!options?.find?.((item) => item.value == field.value) : false
+      }
+
+      const hasValue = setHasValue()
 
       const onChangeEvent: React.ChangeEventHandler<HTMLSelectElement> = async (e) => {
         e.isTrusted = true

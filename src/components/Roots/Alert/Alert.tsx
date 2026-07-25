@@ -1,5 +1,5 @@
 import type { TAlert, TAlertTypes } from './TAlert'
-import { useMemo, type FC, type ReactNode } from 'react'
+import { type FC, type ReactNode } from 'react'
 import clsx from 'clsx'
 import { BottomSheet, Button } from '@UIKit'
 import { useRootPopUp } from '@hooks'
@@ -15,7 +15,7 @@ export const Alert: FC = () => {
     defaultDetails: { type: 'error' }
   })
 
-  const icon = useMemo<ReactNode | null>(() => {
+  const mapIcon = (): ReactNode | null => {
     const icons: Record<TAlertTypes, ReactNode> = {
       error: <CrossIcon className="alert__icon alert__icon--error" />,
       warring: <InfoIcon className="alert__icon alert__icon--warring" />,
@@ -23,7 +23,9 @@ export const Alert: FC = () => {
     }
 
     return detail?.type ? icons[detail?.type] : null
-  }, [detail])
+  }
+
+  const icon = mapIcon()
 
   const close = () => {
     detail?.btnCb?.()
