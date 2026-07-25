@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type FC } from 'react'
+import { useEffect, useRef, useState, type FC } from 'react'
 import useFormElements from '@hooks/useFormElements'
 import type { TCartNumberFieldProps } from './TCartNumberField'
 import { Controller } from 'react-hook-form'
@@ -32,7 +32,7 @@ export const CartNumberField: FC<TCartNumberFieldProps> = ({
 
       const inputRef = useRef<HTMLInputElement>(null)
 
-      const icon = useMemo<string>(() => {
+      const setIcon = (): string => {
         let val = ''
 
         if (field?.value?.length > 5) {
@@ -45,7 +45,9 @@ export const CartNumberField: FC<TCartNumberFieldProps> = ({
         }
 
         return val
-      }, [field.value])
+      }
+
+      const icon = setIcon()
 
       const changeMaskValue: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         const str = e?.target?.value

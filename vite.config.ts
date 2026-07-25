@@ -1,11 +1,10 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import tsconfigPaths from 'vite-tsconfig-paths'
+import react, { reactCompilerPreset } from '@vitejs/plugin-react'
 import svgr from 'vite-plugin-svgr'
+import babel from '@rolldown/plugin-babel'
 import path from 'path'
 
 export default defineConfig({
-
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -22,11 +21,19 @@ export default defineConfig({
       '@UIKit': path.resolve(__dirname, './src/components/UIKit'),
       '@shared': path.resolve(__dirname, './src/components/shared'),
       '@Roots': path.resolve(__dirname, './src/components/Roots'),
+      '@assets': path.resolve(__dirname, './src/assets'),
       '@ts': path.resolve(__dirname, './src/ts')
     }
   },
 
-  plugins: [react(), tsconfigPaths(), svgr()],
+  plugins: [
+    react(),
+    svgr(),
+    babel({
+      presets: [reactCompilerPreset()]
+    })
+  ],
+
   optimizeDeps: {
     exclude: ['buffer', 'process', 'util', 'events']
   }

@@ -1,5 +1,5 @@
 import type { TDropBoxProps, TTypeDropBox } from './TDropBox'
-import { useMemo, type FC } from 'react'
+import { type FC, type ReactNode } from 'react'
 import clsx from 'clsx'
 import CrossIcon from '@assets/svg/cross-fill.svg?react'
 import InfoIcon from '@assets/svg/info-rec.svg?react'
@@ -14,7 +14,7 @@ export const DropBox: FC<TDropBoxProps> = ({
   className = '',
   ...props
 }) => {
-  const icon = useMemo(() => {
+  const mapIcon = (): ReactNode => {
     const icons: Record<TTypeDropBox, React.ReactNode> = {
       error: <CrossIcon className="drop-box__icon" />,
       success: <CheckIcon className="drop-box__icon" />,
@@ -22,7 +22,9 @@ export const DropBox: FC<TDropBoxProps> = ({
     }
 
     return icons[type]
-  }, [type])
+  }
+
+  const icon = mapIcon()
 
   return (
     <div
