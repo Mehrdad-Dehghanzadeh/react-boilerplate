@@ -1,18 +1,6 @@
 @use '@styles/mixins' as *;
 @use '@styles/abstracts' as *;
 
-.full-page-relative {
-  min-height: var(--hight-full-screen);
-  position: relative;
-  padding-bottom: 100px;
-}
-
-.full-page-relative-with-top-bar {
-  min-height: var(--hight-full-screen-with-to-bar);
-  position: relative;
-  padding-bottom: 100px;
-}
-
 .bottom-screen-button {
   position: fixed;
   bottom: 16px;

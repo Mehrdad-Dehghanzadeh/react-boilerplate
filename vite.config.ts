@@ -22,6 +22,7 @@ export default defineConfig({
       '@shared': path.resolve(__dirname, './src/components/shared'),
       '@Roots': path.resolve(__dirname, './src/components/Roots'),
       '@assets': path.resolve(__dirname, './src/assets'),
+      '@layouts': path.resolve(__dirname, './src/layouts'),
       '@ts': path.resolve(__dirname, './src/ts')
     }
   },

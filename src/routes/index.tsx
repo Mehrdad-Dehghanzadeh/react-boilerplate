@@ -1,18 +1,9 @@
-import { createRouter, createRoute } from '@tanstack/react-router'
-import { Route } from './__root'
-import { URLS } from '@constants'
+import { createRouter } from '@tanstack/react-router'
+import { indexRoute } from './_public'
+import { dashboardRouteTree } from './_dashboard'
+import { RootRoute } from './__root'
 
-const indexRoute = createRoute({
-  getParentRoute: () => Route,
-  path: URLS.home.href
-}).lazy(() => import('@/pages/home/Home.lazy').then((d) => d.Route))
-
-const transfersRoute = createRoute({
-  getParentRoute: () => Route,
-  path: URLS.transfers.href
-}).lazy(() => import('@/pages/transfers/Transfers.lazy').then((d) => d.Route))
-
-const routeTree = Route.addChildren([indexRoute, transfersRoute])
+const routeTree = RootRoute.addChildren([indexRoute, dashboardRouteTree])
 
 export const router = createRouter({
   routeTree,

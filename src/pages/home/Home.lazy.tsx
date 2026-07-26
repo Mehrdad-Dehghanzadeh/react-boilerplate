@@ -11,8 +11,10 @@ const HomePage = () => {
   }
   return (
     <article id="home-page" className="home-page">
-      <Link to={URLS.transfers.href}>transfers</Link>
-      <Button variant='outlined' onClick={cb}>text</Button>
+      <Link to={'/dashboard/transfers'}>transfers</Link>
+      <Button variant="outlined" onClick={cb}>
+        text
+      </Button>
     </article>
   )
 }
