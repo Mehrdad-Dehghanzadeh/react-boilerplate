@@ -57,3 +57,6 @@ export * from './DropBox/TDropBox'
 
 export * from './TabSelect/TabSelect'
 export * from './TabSelect/TTabSelect'
+
+export * from './OTPField/OTPField'
+export * from './OTPField/TOTPField'

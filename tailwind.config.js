@@ -22,6 +22,7 @@ module.exports = {
       'background-300': 'rgba(255, 255, 255, 0.1)',
       t1: 'var(--color-text-t1)',
       t2: 'var(--color-text-t2)',
+      t3: 'var(--color-text-t3)',
       t4: 'var(--color-text-t4)',
       t5: 'var(--color-text-t5)',
       t7: 'var(--color-text-t7)',

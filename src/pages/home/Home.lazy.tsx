@@ -1,20 +1,33 @@
 import { Link } from '@tanstack/react-router'
 import { URLS } from '@constants'
 import { createLazyRoute } from '@tanstack/react-router'
-import { Button } from '@UIKit'
+import { Button, TextField } from '@UIKit'
+import { useForm } from 'react-hook-form'
+import { requiredRule } from '@assets/validationsRules'
+import PhoneIcon from '@assets/svg/phone.svg?react'
 import './style.scss'
-import { showAlert } from '@/utils'
+import { OTPField } from '@/components/UIKit/OTPField/OTPField'
 
 const HomePage = () => {
-  const cb = () => {
-    showAlert({ message: 'تست' })
-  }
+  const { control, handleSubmit } = useForm({ defaultValues: { text: '', otp: '' } })
+
+  const t = () => {}
+
   return (
     <article id="home-page" className="home-page">
-      <Link to={'/dashboard/transfers'}>transfers</Link>
-      <Button variant="outlined" onClick={cb}>
-        text
-      </Button>
+      <form className="px-1" onSubmit={handleSubmit(t)}>
+        <Link to={'/dashboard/transfers'}>transfers</Link>
+        <TextField
+          rules={{ required: requiredRule() }}
+          className="my-10 mx-4"
+          control={control}
+          prefixIcon={<PhoneIcon />}
+          name="text"
+        />
+
+        <OTPField control={control} rules={{ required: requiredRule() }} name="otp" />
+        <Button type="submit">text</Button>
+      </form>
     </article>
   )
 }

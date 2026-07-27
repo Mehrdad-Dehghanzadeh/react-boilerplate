@@ -1,0 +1,54 @@
+@use '@styles/mixins' as *;
+
+.otp-field {
+  position: relative;
+  width: fit-content;
+
+  &__wrapper {
+    display: flex;
+    cursor: text;
+    direction: ltr;
+  }
+
+  &__input {
+    pointer-events: none;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    padding: 0;
+    border-radius: 14px;
+    box-shadow: rgba(24, 24, 22, 0.03) 0px 1px 2px;
+    border: 2px solid rgb(229, 229, 220);
+    transition:
+      border-color 0.15s,
+      box-shadow 0.15s;
+    width: 56px;
+    height: 64px;
+
+    &--has-value {
+      border-color: rgb(0, 183, 206);
+    }
+
+    &:focus {
+      border-color: rgb(0, 183, 206);
+    }
+
+    &:not(:last-child) {
+      margin-right: 12px;
+    }
+
+    &:disabled {
+      border-color: var(--color-text-t6);
+      color: var(--color-text-t6);
+    }
+
+    &.control__input--error {
+      border-radius: 14px;
+      border: 2px solid var(--color-error);
+
+      &:focus {
+        border-radius: 18px;
+        border: 1px solid var(--color-error-light);
+      }
+    }
+  }
+}

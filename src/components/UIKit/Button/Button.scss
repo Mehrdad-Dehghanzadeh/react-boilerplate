@@ -6,12 +6,19 @@
   width: 100%;
   padding: 12px 20px;
   font-weight: var(--text-weight-bold);
+  border-color: currentColor;
   @include flex-center();
   @include button-outlined(var(--color-white));
 
   &-primary {
     color: var(--color-white);
-    background: linear-gradient(45.05deg, #eb6750 0%, #e64225 100%);
+    background: linear-gradient(rgb(0, 183, 206), rgb(0, 146, 165));
+    box-shadow: rgba(0, 183, 206, 0.28) 0px 10px 22px;
+    color: var(--color-white);
+
+    &:hover {
+      background: rgb(0, 146, 165);
+    }
   }
 
   &-sm {

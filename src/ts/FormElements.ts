@@ -1,5 +1,16 @@
 import type { Control, RegisterOptions } from 'react-hook-form'
 import type { ClassValue } from 'clsx'
+import type { FunctionComponent, ReactNode, SVGProps } from 'react'
+
+export type TSvgIcon = FunctionComponent<
+  SVGProps<SVGSVGElement> & {
+    title?: string
+    titleId?: string
+    desc?: string
+    descId?: string
+  }
+>
+
 
 export type TInputProps = {
   control: any
@@ -14,6 +25,7 @@ export type TInputProps = {
   classNameControl?: string
   clearable?: boolean
   clearCb?: () => void
+  prefixIcon?: ReactNode
   ltr?: boolean
 }
 

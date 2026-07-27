@@ -52,3 +52,15 @@
   margin-right: 12px;
   @include rotate-z();
 }
+
+.spin-loading {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: rgb(0, 146, 165) rgb(211, 211, 201) rgb(211, 211, 201);
+  border-image: none;
+  border-radius: 50%;
+  display: inline-block;
+  animation: 0.7s linear 0s infinite normal none running spinners;
+}

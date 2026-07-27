@@ -15,6 +15,7 @@ export const TextField: FC<TTextFieldProps> = ({
   rules,
   convertValue,
   clearCb,
+  prefixIcon,
   clearable = false,
   type = 'text',
   label = '',
@@ -52,12 +53,14 @@ export const TextField: FC<TTextFieldProps> = ({
             'control',
             {
               'control--has-suffix': Boolean(suffix),
+              'control--has-icon': Boolean(prefixIcon),
               'control--has-value': Boolean(field.value)
             },
             classNameControl
           )}
         >
           <div className="control__wrapper">
+            {Boolean(prefixIcon) && <span className='control__prefix-icon'>{prefixIcon}</span>}
             <input
               className={clsx([
                 'control__input',

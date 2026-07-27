@@ -38,6 +38,11 @@ input[type='number'] {
 input,
 textarea {
   outline: none;
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
 }
 
 button {

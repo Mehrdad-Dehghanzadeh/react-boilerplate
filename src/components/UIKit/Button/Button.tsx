@@ -10,7 +10,7 @@ export const Button: FC<TButtonProps> = ({
   icon,
   disabled,
   className = '',
-  color = 'green',
+  color = 'primary',
   size = '',
   variant = '',
   dense = false,
