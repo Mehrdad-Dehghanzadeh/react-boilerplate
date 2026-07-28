@@ -1,0 +1,24 @@
+@use '@styles/mixins' as *;
+
+.profile-badge {
+  border-radius: 11px;
+  padding: 4px;
+  @include create-square(40px);
+  @include flex-center();
+  @include pointer-none();
+
+  &__text {
+    text-transform: uppercase;
+    @include text-size(var(--text-size-lg), 100%, var(--text-weight-extra-bold));
+  }
+
+  &-primary {
+    color: var(--color-white);
+    background: linear-gradient(140deg, #00b7ce 0%, #0698ae 100%);
+  }
+
+  &-secondary {
+    color: var(--color-white);
+    background: linear-gradient(140deg, #8b5cf6 0%, #6366f1 100%);
+  }
+}

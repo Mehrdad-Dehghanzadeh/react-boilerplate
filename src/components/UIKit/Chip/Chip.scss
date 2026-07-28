@@ -4,14 +4,15 @@
   width: fit-content;
   @include flex-center();
   @include pointer-none();
+  @include text-size(var(--text-size-sm), 1, var(--text-weight-bold));
 
   &__icon {
     margin-left: 8px;
   }
 
   &-solid {
-    border-radius: 12px;
-    @include create-solid-chip('default', var(--color-fg), var(--color-card-dp48));
+    border-radius: 20px;
+    @include create-solid-chip('default', var(--color-text-t3), #f1f5f9);
     @include create-solid-chip('success', var(--color-success), var(--color-tag-success));
     @include create-solid-chip('error', var(--color-error), var(--color-tag-error));
     @include create-solid-chip('red', var(--color-red), var(--color-tag-error));
@@ -34,7 +35,7 @@
   }
 
   &-md {
-    padding: 8px 16px;
+    padding: 6px 12px;
   }
 
   &-sm {

@@ -60,3 +60,6 @@ export * from './TabSelect/TTabSelect'
 
 export * from './OTPField/OTPField'
 export * from './OTPField/TOTPField'
+
+export * from './TableGrid/TableGrid'
+export * from './TableGrid/TTableGrid'
