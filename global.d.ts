@@ -58,7 +58,7 @@ type TUrl = {
 }
 
 type TUrlItem = TUrl & {
-  icon?: string | ReactNode
+  icon?: ReactNode
   needKyc?: boolean
 }
 

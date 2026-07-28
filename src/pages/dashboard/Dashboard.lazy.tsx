@@ -3,10 +3,10 @@ import { createLazyRoute } from '@tanstack/react-router'
 import './style.scss'
 import { URLS } from '@constants'
 
-const TransfersPage: FC = () => {
+const DashboardPage: FC = () => {
   return <article id="transfers-page" className="full-page-relative"></article>
 }
 
 export const Route = createLazyRoute(URLS.transfers.href)({
-  component: TransfersPage
+  component: DashboardPage
 })

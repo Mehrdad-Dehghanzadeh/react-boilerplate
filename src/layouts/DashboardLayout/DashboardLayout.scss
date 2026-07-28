@@ -1,0 +1,13 @@
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background: rgb(243, 243, 238);
+
+  &__container {
+    flex: 1 1 0%;
+    min-width: 0px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+}

@@ -1,0 +1,114 @@
+.aside-menu {
+  flex: 0 0 auto;
+  width: 264px;
+  height: 100vh;
+  position: sticky;
+  top: 0px;
+  background: rgb(255, 255, 255);
+  border-left: 1px solid rgb(237, 237, 229);
+  display: flex;
+  flex-direction: column;
+  padding: 22px 16px;
+
+  &-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 8px 22px;
+
+    &__img-wrapper {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: rgba(0, 183, 206, 0.28) 0px 6px 16px;
+    }
+
+    &__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &__text {
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: rgb(174, 174, 168);
+    }
+  }
+
+  &-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 6px;
+
+    &__link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 12px;
+      border-radius: 11px;
+      font-size: 14px;
+      font-weight: 600;
+      color: rgb(69, 69, 66);
+      background: transparent;
+      transition: 0.15s;
+    }
+
+    &__icon {
+      flex: 0 0 auto;
+      display: flex;
+      color: #94A3B8;
+    }
+
+    &__text {
+      flex: 1 1 0%;
+    }
+  }
+
+  &-profile {
+    margin-top: auto;
+    padding: 14px;
+    background: rgb(251, 250, 244);
+    border: 1px solid rgb(237, 237, 229);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    &__avatar {
+      flex: 0 0 auto;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(140deg, rgb(0, 183, 206), rgb(0, 146, 165));
+      color: rgb(255, 255, 255);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    &__content {
+      flex: 1 1 0%;
+      min-width: 0px;
+    }
+
+    &__name {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgb(24, 24, 22);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &__subname {
+      font-size: 11px;
+      color: rgb(174, 174, 168);
+    }
+  }
+}
