@@ -1,12 +1,14 @@
+import type { ILoginRes } from '@/ts/services/Auth'
+
 export type TLoginStates = {
   step: number
-  token: string
-  mobile_number: string
+  mobile: string
+  loginResData: ILoginRes | null
 }
 
 export type TLoginStore = TLoginStates & {
-  setToken: (token: string) => void
   setMobileNumber: (token: string) => void
   setStep: (step: number) => void
+  setLoginResData: (data: ILoginRes) => void
   clear: () => void
 }

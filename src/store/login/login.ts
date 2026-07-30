@@ -1,13 +1,14 @@
 import { create } from 'zustand'
 import type { TLoginStore } from './TLogin'
+import type { ILoginRes } from '@ts/services/Auth'
 
 export const useLoginStore = create<TLoginStore>((set) => ({
-  token: '',
+  mobile: '',
   step: 0,
-  mobile_number: '',
+  loginResData: null,
 
-  setToken: (token: string) => set(() => ({ token })),
-  setMobileNumber: (mobile_number: string) => set(() => ({ mobile_number })),
+  setLoginResData: (loginResData: ILoginRes) => set(() => ({ loginResData })),
+  setMobileNumber: (mobile: string) => set(() => ({ mobile })),
   setStep: (step: number) => set(() => ({ step })),
-  clear: () => set(() => ({ token: '', step: 0 }))
+  clear: () => set(() => ({ loginResData: null, step: 0 }))
 }))

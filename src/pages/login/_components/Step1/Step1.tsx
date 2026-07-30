@@ -1,22 +1,50 @@
-import type { FC } from 'react'
+import type { ILoginRes } from '@ts/services/Auth'
+import type { ILoginPayload } from '@ts/services/Auth'
+import { useState, type FC } from 'react'
 import { Button, TextField } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { mobileRule, requiredRule } from '@assets/validationsRules'
 import PhoneIcon from '@assets/svg/phone.svg?react'
 import ArrowIcon from '@assets/svg/arrow-right.svg?react'
 import { useLoginStore } from '@store'
+import { apis } from '@services'
 
 export const Step1: FC = () => {
-  const { setStep, setMobileNumber } = useLoginStore()
-  const { watch, control, handleSubmit } = useForm({
-    defaultValues: { mobile_number: '' }
+  const { setStep, setMobileNumber, setLoginResData } = useLoginStore()
+  const { control, handleSubmit, getValues } = useForm({
+    defaultValues: { mobile: '' }
   })
 
-  const mobile_number = watch('mobile_number')
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const handleResponse = (resData: ILoginRes, mobile: string) => {
+    if (resData) { 
+      setLoginResData({...resData})
+      setMobileNumber(mobile)
+      setStep(1)
+    }
+
+  }
+
+  const handleError = () => {}
 
   const handleStep1 = () => {
-    setMobileNumber(mobile_number)
-    setStep(1)
+  
+    setLoading(true)
+    const mobile = getValues('mobile')
+    const payload: ILoginPayload = {
+      mobile
+    }
+
+    apis.auth
+      .login(payload)
+      .then((res) => {
+        handleResponse(res?.data?.payload?.data, mobile)
+      })
+      .catch((e) => {})
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   return (
@@ -29,7 +57,7 @@ export const Step1: FC = () => {
       <form name="loginStep1" id="loginStep1" onSubmit={handleSubmit(handleStep1)}>
         <p className="font-bold mb-2 text-[#0F172A]">شماره موبایل</p>
         <TextField
-          name="mobile_number"
+          name="mobile"
           control={control}
           placeholder="0912 345 6789"
           rules={{ required: requiredRule(), validate: mobileRule }}
@@ -38,7 +66,7 @@ export const Step1: FC = () => {
           prefixIcon={<PhoneIcon />}
           ltr
         />
-        <Button className="mt-6" type="submit">
+        <Button className="mt-6" type="submit" loading={loading}>
           <span className="flex items-center">
             <span className="font-bold ml-2">دریافت کد تایید</span>
             <ArrowIcon />
