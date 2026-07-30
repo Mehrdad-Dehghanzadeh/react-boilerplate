@@ -63,3 +63,6 @@ export * from './OTPField/TOTPField'
 
 export * from './TableGrid/TableGrid'
 export * from './TableGrid/TTableGrid'
+
+export * from './Modal/Modal'
+export * from './Modal/TModal'

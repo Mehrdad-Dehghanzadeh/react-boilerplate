@@ -1,4 +1,5 @@
 @use '@styles/mixins' as *;
+@use '@styles/abstracts' as *;
 
 @keyframes bottomSheet {
   0% {
@@ -14,28 +15,19 @@
   display: none;
 
   &__overlay {
-    display: none;
-    background-color: var(--color-bg-overlay);
+    @extend %dialog-overlay;
     z-index: var(--index-bottom-sheet-overlay);
   }
 
   &__container {
-    max-width: var(--max-width-container);
-    display: none;
+    @extend %dialog-container;
     padding: 28px 16px 24px;
     border-radius: 24px 24px 0 0;
-    background-color: var(--color-card-dp6);
-    height: fit-content;
     max-height: 90vh;
-    overflow-y: auto;
-    overflow-x: hidden;
     width: 100vw;
     animation-name: bottomSheet;
     animation-duration: 300ms;
-    position: fixed;
     bottom: -100%;
-    right: 50%;
-    transform: translateX(50%);
     z-index: var(--index-bottom-sheet);
   }
 

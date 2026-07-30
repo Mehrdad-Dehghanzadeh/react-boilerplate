@@ -1,0 +1,20 @@
+FROM harbor.tasn.ir/library/docker-base-images/nginx:1.26.3
+
+WORKDIR /var/www/
+ENV GRAYLOG_SERVER="graylog.default"
+
+COPY ./ci/nginx/config/ /etc/nginx/
+
+RUN rm -rf /etc/nginx/sites-available \
+           /etc/nginx/sites-enabled/*
+
+COPY ./ci/nginx/vhosts/ /etc/nginx/sites-enabled/
+
+COPY ./dist ./ap_campaign
+COPY .env ./ap_campaign
+
+COPY ./ci/docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+
+RUN  chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

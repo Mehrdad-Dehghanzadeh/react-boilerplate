@@ -1,0 +1,19 @@
+%dialog-container {
+  max-width: var(--max-width-container);
+  background-color: var(--color-white);
+  display: none;
+  height: fit-content;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: fixed;
+  right: 50%;
+  transform: translateX(50%);
+  position: fixed;
+}
+
+%dialog-overlay {
+  display: none;
+  background-color: var(--color-bg-overlay);
+  filter: blur(5px);
+
+}

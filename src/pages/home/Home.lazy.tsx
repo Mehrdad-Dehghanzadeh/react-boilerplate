@@ -7,7 +7,8 @@ import {
   OTPField,
   TableGrid,
   type TTableGridHeaders,
-  Chip
+  Chip,
+  Modal
 } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { requiredRule } from '@assets/validationsRules'
@@ -41,7 +42,12 @@ const HomePage = () => {
     { title: 'موبایل', keyData: 'mobile' },
     { title: 'نقش', keyData: 'role', cellFC: () => <Chip>role</Chip> },
     { title: 'شعبه', keyData: 'branch', cellStyle: { width: '90px' } },
-    { title: 'عملیات', keyData: 'operation', cellFC: () => (<span>md</span>), cellStyle: { width: '90px' } }
+    {
+      title: 'عملیات',
+      keyData: 'operation',
+      cellFC: () => <span>md</span>,
+      cellStyle: { width: '90px' }
+    }
   ]
 
   return (

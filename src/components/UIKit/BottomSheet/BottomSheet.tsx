@@ -1,9 +1,9 @@
 import type { TBottomSheetProps } from './TBottomSheet'
-import { type FC, useEffect, useDeferredValue } from 'react'
+import { type FC } from 'react'
 import { createPortal } from 'react-dom'
 import Cross from '@assets/svg/cross.svg?react'
 import clsx from 'clsx'
-import { BODY_DIALOG_OPEN_CLASS_NAME } from '@constants'
+import { useDialog } from '@hooks/useDialog'
 import './BottomSheet.scss'
 
 export const BottomSheet: FC<TBottomSheetProps> = ({
@@ -16,26 +16,7 @@ export const BottomSheet: FC<TBottomSheetProps> = ({
   withHeader = false,
   className = ''
 }) => {
-  const root = document.getElementById('bottom-sheet-root') as HTMLElement
-
-  const show = useDeferredValue(open)
-
-  const close = () => {
-    setOpen?.(false)
-    document.body.classList.remove(BODY_DIALOG_OPEN_CLASS_NAME)
-  }
-
-  const toggleClassNameBody = () => {
-    if (open) {
-      document.body.classList.add(BODY_DIALOG_OPEN_CLASS_NAME)
-    } else {
-      document.body.classList.remove(BODY_DIALOG_OPEN_CLASS_NAME)
-    }
-  }
-
-  useEffect(() => {
-    toggleClassNameBody()
-  }, [open])
+  const { root, show, close } = useDialog({ idRoot: 'bottom-sheet-root', open, setOpen })
 
   return (
     show &&
