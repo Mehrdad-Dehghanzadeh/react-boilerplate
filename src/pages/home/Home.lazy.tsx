@@ -7,8 +7,7 @@ import {
   OTPField,
   TableGrid,
   type TTableGridHeaders,
-  Chip,
-  Modal
+  Chip
 } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { requiredRule } from '@assets/validationsRules'
@@ -53,7 +52,7 @@ const HomePage = () => {
   return (
     <article id="home-page" className="home-page">
       <form className="px-1" onSubmit={handleSubmit(t)}>
-        <Link to={'/dashboard/transfers'}>transfers</Link>
+        <Link to={URLS.login.href}>transfers</Link>
         <TextField
           rules={{ required: requiredRule() }}
           className="my-10 mx-4"

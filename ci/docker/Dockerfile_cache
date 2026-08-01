@@ -1,7 +1,6 @@
-FROM harbor.tasn.ir/library/docker-base-images/nginx:1.26.3
+FROM nginx
 
 WORKDIR /var/www/
-ENV GRAYLOG_SERVER="graylog.default"
 
 COPY ./ci/nginx/config/ /etc/nginx/
 
