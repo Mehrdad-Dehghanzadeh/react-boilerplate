@@ -7,7 +7,7 @@ function createError(response: AxiosResponse<IResponse | IResponseRaw>): Promise
   response.statusText = 'Bad Request'
   
   const message = response?.data?.status_message || $t('errors.apiProblem')
-  const code = String(response?.data?.status_code || 1001)
+  const code = String(response?.data?.status_code || 1000)
 
   const instanceError = new AxiosError(
     message,
@@ -20,7 +20,9 @@ function createError(response: AxiosResponse<IResponse | IResponseRaw>): Promise
   return Promise.reject(instanceError)
 }
 
-export function onResponse(response: AxiosResponse<IResponse | IResponseRaw>) {
+export function onResponse(
+  response: AxiosResponse<IResponse | IResponseRaw>
+): AxiosResponse<IResponse | IResponseRaw> | Promise<any> {
   if (isJsonString(response?.data?.payload as string)) {
     response.data.payload = JSON.parse(response.data.payload)
   }

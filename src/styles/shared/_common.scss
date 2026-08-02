@@ -64,3 +64,9 @@
   display: inline-block;
   animation: 0.7s linear 0s infinite normal none running spinners;
 }
+
+.skelton-loading {
+  background: linear-gradient(90deg, #edede5 25%, #e5e5dc 37%, #edede5 63%);
+  background-size: 200% 100%;
+  animation: tp-shimmer 1.4s ease infinite;
+}

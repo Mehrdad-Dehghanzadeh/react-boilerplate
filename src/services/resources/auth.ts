@@ -15,6 +15,13 @@ export default {
     })
   },
 
+  profile() {
+    return axiosInstance.post<IResponse>(API_RESOURCES.AUTH, {
+      op_code: OP_CODES.PROFILE,
+      payload: JSON.stringify({})
+    })
+  },
+
   verify(payload: IVerifyPayload) {
     return axiosInstance.post<IResponse<IVerifyRes>>(API_RESOURCES.AUTH, {
       op_code: OP_CODES.VERIFY,
