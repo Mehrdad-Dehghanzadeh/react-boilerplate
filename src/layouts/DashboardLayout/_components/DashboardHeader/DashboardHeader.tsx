@@ -27,9 +27,9 @@ export const DashboardHeader: FC = () => {
             viewBox="0 0 24 24"
             fill="none"
             stroke="#AEAEA8"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
             <path data-dc-tpl="43" d="M6 9l6 6 6-6"></path>
           </svg>
@@ -43,9 +43,9 @@ export const DashboardHeader: FC = () => {
             viewBox="0 0 24 24"
             fill="none"
             stroke="#DE3730"
-            stroke-width="1.9"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.9"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           >
             <path data-dc-tpl="46" d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
             <path data-dc-tpl="47" d="M16 17l5-5-5-5M21 12H9"></path>

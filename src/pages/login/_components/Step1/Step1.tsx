@@ -8,6 +8,7 @@ import PhoneIcon from '@assets/svg/phone.svg?react'
 import ArrowIcon from '@assets/svg/arrow-right.svg?react'
 import { useLoginStore } from '@store'
 import { apis } from '@services'
+import { handleResponseError } from '@utils'
 
 export const Step1: FC = () => {
   const { setStep, setMobileNumber, setLoginResData } = useLoginStore()
@@ -18,18 +19,15 @@ export const Step1: FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const handleResponse = (resData: ILoginRes, mobile: string) => {
-    if (resData) { 
-      setLoginResData({...resData})
+    debugger
+    if (resData) {
+      setLoginResData({ ...resData })
       setMobileNumber(mobile)
       setStep(1)
     }
-
   }
 
-  const handleError = () => {}
-
   const handleStep1 = () => {
-  
     setLoading(true)
     const mobile = getValues('mobile')
     const payload: ILoginPayload = {
@@ -41,7 +39,9 @@ export const Step1: FC = () => {
       .then((res) => {
         handleResponse(res?.data?.payload?.data, mobile)
       })
-      .catch((e) => {})
+      .catch((e) => {
+        handleResponseError(e)
+      })
       .finally(() => {
         setLoading(false)
       })

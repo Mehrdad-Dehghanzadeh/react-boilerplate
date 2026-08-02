@@ -67,18 +67,14 @@ type TUrlList = TUrlItem[]
 type TUrls = Record<string, TUrlItem>
 interface IResponse<T = any> {
   payload: { data: T }
-  statusCode: number
-  statusMessage: string
+  status_code: number
+  status_message: string
 }
 
-interface IPWAResponse<T = any> {
-  date: string
-  description: string
+interface IResponseRaw<T = any> {
   payload: T
-  rrn: ''
-  statusCode: number
-  statusMessage: string
-  time: string
+  status_code: number
+  status_message: string
 }
 
 type TDataList = {

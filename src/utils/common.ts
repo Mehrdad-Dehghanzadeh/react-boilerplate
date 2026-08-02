@@ -49,7 +49,3 @@ export function pricePersianNumber(value: string | number): string {
     ? `${num2persian(Math.floor(toman))} تومان`
     : ''
 }
-
-export function isAuthentication(): boolean {
-  return true
- }

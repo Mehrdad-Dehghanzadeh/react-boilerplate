@@ -20,8 +20,8 @@ const LoginPage: FC = () => {
             d="M-20 380 C 160 300 300 460 640 320"
             fill="none"
             stroke="#fff"
-            stroke-width="42"
-            stroke-linecap="round"
+            strokeWidth="42"
+            strokeLinecap="round"
           ></path>
         </svg>
 

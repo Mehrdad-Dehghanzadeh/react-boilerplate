@@ -3,6 +3,7 @@ import control from './fa/control'
 import statusMessage from './fa/statusMessage'
 import common from './fa/common'
 import errors from './fa/errors'
+import errorCodes from './fa/errorCodes'
 import apiResponses from './fa/apiResponses'
 
 const messages = {
@@ -11,7 +12,8 @@ const messages = {
   statusMessage,
   common,
   errors,
-  apiResponses
+  apiResponses,
+  errorCodes
 }
 
 const propsOfMessages = Object.keys(messages)

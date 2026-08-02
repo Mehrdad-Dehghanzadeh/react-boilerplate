@@ -28,9 +28,9 @@ export const LoginContent: FC = () => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="#fff"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <path d="M20 6L9 17l-5-5"></path>
             </svg>
@@ -49,9 +49,9 @@ export const LoginContent: FC = () => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="#fff"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <path data-dc-tpl="26" d="M20 6L9 17l-5-5"></path>
             </svg>
@@ -70,9 +70,9 @@ export const LoginContent: FC = () => {
               viewBox="0 0 24 24"
               fill="none"
               stroke="#fff"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             >
               <path data-dc-tpl="26" d="M20 6L9 17l-5-5"></path>
             </svg>
@@ -90,9 +90,9 @@ export const LoginContent: FC = () => {
           viewBox="0 0 24 24"
           fill="none"
           stroke="rgba(255,255,255,.8)"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
           <rect x="3" y="11" width="18" height="11" rx="2"></rect>
           <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>

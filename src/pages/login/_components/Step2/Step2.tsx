@@ -1,4 +1,4 @@
-import type { IVerifyPayload } from '@ts/services/Auth'
+import type { IVerifyPayload, IVerifyRes } from '@ts/services/Auth'
 import { useState, type FC } from 'react'
 import { useLoginStore } from '@store'
 import { useForm } from 'react-hook-form'
@@ -6,13 +6,23 @@ import ChevronLeftIcon from '@assets/svg/chevron-left.svg?react'
 import { requiredRule } from '@assets/validationsRules'
 import { Button, OTPField } from '@UIKit'
 import { apis } from '@services'
+import {
+  deleteAllCookie,
+  handleResponseError,
+  setAccessToken,
+  setRefreshToken,
+  setUserCookie
+} from '@utils'
+
+const DEFAULT_OTP_LENGTH = 5
 
 export const Step2: FC = () => {
-  const { control, handleSubmit, getValues } = useForm({ defaultValues: { otp: '' } })
+  const { control, handleSubmit, getValues, setValue } = useForm({ defaultValues: { otp: '' } })
   const { setStep, mobile, loginResData } = useLoginStore()
   const [loading, setLoading] = useState<boolean>(false)
 
   const goBack = () => {
+    setValue('otp', '')
     setStep(0)
   }
 
@@ -26,8 +36,14 @@ export const Step2: FC = () => {
     }
   }
 
-  const handleVerify = () => {
-    setStep(2)
+  const handleVerify = (resData: IVerifyRes) => {
+    if (resData?.access && resData?.refresh) {
+      deleteAllCookie()
+      setAccessToken(resData?.access_token_expire * 1000, resData?.access)
+      setRefreshToken(resData?.refresh_token_expire * 1000, resData?.refresh)
+      setUserCookie(resData)
+      setStep(2)
+    }
   }
 
   const handleStep2 = () => {
@@ -36,8 +52,12 @@ export const Step2: FC = () => {
 
     apis.auth
       .verify(payload)
-      .then(() => {})
-      .catch(() => {})
+      .then((res) => {
+        handleVerify(res?.data?.payload?.data)
+      })
+      .catch((e) => {
+        handleResponseError(e)
+      })
       .finally(() => {
         setLoading(false)
       })
@@ -52,7 +72,9 @@ export const Step2: FC = () => {
 
       <h2 className="text-2xl mb-3 font-extrabold">کد تأیید را وارد کنید</h2>
       <div className="flex items-center text-t3 mb-8">
-        <span>کد 5 رقمی به شماره </span>
+        <span>
+          {`کد ${loginResData?.otp_length || DEFAULT_OTP_LENGTH} رقمی به شماره`}
+        </span>
         <span className="font-bold mx-1">{mobile}</span>
         <span> پیامک شد.</span>
       </div>
@@ -64,7 +86,7 @@ export const Step2: FC = () => {
         onSubmit={handleSubmit(handleStep2)}
       >
         <OTPField
-          length={loginResData?.otp_length || 4}
+          length={loginResData?.otp_length || DEFAULT_OTP_LENGTH}
           control={control}
           name="otp"
           rules={{ required: requiredRule() }}
