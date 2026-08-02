@@ -22,7 +22,16 @@ export const indexRoute = createRoute({
 
 export const loginRoute = createRoute({
   getParentRoute: () => RootRoute,
-  path: URLS.login.href
+  path: URLS.login.href,
+
+  beforeLoad() {
+    if (isAuthentication()) {
+      throw redirect({
+        to: URLS.dashboard.href,
+        replace: true
+      })
+    }
+  }
 }).lazy(() => import('@/pages/login/Login.lazy').then((d) => d.Route))
 
 export const publicRouteTree = publicRoute.addChildren([indexRoute, loginRoute])

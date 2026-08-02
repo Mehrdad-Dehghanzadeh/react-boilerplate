@@ -1,18 +1,11 @@
+import { type IProfileRes } from '@ts/services/Auth';
 import { create } from 'zustand'
-import type { TAppStore, THomeContext } from './TAppStore'
+import type { TAppStore } from './TAppStore'
 
 export const useAppStore = create<TAppStore>((set) => ({
-  loading: true,
+  loading: false,
+  profile: null,
 
-  homeContext: {
-    birth_date: '',
-    is_active: false,
-    mobile: '',
-    national_code: '',
-    passport: '',
-    postal_code: ''
-  },
-
-  setHomeContext: (data: THomeContext) => set(() => ({ homeContext: { ...data } })),
+  setProfile: (data: IProfileRes) => set(() => ({ profile: { ...data } })),
   setLoading: (loading: boolean) => set(() => ({ loading }))
 }))

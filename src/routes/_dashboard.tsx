@@ -2,6 +2,7 @@ import { createRoute, redirect } from '@tanstack/react-router'
 import { RootRoute } from './__root'
 import { DashboardLayout } from '@layouts'
 import { isAuthentication } from '@utils'
+import { URLS } from '@constants';
 
 const dashboardRoute = createRoute({
   getParentRoute: () => RootRoute,
@@ -11,7 +12,7 @@ const dashboardRoute = createRoute({
   beforeLoad() {
     if (!isAuthentication()) {
       throw redirect({
-        to: '/',
+        to: URLS.login.href,
         replace: true
       })
     }

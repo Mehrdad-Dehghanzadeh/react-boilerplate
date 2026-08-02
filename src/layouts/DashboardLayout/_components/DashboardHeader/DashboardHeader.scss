@@ -1,3 +1,5 @@
+@use '@styles/mixins' as *;
+
 .dashboard-header {
   position: sticky;
   top: 0px;
@@ -64,6 +66,7 @@
       font-size: 13px;
       font-weight: 700;
       color: rgb(24, 24, 22);
+      @include flex-center();
     }
 
     &__sub-title {

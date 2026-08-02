@@ -3,27 +3,30 @@ import { useAppStore } from '@store'
 import { apis } from '@services'
 
 export function useProfileData() {
-  const [profileLoading, setProfileLoading] = useState<boolean>(false)
+  const { setLoading, setProfile } = useAppStore()
 
   const updateProfileData = () =>
     new Promise((resolve, reject) => {
-      setProfileLoading(true)
+      setLoading(true)
 
       apis.auth
         .profile()
         .then((res) => {
           resolve(null)
+          if (res?.data?.payload?.data) { 
+
+            setProfile(res?.data?.payload?.data)
+          }
         })
         .catch((e) => {
           reject(e)
         })
         .finally(() => {
-          setProfileLoading(false)
+          setLoading(false)
         })
     })
 
   return {
-    profileLoading,
     updateProfileData
   }
 }

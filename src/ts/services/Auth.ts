@@ -1,4 +1,4 @@
-import type { TRoles } from "@ts/Common";
+import type { TRoles } from '@ts/Common'
 
 export interface ILoginPayload {
   mobile: string
@@ -28,4 +28,30 @@ export interface IVerifyRes {
   role: TRoles
   merchant_id: number
   branch_id: number
+}
+
+export interface IProfileRes {
+  branch: {
+    id: number
+    created_at: string
+    provider_id: number
+    merchant_id: number
+  } | null
+
+  merchant: {
+    id: number
+    created_at: string
+    provider_id: number
+  } | null
+
+  account: {
+    id: number
+    mobile: string
+    created_at: string
+    role: TRoles
+    merchant_id: number
+    branch_id: number
+    first_name: string
+    last_name: string
+  }
 }

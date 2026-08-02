@@ -10,6 +10,7 @@ import { useLoginStore } from '@store'
 import { apis } from '@services'
 import { handleResponseError } from '@utils'
 
+
 export const Step1: FC = () => {
   const { setStep, setMobileNumber, setLoginResData } = useLoginStore()
   const { control, handleSubmit, getValues } = useForm({
@@ -19,7 +20,6 @@ export const Step1: FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const handleResponse = (resData: ILoginRes, mobile: string) => {
-    debugger
     if (resData) {
       setLoginResData({ ...resData })
       setMobileNumber(mobile)
@@ -46,7 +46,7 @@ export const Step1: FC = () => {
         setLoading(false)
       })
   }
-
+  
   return (
     <div className="login-step" id="login-step-1">
       <h2 className="text-2xl mb-3 font-extrabold">ورود به پنل مرچنت</h2>

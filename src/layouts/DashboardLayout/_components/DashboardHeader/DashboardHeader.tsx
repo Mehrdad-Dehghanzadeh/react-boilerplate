@@ -1,7 +1,26 @@
 import { type FC } from 'react'
 import './DashboardHeader.scss'
+import { useAppStore } from '@store'
+import { ROLES_MAPPER, URLS } from '@constants'
+import { apis } from '@services'
+import { handleResponseError, deleteAllCookie } from '@utils'
+import { useNavigate } from '@tanstack/react-router'
 
 export const DashboardHeader: FC = () => {
+  const navigation = useNavigate()
+
+  const { profile } = useAppStore()
+  const logout = () => {
+    apis.auth
+      .logout()
+      .then(() => {
+        deleteAllCookie()
+        navigation({ to: URLS.login.href, replace: true })
+      })
+      .catch((e) => {
+        handleResponseError(e)
+      })
+  }
   return (
     <header className="dashboard-header">
       <div className="dashboard-header__content">
@@ -15,10 +34,20 @@ export const DashboardHeader: FC = () => {
 
       <div className="dashboard-header-avatar">
         <a className="dashboard-header-avatar__wrapper">
-          <div className="dashboard-header-avatar__circle">م</div>
+          <div className="dashboard-header-avatar__circle">
+            {profile?.account?.last_name?.[0] || ''}
+          </div>
           <div className="leading-[1.3]">
-            <div className="dashboard-header-avatar__title">مهدی فرحزادی شاپ</div>
-            <div className="dashboard-header-avatar__sub-title">مدیر پذیرنده</div>
+            <div className="dashboard-header-avatar__title">
+              <span className="ml-1">{`${profile?.account?.first_name || ''}`}</span>
+              <span>{`${profile?.account?.last_name || ''}`}</span>
+            </div>
+            <div className="dashboard-header-avatar__sub-title">
+              {profile?.account?.role &&
+              ['admin', 'reporter'].includes(profile?.account?.role)
+                ? ROLES_MAPPER[profile?.account?.role]?.title
+                : ''}
+            </div>
           </div>
           <svg
             data-dc-tpl="42"
@@ -35,7 +64,7 @@ export const DashboardHeader: FC = () => {
           </svg>
         </a>
 
-        <button className="dashboard-header-avatar__logout" title="خروج">
+        <button className="dashboard-header-avatar__logout" title="خروج" onClick={logout}>
           <svg
             data-dc-tpl="45"
             width="19"

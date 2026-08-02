@@ -4,10 +4,12 @@ import { Link } from '@tanstack/react-router'
 import DashboardIcon from '@assets/svg/dashboard.svg?react'
 import UsersIcon from '@assets/svg/users.svg?react'
 import FileIcon from '@assets/svg/file.svg?react'
-
+import { useAppStore } from '@store'
 import './AsideMenu.scss'
 
 export const AsideMenu: FC = () => {
+  const { profile } = useAppStore()
+
   const iconMapper = (icon: string) => {
     const icons = {
       DashboardIcon: <DashboardIcon />,
@@ -16,6 +18,7 @@ export const AsideMenu: FC = () => {
     }
     return icons?.[icon as keyof typeof iconMapper] || null
   }
+
   return (
     <aside className="aside-menu">
       <div className="aside-menu-logo">
@@ -44,9 +47,14 @@ export const AsideMenu: FC = () => {
       </nav>
 
       <div className="aside-menu-profile">
-        <div className="aside-menu-profile__avatar">م</div>
+        <div className="aside-menu-profile__avatar">
+          {profile?.account?.last_name?.[0] || ''}
+        </div>
         <div className="aside-menu-profile__content">
-          <div className="aside-menu-profile__name">مهدی فرحزادی شاپ</div>
+          <div className="aside-menu-profile__name">
+            <span className="ml-1">{profile?.account?.first_name || ''}</span>
+            <span>{profile?.account?.last_name || ''}</span>
+          </div>
           <div className="aside-menu-profile__subname">پذیرنده فعال</div>
         </div>
       </div>

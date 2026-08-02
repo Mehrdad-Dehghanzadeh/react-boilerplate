@@ -3,6 +3,7 @@ import { API_RESOURCES, OP_CODES } from '@constants'
 import type {
   ILoginPayload,
   ILoginRes,
+  IProfileRes,
   IVerifyPayload,
   IVerifyRes
 } from '@ts/services/Auth'
@@ -16,7 +17,7 @@ export default {
   },
 
   profile() {
-    return axiosInstance.post<IResponse>(API_RESOURCES.AUTH, {
+    return axiosInstance.post<IResponse<IProfileRes>>(API_RESOURCES.AUTH, {
       op_code: OP_CODES.PROFILE,
       payload: JSON.stringify({})
     })
@@ -26,6 +27,13 @@ export default {
     return axiosInstance.post<IResponse<IVerifyRes>>(API_RESOURCES.AUTH, {
       op_code: OP_CODES.VERIFY,
       payload: JSON.stringify(payload)
+    })
+  },
+
+  logout() {
+    return axiosInstance.post<IResponse>(API_RESOURCES.AUTH, {
+      op_code: OP_CODES.LOGOUT,
+      payload: JSON.stringify({})
     })
   }
 }

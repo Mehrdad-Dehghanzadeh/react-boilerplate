@@ -1,16 +1,18 @@
 import { URLS } from '@constants'
-import { useLoginStore } from '@/store'
-import { redirect } from '@tanstack/react-router'
+import { useAppStore, useLoginStore } from '@/store'
+import { useNavigate } from '@tanstack/react-router'
 import { useEffect, type FC } from 'react'
 
 export const Step3: FC = () => {
+  const { profile } = useAppStore()
   const { step } = useLoginStore()
+  const navigate = useNavigate()
 
   const handleRedirect = () => {
     if (step == 2) {
       setTimeout(() => {
-        redirect({ to: URLS.dashboard.href, replace: true })
-      }, 2500)
+        navigate({ to: URLS.dashboard.href, replace: true })
+      }, 1500)
     }
   }
 
@@ -39,7 +41,11 @@ export const Step3: FC = () => {
           </div>
         </div>
         <h2 className="text-2xl mb-3 font-extrabold">ورود موفق</h2>
-        <p className="text-t3">خوش آمدید، مهدی فرحزادی شاپ.</p>
+        <div className="text-t3">
+          <span>خوش آمدید،</span>
+          <span className="mx-1">{profile?.account?.first_name || ''}</span>
+          <span>{profile?.account?.last_name || ''}</span>
+        </div>
 
         <div className="mt-6 flex items-center">
           <span className="spin-loading"></span>

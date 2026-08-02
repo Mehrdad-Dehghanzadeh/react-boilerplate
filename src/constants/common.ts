@@ -1,9 +1,2 @@
-export const MIN_VALUE_WALLET_CHARGE = 100000
-export const MIN_VALUE_SELL = 100000
-export const MIN_VALUE_WITHDRAW = 2000000
-export const MAX_VALUE_WITHDRAW = 1000000000
-export const MIN_VALUE_BUY = 2000000
-export const MAX_VALUE_BUY_DEPOSIT = 2000000000
 export const BODY_DIALOG_OPEN_CLASS_NAME = 'body-dialog-is-open'
 export const MAX_LENGTH_PRICE_INPUT = 20
-export const REFETCH_INTERVAL = 360000
