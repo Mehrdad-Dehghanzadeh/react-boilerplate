@@ -1,7 +1,7 @@
 import type { TModalProps } from './TModal'
 import { type FC } from 'react'
 import { createPortal } from 'react-dom'
-import { useDialog } from '@hooks/useDialog'
+import { useDialog } from '@hooks'
 import clsx from 'clsx'
 import Cross from '@assets/svg/cross.svg?react'
 import './Modal.scss'

@@ -3,7 +3,7 @@ import { type FC } from 'react'
 import { createPortal } from 'react-dom'
 import Cross from '@assets/svg/cross.svg?react'
 import clsx from 'clsx'
-import { useDialog } from '@hooks/useDialog'
+import { useDialog } from '@hooks'
 import './BottomSheet.scss'
 
 export const BottomSheet: FC<TBottomSheetProps> = ({

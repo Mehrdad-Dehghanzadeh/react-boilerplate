@@ -1,6 +1,23 @@
-import type { FC } from 'react'
+import { URLS } from '@constants'
+import { useLoginStore } from '@/store'
+import { redirect } from '@tanstack/react-router'
+import { useEffect, type FC } from 'react'
 
 export const Step3: FC = () => {
+  const { step } = useLoginStore()
+
+  const handleRedirect = () => {
+    if (step == 2) {
+      setTimeout(() => {
+        redirect({ to: URLS.dashboard.href, replace: true })
+      }, 2500)
+    }
+  }
+
+  useEffect(() => {
+    handleRedirect()
+  }, [step])
+
   return (
     <div id="login-step-3" className="login-step">
       <div className="flex-center flex-col">
@@ -24,9 +41,9 @@ export const Step3: FC = () => {
         <h2 className="text-2xl mb-3 font-extrabold">ورود موفق</h2>
         <p className="text-t3">خوش آمدید، مهدی فرحزادی شاپ.</p>
 
-        <div className='mt-6 flex items-center'>
+        <div className="mt-6 flex items-center">
           <span className="spin-loading"></span>
-          <span className='mr-2 text-t4'>در حال انتقال به داشبورد...</span>
+          <span className="mr-2 text-t4">در حال انتقال به داشبورد...</span>
         </div>
       </div>
     </div>

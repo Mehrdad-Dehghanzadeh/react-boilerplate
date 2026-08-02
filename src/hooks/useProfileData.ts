@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useAppStore } from '@store'
 import { apis } from '@services'
 
-export function useGetProfileData() {
+export function useProfileData() {
   const [profileLoading, setProfileLoading] = useState<boolean>(false)
 
   const updateProfileData = () =>

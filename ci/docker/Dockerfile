@@ -13,7 +13,7 @@ COPY tsconfig*.json .
 COPY vite.config.* .
 COPY index.html .
 COPY src/ ./src/
-COPY public/ .
+COPY public/ ./public/
 COPY global.d.ts .
 COPY eslint.config.js .
 COPY tailwind.config.js .

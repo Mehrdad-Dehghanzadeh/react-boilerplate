@@ -2,7 +2,9 @@ import type { IVerifyRes } from '@ts/services/Auth'
 import Cookies from 'js-cookie'
 
 export function isAuthentication(): boolean {
-  return true
+  const refreshToken = Cookies.get('refresh_token')
+
+  return Boolean(refreshToken)
 }
 
 export function setRefreshToken(expires: number, value: string): void {

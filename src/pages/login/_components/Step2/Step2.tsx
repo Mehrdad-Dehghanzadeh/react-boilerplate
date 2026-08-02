@@ -6,6 +6,7 @@ import ChevronLeftIcon from '@assets/svg/chevron-left.svg?react'
 import { requiredRule } from '@assets/validationsRules'
 import { Button, OTPField } from '@UIKit'
 import { apis } from '@services'
+import { useProfileData } from '@hooks'
 import {
   deleteAllCookie,
   handleResponseError,
@@ -17,8 +18,11 @@ import {
 const DEFAULT_OTP_LENGTH = 5
 
 export const Step2: FC = () => {
-  const { control, handleSubmit, getValues, setValue } = useForm({ defaultValues: { otp: '' } })
+  const { control, handleSubmit, getValues, setValue } = useForm({
+    defaultValues: { otp: '' }
+  })
   const { setStep, mobile, loginResData } = useLoginStore()
+  const { updateProfileData } = useProfileData()
   const [loading, setLoading] = useState<boolean>(false)
 
   const goBack = () => {
@@ -36,31 +40,28 @@ export const Step2: FC = () => {
     }
   }
 
-  const handleVerify = (resData: IVerifyRes) => {
+  const handleVerify = async (resData: IVerifyRes) => {
     if (resData?.access && resData?.refresh) {
-      deleteAllCookie()
-      setAccessToken(resData?.access_token_expire * 1000, resData?.access)
-      setRefreshToken(resData?.refresh_token_expire * 1000, resData?.refresh)
-      setUserCookie(resData)
-      setStep(2)
+      await deleteAllCookie()
+      await setAccessToken(resData?.access_token_expire * 1000, resData?.access)
+      await setRefreshToken(resData?.refresh_token_expire * 1000, resData?.refresh)
+      await setUserCookie(resData)
     }
   }
-
-  const handleStep2 = () => {
-    setLoading(true)
-    const payload = createPayload()
-
-    apis.auth
-      .verify(payload)
-      .then((res) => {
-        handleVerify(res?.data?.payload?.data)
-      })
-      .catch((e) => {
-        handleResponseError(e)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+  
+  const handleStep2 = async () => {
+    try {
+      setLoading(true)
+      const payload = createPayload()
+      const res = await apis.auth.verify(payload)
+      await handleVerify(res?.data?.payload?.data)
+      await updateProfileData()
+      setStep(2)
+    } catch (e) {
+      handleResponseError(e)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
