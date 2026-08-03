@@ -43,8 +43,8 @@ export const Step2: FC = () => {
   const handleVerify = async (resData: IVerifyRes) => {
     if (resData?.access && resData?.refresh) {
       await deleteAllCookie()
-      await setAccessToken(resData?.access_token_expire * 1000, resData?.access)
-      await setRefreshToken(resData?.refresh_token_expire * 1000, resData?.refresh)
+      await setAccessToken(resData?.access_token_expire, resData?.access)
+      await setRefreshToken(resData?.refresh_token_expire, resData?.refresh)
       await setUserCookie(resData)
     }
   }

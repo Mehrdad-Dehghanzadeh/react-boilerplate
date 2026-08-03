@@ -1,3 +1,4 @@
+import { apis } from '@services'
 import type { IVerifyRes } from '@ts/services/Auth'
 import Cookies from 'js-cookie'
 
@@ -8,7 +9,7 @@ export function isAuthentication(): boolean {
 }
 
 export function setRefreshToken(expires: number, value: string): void {
-  Cookies.set('refresh_token', value, { expires: new Date(expires) })
+  Cookies.set('refresh_token', value, { expires: new Date(expires * 1000) })
 }
 
 export function getRefreshToken(): string | undefined {
@@ -16,7 +17,7 @@ export function getRefreshToken(): string | undefined {
 }
 
 export function setAccessToken(expires: number, value: string): void {
-  Cookies.set('access_token', value, { expires: new Date(expires) })
+  Cookies.set('access_token', value, { expires: new Date(expires * 1000) })
 }
 
 export function getAccessToken(): string | undefined {
@@ -43,4 +44,31 @@ export function deleteAllCookie() {
   Cookies.remove('access_token')
   Cookies.remove('refresh_token')
   Cookies.remove('user_data')
+}
+
+export async function updateAccessToken(resData: IVerifyRes) {
+  await Cookies.remove('access_token')
+  await Cookies.remove('user_data')
+  await setAccessToken(resData?.access_token_expire, resData?.access)
+  await setUserCookie(resData)
+}
+
+export function getNewToken() {
+  return new Promise((resolve, reject) => {
+    const refresh_token = getRefreshToken()
+
+    if (refresh_token) {
+      apis.auth
+        .refresh({ refresh_token })
+        .then((res) => {
+          updateAccessToken(res?.data?.payload?.data)
+          resolve(res?.data?.payload?.data)
+        })
+        .catch((e) => {
+          reject(e)
+        })
+    } else {
+      reject(new Error('refresh token not found'))
+    }
+  })
 }

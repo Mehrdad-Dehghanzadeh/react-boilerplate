@@ -5,7 +5,8 @@ import type {
   ILoginRes,
   IProfileRes,
   IVerifyPayload,
-  IVerifyRes
+  IVerifyRes,
+  IRefreshPayload
 } from '@ts/services/Auth'
 
 export default {
@@ -34,6 +35,13 @@ export default {
     return axiosInstance.post<IResponse>(API_RESOURCES.AUTH, {
       op_code: OP_CODES.LOGOUT,
       payload: JSON.stringify({})
+    })
+  },
+
+  refresh(payload: IRefreshPayload) {
+    return axiosInstance.post<IResponse<IVerifyRes>>(API_RESOURCES.AUTH, {
+      op_code: OP_CODES.REFRESH,
+      payload: JSON.stringify(payload)
     })
   }
 }

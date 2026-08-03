@@ -55,3 +55,7 @@ export interface IProfileRes {
     last_name: string
   }
 }
+
+export type IRefreshPayload = {
+  refresh_token: string
+}
