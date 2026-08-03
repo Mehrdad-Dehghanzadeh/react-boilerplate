@@ -1,6 +1,7 @@
 import { $t } from '@locales'
-import { showPrompt } from '@/utils'
+import { getNewToken, showPrompt } from '@/utils'
 import { AxiosError } from 'axios'
+import { axiosInstance } from '@/services/axios'
 
 function handleAxiosError(error: AxiosError) {
   if (error.status && [403, '403'].includes(error.status)) {
@@ -16,7 +17,14 @@ function handleAxiosError(error: AxiosError) {
   }
 }
 
-export function onRejectResponse(error: AxiosError): Promise<AxiosError> {
+export async function onRejectResponse(error: any): Promise<AxiosError> {
+  if (error.status && [401, '401'].includes(error.status)) {
+    const config = error.config
+    await getNewToken()
+    config._retryCount = 1
+    return axiosInstance(config)
+  }
+
   if (error instanceof AxiosError) {
     handleAxiosError(error)
   }

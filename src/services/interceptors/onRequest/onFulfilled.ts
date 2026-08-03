@@ -1,5 +1,5 @@
 import type { InternalAxiosRequestConfig } from 'axios'
-import { getAccessToken, isAuthentication, getNewToken, deleteAllCookie } from '@utils'
+import { getAccessToken, isAuthentication } from '@utils'
 
 export function setToken(request: InternalAxiosRequestConfig) {
   const accessToken = getAccessToken()
@@ -7,18 +7,12 @@ export function setToken(request: InternalAxiosRequestConfig) {
   if (isAuthentication()) {
     if (accessToken) {
       request.headers['Authorization'] = `Bearer ${accessToken}`
-    } else {
-      return getNewToken()
     }
   }
 }
 
 export async function onRequest(request: InternalAxiosRequestConfig) {
-  try {
-    await setToken(request)
-  } catch (e) {
-    deleteAllCookie()
-  }
+  setToken(request)
 
   return request
 }

@@ -66,9 +66,13 @@ export function getNewToken() {
         })
         .catch((e) => {
           reject(e)
+          deleteAllCookie()
+          location.reload()
         })
     } else {
       reject(new Error('refresh token not found'))
+      deleteAllCookie()
+      location.reload()
     }
   })
 }
