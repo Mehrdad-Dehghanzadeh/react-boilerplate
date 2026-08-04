@@ -4,10 +4,25 @@ import { useAppStore } from '@store'
 import { ROLES_MAPPER, URLS } from '@constants'
 import { apis } from '@services'
 import { handleResponseError, deleteAllCookie } from '@utils'
-import { useNavigate } from '@tanstack/react-router'
+import { useNavigate, useLocation } from '@tanstack/react-router'
 
 export const DashboardHeader: FC = () => {
   const navigation = useNavigate()
+
+  const pathname = useLocation({
+    select: (location) => location.pathname
+  })
+
+  const findTitle = () => {
+    const field = Object.values(URLS).find((el) => el.href === pathname)
+
+    return {
+      title: field?.title || '',
+      subTitle: field?.subTitle || ''
+    }
+  }
+
+  const headerText = findTitle()
 
   const { profile } = useAppStore()
   const logout = () => {
@@ -26,9 +41,9 @@ export const DashboardHeader: FC = () => {
     <header className="dashboard-header">
       <div className="dashboard-header__content">
         <div className="min-w-0">
-          <div className="dashboard-header__page-name">مدیریت دسترسی</div>
+          <div className="dashboard-header__page-name">{headerText?.title}</div>
           <div data-dc-tpl="35" className="dashboard-header__description">
-            مدیریت کاربران و سطوح دسترسی پنل
+            {headerText?.subTitle}
           </div>
         </div>
       </div>

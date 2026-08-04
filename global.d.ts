@@ -59,7 +59,8 @@ type TUrl = {
 
 type TUrlItem = TUrl & {
   icon?: ReactNode
-  needKyc?: boolean
+  isAdmin?: boolean
+  subTitle?: string
 }
 
 type TUrlList = TUrlItem[]

@@ -55,12 +55,23 @@
       color: rgb(69, 69, 66);
       background: transparent;
       transition: 0.15s;
+
+      &.active {
+        font-weight: 700;
+        color: rgb(0, 146, 165);
+        background: rgb(222, 247, 250);
+
+        &:hover {
+          background: #f7feff !important;
+          color: #0092a5 !important;
+        }
+      }
     }
 
     &__icon {
       flex: 0 0 auto;
       display: flex;
-      color: #94A3B8;
+      color: currentColor;
     }
 
     &__text {

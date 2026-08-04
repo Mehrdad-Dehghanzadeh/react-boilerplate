@@ -2,6 +2,7 @@ import { apis } from '@services'
 import type { IVerifyRes } from '@ts/services/Auth'
 import Cookies from 'js-cookie'
 import { TEHRAN_TIME_ZONE } from '@constants'
+import { isJsonString } from './text'
 
 export function isAuthentication(): boolean {
   const refreshToken = Cookies.get('refresh_token')
@@ -43,6 +44,11 @@ export function setUserCookie(resData: IVerifyRes): void {
   Cookies.set('user_data', value, {
     expires: new Date(resData?.access_token_expire * 1000 + TEHRAN_TIME_ZONE)
   })
+}
+
+export function getUserData(): null | IVerifyRes {
+  const cookie = Cookies.get('user_data') as string
+  return cookie && isJsonString(cookie) ? JSON.parse(cookie) : null
 }
 
 export function deleteAllCookie() {

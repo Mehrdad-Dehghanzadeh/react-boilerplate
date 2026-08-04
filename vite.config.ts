@@ -23,6 +23,7 @@ export default defineConfig({
       '@Roots': path.resolve(__dirname, './src/components/Roots'),
       '@assets': path.resolve(__dirname, './src/assets'),
       '@layouts': path.resolve(__dirname, './src/layouts'),
+      '@pages': path.resolve(__dirname, './src/pages'),
       '@ts': path.resolve(__dirname, './src/ts')
     }
   },

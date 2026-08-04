@@ -2,7 +2,7 @@ import { createRoute, redirect } from '@tanstack/react-router'
 import { RootRoute } from './__root'
 import { DashboardLayout } from '@layouts'
 import { isAuthentication } from '@utils'
-import { URLS } from '@constants';
+import { URLS } from '@constants'
 
 const dashboardRoute = createRoute({
   getParentRoute: () => RootRoute,
@@ -19,9 +19,32 @@ const dashboardRoute = createRoute({
   }
 })
 
-const accessUserDashboard = createRoute({
+const homeDashboard = createRoute({
   getParentRoute: () => dashboardRoute,
-  path: 'transfers'
-}).lazy(() => import('@/pages/dashboard/Dashboard.lazy').then((d) => d.Route))
+  path: '/'
+}).lazy(() => import('@pages/dashboard/Dashboard.lazy').then((d) => d.Route))
 
-export const dashboardRouteTree = dashboardRoute.addChildren([accessUserDashboard])
+const reportTransactionsDashboard = createRoute({
+  getParentRoute: () => dashboardRoute,
+  path: '/report-transactions'
+}).lazy(() =>
+  import('@pages/dashboard-report-transactions/ReportTransactions.lazy').then(
+    (d) => d.Route
+  )
+)
+
+const accessUsersDashboard = createRoute({
+  getParentRoute: () => dashboardRoute,
+  path: '/access-users'
+}).lazy(() =>
+  import('@pages/dashboard-access-users/AccessUsers.lazy').then(
+    (d) => d.Route
+  )
+)
+
+
+export const dashboardRouteTree = dashboardRoute.addChildren([
+  homeDashboard,
+  reportTransactionsDashboard,
+  accessUsersDashboard
+])

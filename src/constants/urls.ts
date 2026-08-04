@@ -14,24 +14,28 @@ export const URLS = deepFreeze<TUrls>({
   dashboard: {
     href: '/dashboard',
     title: 'داشبورد',
+    subTitle: 'خوش آمدید',
     icon: 'DashboardIcon'
   },
 
   reportTransactions: {
     href: '/dashboard/report-transactions',
     title: 'گزارش تراکنش ها و تسویه',
+    subTitle: 'مشاهده و مدیریت تراکنش‌ها و تسویه‌ها',
     icon: 'FileIcon'
   },
 
   accessUsers: {
     href: '/dashboard/access-users',
     title: 'مدیریت دسترسی',
-    icon: 'UsersIcon'
+    subTitle: 'مدیریت کاربران و سطوح دسترسی پنل',
+    icon: 'UsersIcon',
+    isAdmin: true
   },
 
   uikit: {
     href: '/ui-kit',
-    title: "uikit"
+    title: 'uikit'
   }
 })
 
