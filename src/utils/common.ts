@@ -10,6 +10,10 @@ export function isProduction(): boolean {
   return import.meta.env.MODE === 'production'
 }
 
+export function isDev() {
+  return import.meta.env.MODE === 'development'
+}
+
 export function randomNumber(pow: number = 5): number {
   return Math.floor(Math.random() * (10 ^ pow))
 }

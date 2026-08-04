@@ -27,6 +27,11 @@ export const URLS = deepFreeze<TUrls>({
     href: '/dashboard/access-users',
     title: 'مدیریت دسترسی',
     icon: 'UsersIcon'
+  },
+
+  uikit: {
+    href: '/ui-kit',
+    title: "uikit"
   }
 })
 

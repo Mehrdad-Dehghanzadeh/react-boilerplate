@@ -5,6 +5,7 @@ import { LoginContent, LoginWizard } from './_components'
 import './style.scss'
 
 const LoginPage: FC = () => {
+
   return (
     <main className="login-page" id="login-page">
       <section className="login-right-section">

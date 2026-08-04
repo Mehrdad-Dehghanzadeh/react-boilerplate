@@ -1,6 +1,7 @@
 import { apis } from '@services'
 import type { IVerifyRes } from '@ts/services/Auth'
 import Cookies from 'js-cookie'
+import { TEHRAN_TIME_ZONE } from '@constants'
 
 export function isAuthentication(): boolean {
   const refreshToken = Cookies.get('refresh_token')
@@ -9,7 +10,9 @@ export function isAuthentication(): boolean {
 }
 
 export function setRefreshToken(expires: number, value: string): void {
-  Cookies.set('refresh_token', value, { expires: new Date(expires * 1000) })
+  Cookies.set('refresh_token', value, {
+    expires: new Date(expires * 1000 + TEHRAN_TIME_ZONE)
+  })
 }
 
 export function getRefreshToken(): string | undefined {
@@ -17,7 +20,9 @@ export function getRefreshToken(): string | undefined {
 }
 
 export function setAccessToken(expires: number, value: string): void {
-  Cookies.set('access_token', value, { expires: new Date(expires * 1000) })
+  Cookies.set('access_token', value, {
+    expires: new Date(expires * 1000 + TEHRAN_TIME_ZONE)
+  })
 }
 
 export function getAccessToken(): string | undefined {
@@ -36,7 +41,7 @@ export function setUserCookie(resData: IVerifyRes): void {
   })
 
   Cookies.set('user_data', value, {
-    expires: new Date(resData?.access_token_expire * 1000)
+    expires: new Date(resData?.access_token_expire * 1000 + TEHRAN_TIME_ZONE)
   })
 }
 
@@ -52,11 +57,15 @@ export async function updateAccessToken(resData: IVerifyRes) {
   await setAccessToken(resData?.access_token_expire, resData?.access)
   await setUserCookie(resData)
 }
+export function hotLogout() {
+  deleteAllCookie()
+  location.reload()
+}
 
-export function getNewToken() {
+export async function getNewToken() {
+  const refresh_token = await getRefreshToken()
+
   return new Promise((resolve, reject) => {
-    const refresh_token = getRefreshToken()
-
     if (refresh_token) {
       apis.auth
         .refresh({ refresh_token })
@@ -66,13 +75,11 @@ export function getNewToken() {
         })
         .catch((e) => {
           reject(e)
-          deleteAllCookie()
-          location.reload()
+          hotLogout()
         })
     } else {
       reject(new Error('refresh token not found'))
-      deleteAllCookie()
-      location.reload()
+      hotLogout()
     }
   })
 }

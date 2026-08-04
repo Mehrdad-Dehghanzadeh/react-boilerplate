@@ -1,9 +1,17 @@
 import { createRouter } from '@tanstack/react-router'
-import { indexRoute, loginRoute } from './_public'
+import { indexRoute, loginRoute, uikitRoute } from './_public'
 import { dashboardRouteTree } from './_dashboard'
 import { RootRoute } from './__root'
+import { isDev } from '@utils';
 
-const routeTree = RootRoute.addChildren([indexRoute, loginRoute, dashboardRouteTree])
+const childrenTree = [indexRoute, loginRoute, dashboardRouteTree]
+
+if (isDev()) { 
+  //@ts-ignore
+  childrenTree.push(uikitRoute)
+}
+
+const routeTree = RootRoute.addChildren(childrenTree)
 
 export const router = createRouter({
   routeTree

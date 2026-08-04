@@ -34,4 +34,10 @@ export const loginRoute = createRoute({
   }
 }).lazy(() => import('@/pages/login/Login.lazy').then((d) => d.Route))
 
-export const publicRouteTree = publicRoute.addChildren([indexRoute, loginRoute])
+export const uikitRoute = createRoute({
+  getParentRoute: () => RootRoute,
+  path: URLS.uikit.href
+}).lazy(() => import('@/pages/ui-kit/UiKit.lazy').then((d) => d.Route))
+
+
+export const publicRouteTree = publicRoute.addChildren([indexRoute, loginRoute, uikitRoute])

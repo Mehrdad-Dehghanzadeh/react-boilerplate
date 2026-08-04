@@ -6,3 +6,7 @@ export enum MutexStatus {
 }
 
 
+export enum LockStatus {
+  Block = 'block',
+  Release = "release"
+}

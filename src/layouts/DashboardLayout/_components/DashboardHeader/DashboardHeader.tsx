@@ -13,12 +13,13 @@ export const DashboardHeader: FC = () => {
   const logout = () => {
     apis.auth
       .logout()
-      .then(() => {
-        deleteAllCookie()
-        navigation({ to: URLS.login.href, replace: true })
-      })
+      .then(() => {})
       .catch((e) => {
         handleResponseError(e)
+      })
+      .finally(() => {
+        deleteAllCookie()
+        navigation({ to: URLS.login.href, replace: true })
       })
   }
   return (
