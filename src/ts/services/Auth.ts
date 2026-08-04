@@ -1,4 +1,4 @@
-import type { TRoles } from '@ts/Common'
+import type { TRoles, TAccountItem } from '@ts/Common'
 
 export interface ILoginPayload {
   mobile: string
@@ -58,4 +58,8 @@ export interface IProfileRes {
 
 export type IRefreshPayload = {
   refresh_token: string
+}
+
+export type IGetUserRes = {
+  accounts: TAccountItem[]
 }

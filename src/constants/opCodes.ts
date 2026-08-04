@@ -4,5 +4,7 @@ export const OP_CODES = {
   REFRESH: 3,
   LOGOUT: 4,
   PROFILE: 7,
+  GET_USER: 8,
+  DELETE_USER: 9,
   HOME: 200
 }

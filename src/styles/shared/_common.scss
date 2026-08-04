@@ -81,3 +81,21 @@
     rgba(24, 24, 22, 0.03) 0px 10px 30px;
   overflow: hidden;
 }
+
+.remove-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  border: 1px solid rgb(255, 180, 171);
+  background: rgb(255, 237, 234);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 1;
+  color: rgb(222, 55, 48);
+
+  &:hover {
+    background-color: #f3f3ee;
+  }
+}

@@ -37,16 +37,19 @@
   &__close {
     color: var(--color-text-t7);
     border-radius: 10px;
+    border: 1px solid rgb(237, 237, 229);
+    @include create-square(32px);
     @include pointer-none();
-    @include create-square(36px);
     @include flex-center();
 
     &:hover {
       opacity: 0.78;
+    }
 
-      & > svg {
-        opacity: 1;
-      }
+    & > svg {
+      color: var(--color-text-t7);
+      opacity: 1;
+      @include create-square(13px);
     }
   }
 

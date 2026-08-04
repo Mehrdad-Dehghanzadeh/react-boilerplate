@@ -37,7 +37,8 @@ export const AsideMenu: FC = () => {
       <nav className="aside-menu-nav">
         {DASHBOARD_NAV.map((el, index) =>
           Boolean(
-            !el?.isAdmin || [profile?.account?.role, userData?.role].includes('admin')
+            !el?.isAdmin ||
+            ([profile?.account?.role, userData?.role].includes('admin') && userData?.merchant_id)
           ) ? (
             <Link
               className="aside-menu-nav__link"

@@ -6,7 +6,8 @@ import type {
   IProfileRes,
   IVerifyPayload,
   IVerifyRes,
-  IRefreshPayload
+  IRefreshPayload,
+  IGetUserRes
 } from '@ts/services/Auth'
 
 export default {
@@ -42,6 +43,20 @@ export default {
     return axiosInstance.post<IResponse<IVerifyRes>>(API_RESOURCES.AUTH, {
       op_code: OP_CODES.REFRESH,
       payload: JSON.stringify(payload)
+    })
+  },
+
+  getUser() {
+    return axiosInstance.post<IResponse<IGetUserRes>>(API_RESOURCES.AUTH, {
+      op_code: OP_CODES.GET_USER,
+      payload: JSON.stringify({})
+    })
+  },
+
+  removeUser(id: number) {
+    return axiosInstance.post<IResponse>(API_RESOURCES.AUTH, {
+      op_code: OP_CODES.DELETE_USER,
+      payload: JSON.stringify({ user_account_id : id})
     })
   }
 }

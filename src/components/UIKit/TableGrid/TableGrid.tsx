@@ -18,7 +18,7 @@ export const TableGrid: FC<TTableGridProps> = ({
       return head.cellFC(cellData)
     }
 
-    if (head.keyData && recode[head.keyData as any]) {
+    if (head.keyData && Object.hasOwn(recode, head.keyData)) {
       return recode[head.keyData as any]
     }
 

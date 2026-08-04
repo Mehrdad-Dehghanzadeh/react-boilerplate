@@ -29,7 +29,9 @@ export const Modal: FC<TModalProps> = ({
           {Boolean(title || withHeader) && (
             <div className="modal__header">
               <strong className="modal__title">{title}</strong>
-              <Cross className="modal__close" onClick={close} />
+              <div className="modal__close" onClick={close}>
+                <Cross className="modal__close-icon" />
+              </div>
             </div>
           )}
 

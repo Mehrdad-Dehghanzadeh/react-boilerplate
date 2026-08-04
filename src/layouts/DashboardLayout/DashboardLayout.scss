@@ -10,4 +10,9 @@
     flex-direction: column;
     min-height: 100vh;
   }
+
+  &__main {
+    flex: 1 1 0%;
+    padding: 28px 32px;
+  }
 }
