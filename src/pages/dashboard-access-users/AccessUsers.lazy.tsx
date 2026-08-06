@@ -43,7 +43,7 @@ const AccessUsersPage: FC = () => {
         //@ts-ignore
         role ? <Chip>{ROLES_MAPPER[role]?.title}</Chip> : null
     },
-    { title: 'شعبه', keyData: 'branch_id', cellStyle: { width: '90px' } },
+    { title: 'شعبه', keyData: 'provider_name', cellStyle: { width: '90px' } },
     {
       title: 'عملیات',
       keyData: 'operation',
@@ -113,7 +113,7 @@ const AccessUsersPage: FC = () => {
       </div>
       <TableGrid data={data} headers={headers} />
 
-      <AddUserDialog ref={addUserDialogRef} />
+      <AddUserDialog getData={getData} ref={addUserDialogRef} />
       <RemoveUserDialog getData={getData} ref={removeUserDialogRef} />
     </article>
   )

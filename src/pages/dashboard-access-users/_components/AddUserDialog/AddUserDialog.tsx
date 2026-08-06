@@ -5,8 +5,8 @@ import { Swiper, SwiperSlide, type SwiperRef } from 'swiper/react'
 import { Step1, Step2 } from '@pages/dashboard-access-users/_components'
 import { useAccessUserStore } from '@store'
 
-export const AddUserDialog: FC<TAddUserDialogProps> = ({ ref }) => {
-  const { step } = useAccessUserStore()
+export const AddUserDialog: FC<TAddUserDialogProps> = ({ ref, getData }) => {
+  const { step, clear } = useAccessUserStore()
   const [open, setOpen] = useState<boolean>(false)
   const swiperRef = useRef<SwiperRef>(null)
 
@@ -16,6 +16,12 @@ export const AddUserDialog: FC<TAddUserDialogProps> = ({ ref }) => {
 
   const close = () => {
     setOpen(false)
+    clear()
+  }
+
+  const closeUpdate = () => {
+    close()
+    getData()
   }
 
   useEffect(() => {
@@ -49,7 +55,7 @@ export const AddUserDialog: FC<TAddUserDialogProps> = ({ ref }) => {
         </SwiperSlide>
 
         <SwiperSlide>
-          <Step2 />
+          <Step2 closeUpdate={closeUpdate} />
         </SwiperSlide>
       </Swiper>
     </Modal>

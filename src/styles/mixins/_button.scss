@@ -17,6 +17,7 @@
     color: $br-color;
     border: 1px solid $br-color;
     background: transparent;
+    box-shadow: none;
     @content;
 
     &.button--loading,

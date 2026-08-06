@@ -8,7 +8,8 @@ import type {
   IVerifyRes,
   IRefreshPayload,
   IGetUserRes,
-  IAddBranchPayload
+  IAddBranchPayload,
+  IAddBranchVerifyPayload
 } from '@ts/services/Auth'
 
 export default {
@@ -64,6 +65,13 @@ export default {
   addBranch(payload: IAddBranchPayload) {
     return axiosInstance.post<IResponse<ILoginRes>>(API_RESOURCES.AUTH, {
       op_code: OP_CODES.ADD_BRANCH,
+      payload: JSON.stringify(payload)
+    })
+  },
+
+  addBranchVerify(payload: IAddBranchVerifyPayload) {
+    return axiosInstance.post<IResponse>(API_RESOURCES.AUTH, {
+      op_code: OP_CODES.ADD_USER_VERIFY,
       payload: JSON.stringify(payload)
     })
   }

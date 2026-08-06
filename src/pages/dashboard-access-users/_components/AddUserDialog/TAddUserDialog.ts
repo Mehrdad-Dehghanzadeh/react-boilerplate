@@ -6,4 +6,5 @@ export type TAddUserDialogHandle = {
 }
 export type TAddUserDialogProps = {
   ref: Ref<TAddUserDialogHandle>
+  getData: () => void
 }

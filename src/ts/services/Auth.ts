@@ -56,17 +56,24 @@ export interface IProfileRes {
   }
 }
 
-export type IRefreshPayload = {
+export interface IRefreshPayload {
   refresh_token: string
 }
 
-export type IGetUserRes = {
+export interface IGetUserRes {
   accounts: TAccountItem[]
   branches: TBranchItems
 }
 
-export type IAddBranchPayload = {
+export interface IAddBranchPayload {
   mobile: string
   branch_id: number
   role: TRoles
+}
+
+export interface IAddBranchVerifyPayload extends IAddBranchPayload {
+  first_name: string
+  last_name: string
+  session_id: string
+  otp: string
 }

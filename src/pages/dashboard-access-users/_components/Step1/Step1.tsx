@@ -14,7 +14,7 @@ import type { IAddBranchPayload } from '@/ts/services/Auth'
 import { handleResponseError, showSnackbar } from '@/utils'
 
 export const Step1: FC<TStep1Props> = ({ close }) => {
-  const { branches, setBranchResData, setFormData } = useAccessUserStore()
+  const { branches, setBranchResData, setFormData, setStep } = useAccessUserStore()
   const [role, setRole] = useState<TRoles | EmptyString>('')
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -38,6 +38,7 @@ export const Step1: FC<TStep1Props> = ({ close }) => {
     if (resData?.otp_length && resData?.session_id) {
       setBranchResData(resData)
       setFormData(formData)
+      setStep(1)
     }
   }
 
@@ -117,12 +118,13 @@ export const Step1: FC<TStep1Props> = ({ close }) => {
         <SelectField
           control={control}
           name="branch_id"
+          className="mb-4"
           options={options}
           label="شعبه"
           rules={{ required: requiredRule() }}
         />
 
-        <div className="border-[##EDF1F5] flex gap-3 pt-4 bg-[#FAFBFC]">
+        <div className="modal-footer">
           <Button
             type="button"
             variant="outlined"

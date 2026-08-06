@@ -7,5 +7,6 @@ export const OP_CODES = {
   PROFILE: 7,
   GET_USER: 8,
   DELETE_USER: 9,
+  ADD_USER_VERIFY: 10,
   HOME: 200
 }
