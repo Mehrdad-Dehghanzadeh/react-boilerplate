@@ -3,13 +3,15 @@
 
 .select-field-menu {
   position: absolute;
-  background-color: var(--color-card-dp6);
-  border-radius: 24px;
+  background-color: var(--color-white);
+  border-radius: 12px;
   height: fit-content;
   max-height: 240px;
   padding: 16px 8px;
   overflow-y: auto;
   z-index: var(--index-select-field-menu);
+  border: 2px solid rgb(229, 229, 220);
+  
 
   &__item {
     display: flex;

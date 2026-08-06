@@ -7,7 +7,8 @@ import type {
   IVerifyPayload,
   IVerifyRes,
   IRefreshPayload,
-  IGetUserRes
+  IGetUserRes,
+  IAddBranchPayload
 } from '@ts/services/Auth'
 
 export default {
@@ -56,7 +57,14 @@ export default {
   removeUser(id: number) {
     return axiosInstance.post<IResponse>(API_RESOURCES.AUTH, {
       op_code: OP_CODES.DELETE_USER,
-      payload: JSON.stringify({ user_account_id : id})
+      payload: JSON.stringify({ user_account_id: id })
+    })
+  },
+
+  addBranch(payload: IAddBranchPayload) {
+    return axiosInstance.post<IResponse<ILoginRes>>(API_RESOURCES.AUTH, {
+      op_code: OP_CODES.ADD_BRANCH,
+      payload: JSON.stringify(payload)
     })
   }
 }

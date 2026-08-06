@@ -67,6 +67,12 @@ export const SelectField: FC<TSelectFieldProps> = ({
             classNameControl
           )}
         >
+          {Boolean(label) && (
+            <label className="control__label" htmlFor={selfId}>
+              {label}
+            </label>
+          )}
+
           <div
             className={clsx('control__wrapper', { 'control--loading': loading })}
             onClick={openMenu}
@@ -88,7 +94,6 @@ export const SelectField: FC<TSelectFieldProps> = ({
                 <ChevronDown className="w-6 h-6" />
               </span>
             </div>
-            <legend className="control__legend">{label}</legend>
           </div>
           {Boolean(loading) && (
             <div className="control__loading">
@@ -132,7 +137,7 @@ export const SelectField: FC<TSelectFieldProps> = ({
       const client = fieldRef.current.getBoundingClientRect()
       setDomRect(() => ({
         width: `${client.width}px`,
-        top: openBottom ? `${client.top + client.height}px` : `${client.top - 240}px`,
+        top: `${client.top + client.height + 12}px`,
         left: `${client.x}px`
       }))
     }

@@ -3,6 +3,7 @@ export const OP_CODES = {
   VERIFY: 2,
   REFRESH: 3,
   LOGOUT: 4,
+  ADD_BRANCH: 6,
   PROFILE: 7,
   GET_USER: 8,
   DELETE_USER: 9,

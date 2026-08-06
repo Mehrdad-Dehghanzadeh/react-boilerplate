@@ -1,4 +1,4 @@
-import type { TRoles, TAccountItem } from '@ts/Common'
+import type { TRoles, TAccountItem, TBranchItems } from '@ts/Common'
 
 export interface ILoginPayload {
   mobile: string
@@ -62,4 +62,11 @@ export type IRefreshPayload = {
 
 export type IGetUserRes = {
   accounts: TAccountItem[]
+  branches: TBranchItems
+}
+
+export type IAddBranchPayload = {
+  mobile: string
+  branch_id: number
+  role: TRoles
 }

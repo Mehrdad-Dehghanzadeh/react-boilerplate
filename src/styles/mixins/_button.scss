@@ -16,13 +16,13 @@
   &.button-outlined {
     color: $br-color;
     border: 1px solid $br-color;
-    background-color: transparent;
+    background: transparent;
     @content;
 
     &.button--loading,
     &:disabled {
       opacity: 0.75;
-      background-color: transparent;
+      background: transparent;
     }
   }
 }

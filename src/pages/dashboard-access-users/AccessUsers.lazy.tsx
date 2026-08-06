@@ -13,10 +13,13 @@ import {
 import { apis } from '@services'
 import { deepClone, hasItem } from '@utils'
 import TrashIcon from '@assets/svg/trash.svg?react'
+import { useAccessUserStore } from '@store';
+
 
 const AccessUsersPage: FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [data, setData] = useState<TAccountItem[]>([])
+  const {setBranches} = useAccessUserStore()
 
   const addUserDialogRef = useRef<TAddUserDialogHandle>(null)
   const removeUserDialogRef = useRef<TRemoveUserDialogHandle>(null)
@@ -46,14 +49,21 @@ const AccessUsersPage: FC = () => {
       keyData: 'operation',
       cellStyle: { width: '90px' },
       cellFC: (record) => (
-        <span className="remove-btn" role="button" onClick={() => {
-          removeUserDialogRef?.current?.openDialog(record)
-        }}>
+        <span
+          className="remove-btn"
+          role="button"
+          onClick={() => {
+            removeUserDialogRef?.current?.openDialog(record)
+          }}
+        >
           <TrashIcon />
         </span>
       )
     }
   ]
+
+  
+
 
   const getData = () => {
     setLoading(true)
@@ -63,6 +73,10 @@ const AccessUsersPage: FC = () => {
       .then((res) => {
         if (hasItem(res?.data?.payload?.data?.accounts)) {
           setData(deepClone(res?.data?.payload?.data?.accounts))
+        }
+        
+        if (hasItem(res?.data?.payload?.data?.branches)) { 
+          setBranches(deepClone(res?.data?.payload?.data?.branches))
         }
       })
       .catch(() => {})

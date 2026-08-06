@@ -131,6 +131,15 @@
     }
   }
 
+  &__label {
+    color: #334155;
+    font-weight: 600;
+    font-size: 14px;
+    display: block;
+    padding-bottom: 8px;
+    padding-right: 8px;
+  }
+
   &--has-suffix {
     .control__input {
       padding-left: 60px;

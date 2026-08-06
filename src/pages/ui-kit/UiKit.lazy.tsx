@@ -7,15 +7,18 @@ import {
   OTPField,
   TableGrid,
   type TTableGridHeaders,
-  Chip
+  Chip,
+  Group
 } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { requiredRule } from '@assets/validationsRules'
 import PhoneIcon from '@assets/svg/phone.svg?react'
-import { ProfileBadge } from '@shared'
+import { ProfileBadge, SelectiveCard } from '@shared'
+import { useState } from 'react'
 import './style.scss'
 
 const UIKitPage = () => {
+  const [selected, setSelected] = useState<string>('')
   const { control, handleSubmit } = useForm({ defaultValues: { text: '', otp: '' } })
 
   const t = () => {}
@@ -63,6 +66,15 @@ const UIKitPage = () => {
 
         <OTPField control={control} rules={{ required: requiredRule() }} name="otp" />
         <Button type="submit">text</Button>
+        <Group
+          className="flex gap-2"
+          selected={selected}
+          setSelected={setSelected}
+          role="radiogroup"
+        >
+          <SelectiveCard title="مدیر" key={'admin'}></SelectiveCard>
+          <SelectiveCard title="کارشناس" key={'reporter'}></SelectiveCard>
+        </Group>
       </form>
 
       <TableGrid className="mt-10 mx-8" headers={headers} data={data} />

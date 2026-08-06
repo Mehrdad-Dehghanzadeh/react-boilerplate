@@ -59,16 +59,18 @@ export const TextField: FC<TTextFieldProps> = ({
             classNameControl
           )}
         >
+          {Boolean(label) && <label className="control__label" htmlFor={selfId}>{label}</label>}
           <div className="control__wrapper">
-            {Boolean(prefixIcon) && <span className='control__prefix-icon'>{prefixIcon}</span>}
+            {Boolean(prefixIcon) && (
+              <span className="control__prefix-icon">{prefixIcon}</span>
+            )}
             <input
               className={clsx([
                 'control__input',
                 {
                   'control__input--error': fieldState.invalid,
                   'control--has-clearable': clearable,
-                  'control__input--ltr': ltr,
-                  'control--has-label': Boolean(label)
+                  'control__input--ltr': ltr
                 }
               ])}
               type={type}
@@ -79,7 +81,6 @@ export const TextField: FC<TTextFieldProps> = ({
               disabled={disabled}
               {...props}
             />
-            <legend className="control__legend">{label}</legend>
 
             {Boolean(suffix) && (
               <span

@@ -6,5 +6,8 @@ export const ROLES_MAPPER: Record<TRoles, EnumMapper> = {
   },
   reporter: {
     title: 'کاربر پذیرنده'
+  },
+  viewer: {
+    title: 'بازیدکننده'
   }
 }
