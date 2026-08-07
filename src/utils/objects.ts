@@ -76,3 +76,22 @@ export function getValueObject(obj: any, prop: string): any {
 
   return obj[prop]
 }
+/**
+ * remove false values
+ *****************************************/
+export function removeFalseValue<T>(obj: T): Partial<T> {
+  let val = {}
+
+  if (obj) {
+    for (const key in obj) {
+      if (obj[key] || typeof obj[key] === 'boolean') {
+        val = {
+          ...val,
+          [key]: obj[key]
+        }
+      }
+    }
+  }
+
+  return val
+}

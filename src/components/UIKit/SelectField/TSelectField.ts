@@ -17,4 +17,5 @@ export type TSelectFieldProps = ComponentProps<'select'> &
     options?: TSelectOptions
     menuFill?: boolean
     openBottom?: boolean
+    inputLabel?: string
   }

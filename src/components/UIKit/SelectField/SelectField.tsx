@@ -26,7 +26,9 @@ export const SelectField: FC<TSelectFieldProps> = ({
   className = '',
   classNameControl = '',
   fieldTextClassName = '',
+  inputLabel = '',
   options = [],
+  disabled = false,
   ...props
 }) => {
   const menuRoot = document.getElementById('select-menu-root') as HTMLElement
@@ -63,7 +65,10 @@ export const SelectField: FC<TSelectFieldProps> = ({
         <div
           className={clsx(
             'control',
-            { 'control--has-value': hasValue },
+            {
+              'control--has-value': hasValue
+            },
+
             classNameControl
           )}
         >
@@ -74,7 +79,9 @@ export const SelectField: FC<TSelectFieldProps> = ({
           )}
 
           <div
-            className={clsx('control__wrapper', { 'control--loading': loading })}
+            className={clsx('control__wrapper', {
+              'control--loading': loading || disabled
+            })}
             onClick={openMenu}
           >
             <div
@@ -82,12 +89,17 @@ export const SelectField: FC<TSelectFieldProps> = ({
                 'select-field__input--error': fieldState.invalid
               })}
             >
-              <div className={clsx('select-field__text', fieldTextClassName)}>
-                {hasValue
-                  ? textHoc?.(
-                      options.find((el) => el.value == field.value) as TSelectOptionItem
-                    ) || options.find((el) => el.value == field.value)?.title
-                  : ''}
+              <div className="select-field__text-wrapper">
+                {Boolean(inputLabel) && (
+                  <em className="select-field__input-label">{inputLabel}</em>
+                )}
+                <div className={clsx('select-field__text', fieldTextClassName)}>
+                  {hasValue
+                    ? textHoc?.(
+                        options.find((el) => el.value == field.value) as TSelectOptionItem
+                      ) || options.find((el) => el.value == field.value)?.title
+                    : ''}
+                </div>
               </div>
 
               <span className="select-field__icon">
@@ -150,7 +162,7 @@ export const SelectField: FC<TSelectFieldProps> = ({
 
   const openMenu: MouseEventHandler<HTMLDivElement> = (e) => {
     e.stopPropagation()
-    if (fieldRef.current && !loading) {
+    if (fieldRef.current && !loading && !disabled) {
       setOpen(true)
       calculateDomRect()
     }
