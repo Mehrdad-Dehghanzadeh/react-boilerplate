@@ -106,5 +106,18 @@
   align-items: center;
   gap: 16px;
   padding: 20px 8px 0;
-  border-top: 1px solid #EDF1F5;
+  border-top: 1px solid #edf1f5;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 800;
+  color: rgb(24, 24, 22);
+  margin-bottom: 4px;
+}
+
+.caption {
+  font-size: 12px;
+  color: rgb(174, 174, 168);
+  margin-bottom: 16px;
 }

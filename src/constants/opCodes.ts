@@ -8,5 +8,6 @@ export const OP_CODES = {
   GET_USER: 8,
   DELETE_USER: 9,
   ADD_USER_VERIFY: 10,
-  HOME: 200
+  HOME: 200,
+  DASHBOARD: 201
 }
