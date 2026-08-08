@@ -1,13 +1,19 @@
 import { type FC } from 'react'
 import { createLazyRoute } from '@tanstack/react-router'
 import { URLS } from '@constants'
-import { DashboardFilters, ChannelSellSection, BranchesSellSection } from './_components'
+import {
+  DashboardFilters,
+  ChannelSellSection,
+  BranchesSellSection,
+  TopSections
+} from './_components'
 import './style.scss'
 
 const DashboardPage: FC = () => {
   return (
     <article id="transfers-page" className="full-page-relative">
       <DashboardFilters />
+      <TopSections />
 
       <div className="flex gap-4">
         <BranchesSellSection />

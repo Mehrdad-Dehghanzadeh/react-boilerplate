@@ -1,0 +1,14 @@
+@use '@styles/mixins' as *;
+
+.badge {
+  padding: 12px;
+  border-radius: 12px;
+  @include flex-center();
+  @include create-badge('primary', var(--color-primary), #f0fafb);
+  @include create-badge('secondary', var(--color-secondary), #fffbeb);
+  @include create-badge('error', var(--color-error), #fef2f2);
+
+  &-md {
+    @include create-square(46px);
+  }
+}

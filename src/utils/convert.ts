@@ -156,3 +156,39 @@ export function datePriceChart(dataList: TChartDataList): TChartStates {
 
   return { labels, values }
 }
+
+export function getFinancialRangeLabel(value: string | number, isToman: boolean = true) {
+  let num = Number(value)
+
+  if (isNaN(num)) {
+    return 'عدد نامعتبر'
+  }
+
+  if (isToman) {
+    num = num / 10
+  }
+
+  const absoluteNum = Math.abs(num)
+
+  if (absoluteNum === 0) return 'صفر'
+
+  if (absoluteNum < 1000) return ''
+
+  if (absoluteNum >= 1000 && absoluteNum < 1000000) {
+    return Number(num / 1000)?.toFixed(2) + 'هزار '
+  }
+
+  if (absoluteNum >= 1000000 && absoluteNum < 1000000000) {
+    return Number(num / 1000000)?.toFixed(2) + 'میلیون '
+  }
+
+  if (absoluteNum >= 1000000000 && absoluteNum < 1000000000000) {
+    return Number(num / 1000000000)?.toFixed(2) + 'میلیارد '
+  } else {
+    if (isToman) {
+      return Number(num / 1000000000000)?.toFixed(2) + 'همت '
+    } else {
+      return Number(num / 1000000000000)?.toFixed(2) + 'تریلیون '
+    }
+  }
+}

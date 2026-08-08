@@ -1,0 +1,6 @@
+@mixin create-badge($name, $fg-color, $bg-color) {
+  &-#{$name} {
+    background-color: $bg-color;
+    color: $fg-color;
+  }
+}
