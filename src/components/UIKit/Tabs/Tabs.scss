@@ -1,22 +1,17 @@
 @use '@styles/mixins' as *;
 
 .tabs {
-  padding: 20px 12px 8px;
-  background-color: var(--color-card-dp2);
-  border-radius: 12px;
+  padding: 20px 8px 0;
 
   &-nav {
-    padding: 4px;
-    border-radius: 9999px;
     margin-bottom: 20px;
-    @include create-gradient-border(var(--white-stroke-1));
 
     &__list {
       display: flex;
       align-items: center;
-      border-radius: 9999px;
       width: 100%;
       position: relative;
+      border-bottom: 1px solid rgb(237, 237, 229);
     }
 
     &__item {
@@ -29,8 +24,8 @@
       z-index: 1;
       cursor: pointer;
       transition: color ease 200ms;
+      color: rgb(174, 174, 168);
       @include flex-center();
-      @include text-size(var(--text-size-lg), var(--text-height-md));
 
       &--active {
         color: var(--color-red-2);
@@ -40,10 +35,9 @@
 
     &__active-background {
       height: 100%;
-      border-radius: 999px;
       position: absolute;
-      background-color: var(--color-card-dp6);
       z-index: 0;
+      border-bottom: 2px solid var(--color-primary);
       cursor: pointer;
       transition: transform ease 150ms;
     }

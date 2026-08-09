@@ -11,6 +11,7 @@ export const Tabs: FC<TTabsProps> = ({
   className = '',
   wrapperClassName = '',
   containerClassName = '',
+  navClassName = '',
   lazySlide = false,
   navDisabled = false,
   swiperOptions,
@@ -37,7 +38,11 @@ export const Tabs: FC<TTabsProps> = ({
 
   return (
     <div className={clsx('tabs', className)} {...props}>
-      <div className={clsx('tabs-nav', { 'tabs-nav--disabled': navDisabled })}>
+      <div
+        className={clsx('tabs-nav', navClassName, {
+          'tabs-nav--disabled': navDisabled
+        })}
+      >
         <ul className="tabs-nav__list" role="tab">
           {titles.map((item, index) => (
             <li

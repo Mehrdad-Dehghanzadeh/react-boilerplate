@@ -1,12 +1,10 @@
 import type { TRoles } from '@ts/Common'
-import type { TMerchantStore } from '@ts/Merchant'
+import type { TMerchantStore, TCreditTickets } from '@ts/Merchant'
 export interface IReportPayload {
   mobile: string
   branch_id: number
   role: TRoles
 }
-
-export interface IReportRes {}
 
 export interface IDashboardPayload {
   duration_create: number
@@ -17,6 +15,23 @@ export interface IDashboardPayload {
 
 export interface IDashboardRes {
   merchant_store: TMerchantStore
+}
+
+export interface IHomePayload {
+  last_id?: number
+}
+
+export interface IHomeRes {
+  merchant_store: TMerchantStore & { credit_tickets: TCreditTickets[] }
+}
+
+export interface ICustomerInfoPayload {
+  customer_id: number
+}
+
+export interface ICustomerInfoRes {
+  duration_create: number
+  provider_branch_id: number
 }
 
 const merchant_store = {

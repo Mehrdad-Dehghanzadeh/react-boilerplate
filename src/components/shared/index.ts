@@ -6,3 +6,5 @@ export * from './ProfileBadge/TProfileBadge'
 
 export * from './SelectiveCard/SelectiveCard'
 export * from './SelectiveCard/TSelectiveCard'
+
+export * from './PaginationTable/PaginationTable'

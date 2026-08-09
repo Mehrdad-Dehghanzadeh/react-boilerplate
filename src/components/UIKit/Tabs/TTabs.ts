@@ -11,4 +11,5 @@ export type TTabsProps = ComponentProps<'div'> &
     onSlideChange?: (swiper: SwiperClass) => void
     navDisabled?: boolean
     lazySlide?: boolean
+    navClassName?: string
   }>

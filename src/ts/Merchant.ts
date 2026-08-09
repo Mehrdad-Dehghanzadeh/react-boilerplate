@@ -7,6 +7,21 @@ export type TTransactions = {
   sum_amount: number
 }
 
+export type TTicketStatus =
+  | 'SETTLED'
+  | 'EXPIRED'
+  | 'ROLLBACK'
+  | 'CANCELED'
+  | 'FAILED'
+  | 'VERIFYING'
+  | 'VERIFIED'
+  | 'REJECTED'
+  | 'REFUNDED'
+  | 'SUCCEED'
+  | 'PENDING'
+
+export type TMerchantTypes = 'merchant_cashier' | 'merchant_branch'
+
 export type TBranch = {
   id: number
   store_name: string
@@ -33,4 +48,22 @@ export type TMerchantStore = {
   merchant_type: string
   created_at: string
   branches: TBranch[]
+}
+
+export type TCreditTickets = {
+  id: number //شناسه
+  merchantable_type: TMerchantTypes //
+  merchantable_id: number // Cashier
+  customer_id: number //
+  ticket_number: string //
+  track_number: string // شماره تراکنش
+  amount: number // مبلغ
+  channel: number
+  merchant_payable_amount: number
+  remaining_amount: number
+  wallet_balance: number
+  status: TTicketStatus
+  paid_at: null | string
+  created_at: string
+  updated_at: string
 }
