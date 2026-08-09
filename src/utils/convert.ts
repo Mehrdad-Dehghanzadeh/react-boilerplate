@@ -172,7 +172,7 @@ export function getFinancialRangeLabel(value: string | number, isToman: boolean 
 
   if (absoluteNum === 0) return 'صفر'
 
-  if (absoluteNum < 1000) return `${absoluteNum}`
+  if (absoluteNum < 1000) return `${Math.floor(absoluteNum)}`
 
   if (absoluteNum >= 1000 && absoluteNum < 1000000) {
     return Number(num / 1000)?.toFixed(2) + 'هزار '
