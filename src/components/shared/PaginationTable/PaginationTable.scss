@@ -4,9 +4,11 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
-  padding: 14px 18px;
+  padding: 4px 16px;
   border-top: 1px solid rgb(237, 237, 229);
   background: rgb(255, 255, 255);
+  margin: -1px 0 0;
+  border-radius: 0 0 12px 12px;
 
   &__size {
     display: flex;
@@ -74,6 +76,10 @@
 }
 
 .pagination-table-grid {
+  border-radius: 12px 12px 0 0;
+  box-shadow: none;
+  border-bottom: none;
+
   .table-grid__row .table-grid__cell {
     padding: 17px 8px;
     font-size: 12px;

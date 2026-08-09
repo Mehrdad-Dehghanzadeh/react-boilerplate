@@ -38,7 +38,6 @@ export const Step2: FC<TStep2Props> = ({ closeUpdate }) => {
   }
 
   const handleForm = async (data: TFormData) => {
-    debugger
     try {
       setLoading(true)
       const payload = createPayload(data.otp) as IAddBranchVerifyPayload

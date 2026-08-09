@@ -9,3 +9,6 @@ export * from './access-users/TAccessUsers'
 
 export * from './dashboard/dashboard'
 export * from './dashboard/TDashboard'
+
+export * from './transactions/transactions'
+export * from './transactions/TTransactions'

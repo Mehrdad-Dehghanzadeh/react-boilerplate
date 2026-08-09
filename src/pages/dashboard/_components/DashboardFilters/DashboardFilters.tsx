@@ -13,7 +13,8 @@ export const DashboardFilters: FC<TDashboardFiltersProps> = ({
   className = '',
   ...props
 }) => {
-  const { setLoading, setDashboardData, loading, dashboardData } = useDashboardStore()
+  const { setLoading, setDashboardData, loading, branches, setBranches } =
+    useDashboardStore()
 
   const { control, handleSubmit } = useForm<TForm>({
     defaultValues: {
@@ -22,9 +23,9 @@ export const DashboardFilters: FC<TDashboardFiltersProps> = ({
     }
   })
 
-  const setBranchOptions = () => {
-    const temp = hasItem(dashboardData?.merchant_store?.branches)
-      ? dashboardData?.merchant_store?.branches?.map((el) => ({
+  const setBranchOptions = (data: IDashboardRes) => {
+    const temp = hasItem(data?.merchant_store?.branches)
+      ? data?.merchant_store?.branches?.map((el) => ({
           value: el?.id,
           title: el?.store_name
         }))
@@ -32,10 +33,8 @@ export const DashboardFilters: FC<TDashboardFiltersProps> = ({
 
     temp?.unshift({ title: 'همه شعب', value: 0 })
 
-    return temp
+    setBranches(temp)
   }
-
-  const branchOptions = setBranchOptions()
 
   const channelOptions: TSelectOptions = [
     { title: 'آنلاین', value: 'online' },
@@ -78,6 +77,10 @@ export const DashboardFilters: FC<TDashboardFiltersProps> = ({
       .dashboard(payload)
       .then((res) => {
         handleRes(res?.data?.payload?.data)
+
+        if (!formData) {
+          setBranchOptions(res?.data?.payload?.data)
+        }
       })
       .catch((e) => {
         handleResponseError(e)
@@ -103,7 +106,7 @@ export const DashboardFilters: FC<TDashboardFiltersProps> = ({
           name="branchId"
           inputLabel="شعبه"
           control={control}
-          options={branchOptions}
+          options={branches}
           disabled={loading}
         />
 
@@ -115,7 +118,7 @@ export const DashboardFilters: FC<TDashboardFiltersProps> = ({
           options={channelOptions}
           disabled={loading}
         />
-        <Button className="w-6" type="submit" loading={loading}></Button>
+        <Button className="w-16" type="submit" loading={loading}>فیلتر</Button>
       </form>
     </section>
   )

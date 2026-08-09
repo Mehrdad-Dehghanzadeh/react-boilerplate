@@ -48,7 +48,6 @@ export const PaginationTable: FC = () => {
   const pages = [1, 2, 3, 4, 5]
 
   const updateData = () => {
-    debugger
     const startIndex = (page - 1) * pageSize
     const pageData = totalData.current.slice(startIndex, startIndex + pageSize)
     setData(pageData)
@@ -73,7 +72,11 @@ export const PaginationTable: FC = () => {
   }, [page])
 
   useEffect(() => {
-    setPage(1)
+    if (page == 1) {
+      updateData()
+    } else {
+      setPage(1)
+    }
   }, [pageSize])
 
   return (
