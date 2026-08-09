@@ -4,8 +4,9 @@ import { SelectField, TableGrid, type TTableGridHeaders } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { clsx } from 'clsx'
 import { apis } from '@services'
-import { price } from '@utils'
+import { getUserData, price } from '@utils'
 import './PaginationTable.scss'
+import type { IHomeRes } from '@/ts/services/Report'
 
 export const PaginationTable: FC = () => {
   const [data, setData] = useState<TCreditTickets[]>([])
@@ -53,16 +54,23 @@ export const PaginationTable: FC = () => {
     setData(pageData)
   }
 
+  const handleDataRes = (data: IHomeRes) => {
+    const userData = getUserData()
+    if (userData?.merchant_id) {
+      totalData.current = [...totalData.current, ...data?.merchant_store?.credit_tickets]
+    } else {
+      const branch = data?.merchant_store?.branches[0]
+      totalData.current = branch ? [...totalData.current, ...branch?.credit_tickets] : []
+    }
+
+    updateData()
+  }
+
   useEffect(() => {
     apis.report
       .home()
       .then((res) => {
-        totalData.current = [
-          ...totalData.current,
-          ...res?.data?.payload?.data?.merchant_store?.credit_tickets
-        ]
-
-        updateData()
+        handleDataRes(res?.data?.payload?.data)
       })
       .catch(() => {})
   }, [])
