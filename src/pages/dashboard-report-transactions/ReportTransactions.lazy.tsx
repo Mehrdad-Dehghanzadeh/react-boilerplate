@@ -1,7 +1,6 @@
 import { type FC } from 'react'
 import { createLazyRoute } from '@tanstack/react-router'
 import { URLS } from '@constants'
-import { Tabs } from '@UIKit'
 import {  TransactionsTab } from './_components'
 
 const ReportTransactionsPage: FC = () => {

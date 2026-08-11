@@ -73,13 +73,17 @@ export const OTPField: React.FC<TOTPFieldProps> = ({
 
       const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
         if (e.code === 'Backspace') {
+          const lastChar = value[activeIndex?.current]
+
           if (activeIndex.current > 0) {
             document.getElementById(`${inputsPrefixId}-${activeIndex.current}`)?.blur()
             --activeIndex.current
             document.getElementById(`${inputsPrefixId}-${activeIndex.current}`)?.focus()
           }
 
-          setValue((value) => value.substring(0, value.length - 1))
+          if (lastChar) {
+            setValue((value) => value.substring(0, value.length - 1))
+          }
         }
       }
 
@@ -102,6 +106,7 @@ export const OTPField: React.FC<TOTPFieldProps> = ({
             type={type}
             inputMode={inputMode}
             disabled={disabled}
+            value={value[index] ?? ''}
             autoComplete={autoComplete}
             {...props}
           />

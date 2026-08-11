@@ -1,14 +1,15 @@
+import type { IHomeRes } from '@ts/services/Report'
 import type { TCreditTickets } from '@ts/Merchant'
+import type { TPaginationTableProps } from './TPaginationTable'
 import { useEffect, useRef, useState, type FC } from 'react'
 import { SelectField, TableGrid, type TTableGridHeaders } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { clsx } from 'clsx'
 import { apis } from '@services'
-import { getUserData, price } from '@utils'
+import { getUserData, handleResponseError, price } from '@utils'
 import './PaginationTable.scss'
-import type { IHomeRes } from '@/ts/services/Report'
 
-export const PaginationTable: FC = () => {
+export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const [data, setData] = useState<TCreditTickets[]>([])
   const [page, setPage] = useState<number>(1)
 
@@ -42,7 +43,16 @@ export const PaginationTable: FC = () => {
     {
       title: 'جزئیات',
       cellStyle: { width: '80px' },
-      cellFC: (record) => <button className="btn-2">جزئیات</button>
+      cellFC: (record) => (
+        <button
+          className="btn-2"
+          onClick={(record) => {
+            openDialog(record)
+          }}
+        >
+          جزئیات
+        </button>
+      )
     }
   ]
 
@@ -72,7 +82,9 @@ export const PaginationTable: FC = () => {
       .then((res) => {
         handleDataRes(res?.data?.payload?.data)
       })
-      .catch(() => {})
+      .catch((e) => {
+        handleResponseError(e)
+      })
   }, [])
 
   useEffect(() => {

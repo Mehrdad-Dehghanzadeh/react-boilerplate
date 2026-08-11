@@ -64,7 +64,7 @@ const UIKitPage = () => {
           name="text"
         />
 
-        <OTPField control={control} rules={{ required: requiredRule() }} name="otp" />
+        <OTPField control={control} rules={{ required: requiredRule() }} name="otp" length={6}/>
         <Button type="submit">text</Button>
         <Group
           className="flex gap-2"
