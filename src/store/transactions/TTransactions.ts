@@ -1,11 +1,9 @@
-import type { TCreditTickets } from '@ts/Merchant'
-
 export type TTransactionsStates = {
   loading: boolean
-  transactionsData: TCreditTickets[] | null
+  branches: { title: string; value: string | number }[]
 }
 
 export type TTransactionsStore = TTransactionsStates & {
   setLoading: (loading: boolean) => void
-  setTransactionsData: (data: TCreditTickets[]) => void
+  setBranches: (branches: { title: string; value: string | number }[]) => void
 }

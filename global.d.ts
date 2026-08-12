@@ -99,3 +99,5 @@ type TChartStates = {
 }
 
 type TChartPeriod = 'day' | 'week' | 'month' | 'year'
+
+type TGender = 'MALE' | 'FEMALE'

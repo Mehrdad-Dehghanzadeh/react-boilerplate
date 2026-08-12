@@ -12,7 +12,6 @@ export const TransactionsTab: FC = () => {
   return (
     <section id="transaction-tab">
       <PaginationTable openDialog={openDialog} />
-
       <TransactionsDetailsDialog ref={dialogRef} />
     </section>
   )

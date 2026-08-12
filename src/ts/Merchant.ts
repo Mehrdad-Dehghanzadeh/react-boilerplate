@@ -1,3 +1,5 @@
+import type { ICustomerInfoRes } from './services/Report'
+
 // فعال ۱ - 2 غیر فعال
 export type TMerchantStatus = '1' | '2'
 export type TCreditTickets = {
@@ -68,3 +70,6 @@ export type TMerchantStore = {
   branches: TBranch[]
 }
 
+export type TCustomerDetails = ICustomerInfoRes & {
+  record: TCreditTickets
+}

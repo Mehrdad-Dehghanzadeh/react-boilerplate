@@ -1,6 +1,7 @@
 import { axiosInstance } from '@services/axios'
 import { API_RESOURCES, OP_CODES } from '@constants'
 import type {
+  IHomePayload,
   IDashboardPayload,
   IHomeRes,
   ICustomerInfoPayload,
@@ -8,10 +9,10 @@ import type {
 } from '@ts/services/Report'
 
 export default {
-  home() {
+  home(payload?: IHomePayload) {
     return axiosInstance.post<IResponse<IHomeRes>>(API_RESOURCES.REPORT, {
       op_code: OP_CODES.HOME,
-      payload: JSON.stringify({})
+      payload: JSON.stringify(payload)
     })
   },
 
@@ -24,7 +25,7 @@ export default {
 
   customerInfo(payload: ICustomerInfoPayload) {
     return axiosInstance.post<IResponse<ICustomerInfoRes>>(API_RESOURCES.REPORT, {
-      op_code: OP_CODES.DASHBOARD,
+      op_code: OP_CODES.CUSTOMER_INFO,
       payload: JSON.stringify(payload)
     })
   }

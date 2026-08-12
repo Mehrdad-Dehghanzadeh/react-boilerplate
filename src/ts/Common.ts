@@ -1,6 +1,8 @@
+import type { TColor } from "./Colors";
+
 export type TRoles = 'admin' | 'reporter' | 'viewer'
 
-export type EnumMapper = { color?: string; title: string }
+export type EnumMapper = { color?: string | TColor; title: string }
 
 export type TAccountItem = {
   id: number

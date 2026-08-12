@@ -3,8 +3,8 @@ import type { TTransactionsStore } from './TTransactions'
 
 export const useTransactionsStore = create<TTransactionsStore>((set) => ({
   loading: false,
-  transactionsData: null,
+  branches: [{ title: 'همه شعب', value: 0 }],
 
   setLoading: (loading) => set(() => ({ loading })),
-  setTransactionsData: (transactionsData) => set(() => ({ transactionsData }))
+  setBranches: (branches) => set(() => ({ branches }))
 }))

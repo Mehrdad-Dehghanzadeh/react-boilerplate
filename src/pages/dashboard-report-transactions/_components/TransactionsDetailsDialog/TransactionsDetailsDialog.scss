@@ -30,6 +30,9 @@
     margin-bottom: 6px;
 
     &-details {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 28px;
       font-weight: 800;
       color: rgb(24, 24, 22);

@@ -14,7 +14,7 @@
     border-radius: 20px;
     @include create-solid-chip('default', var(--color-text-t3), #f1f5f9);
     @include create-solid-chip('success', var(--color-success), var(--color-tag-success));
-    @include create-solid-chip('error', var(--color-error), var(--color-tag-error));
+    @include create-solid-chip('error', var(--color-error), #ff717136);
     @include create-solid-chip('red', var(--color-red), var(--color-tag-error));
     @include create-solid-chip(
       'yellow',

@@ -1,5 +1,5 @@
 import type { TRoles } from '@ts/Common'
-import type { TMerchantStore, TCreditTickets } from '@ts/Merchant'
+import type { TMerchantStore, TCreditTickets, TTicketStatus } from '@ts/Merchant'
 export interface IReportPayload {
   mobile: string
   branch_id: number
@@ -19,6 +19,9 @@ export interface IDashboardRes {
 
 export interface IHomePayload {
   last_id?: number
+  duration_create?: number
+  provider_branch_id?: number
+  status?: TTicketStatus | ''
 }
 
 export interface IHomeRes {
@@ -30,8 +33,17 @@ export interface ICustomerInfoPayload {
 }
 
 export interface ICustomerInfoRes {
-  duration_create: number
-  provider_branch_id: number
+  customer: {
+    id: number
+    name: string
+    family: string
+    gender: TGender
+    national_code: string
+    serial_no: string
+    father_name: string
+    mobile: string
+    status: string
+  }
 }
 
 const merchant_store = {

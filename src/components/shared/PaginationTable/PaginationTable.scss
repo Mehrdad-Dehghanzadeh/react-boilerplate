@@ -1,3 +1,5 @@
+@use '@styles/mixins' as *;
+
 .pagination-table {
   display: flex;
   align-items: center;
@@ -90,6 +92,7 @@
   }
 
   .btn-2 {
+    width: 60px;
     height: 30px;
     padding: 0px 12px;
     background: rgb(222, 247, 250);
@@ -100,5 +103,16 @@
     font-size: 12px;
     font-weight: 700;
     cursor: pointer;
+    @include flex-center();
+
+    & .spinner {
+      width: 20px;
+      height: 20px;
+      animation-name: spinners;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+      animation-duration: 750ms;
+      display: block;
+    }
   }
 }

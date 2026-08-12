@@ -1,17 +1,24 @@
-import type { IHomeRes } from '@ts/services/Report'
-import type { TCreditTickets } from '@ts/Merchant'
+import type { IHomeRes, IHomePayload } from '@ts/services/Report'
+import type { TColor } from '@ts/Colors'
+import type { TCreditTickets, TTicketStatus } from '@ts/Merchant'
 import type { TPaginationTableProps } from './TPaginationTable'
 import { useEffect, useRef, useState, type FC } from 'react'
-import { SelectField, TableGrid, type TTableGridHeaders } from '@UIKit'
+import { Chip, SelectField, TableGrid, type TTableGridHeaders } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { clsx } from 'clsx'
 import { apis } from '@services'
-import { getUserData, handleResponseError, price } from '@utils'
+import { TICKET_STATUS } from '@constants'
+import { getUserData, handleResponseError, hasItem, price, utcToJalaali } from '@utils'
+import SpinnerSVG from '@assets/svg/spinner.svg?react'
+import { useTransactionsStore } from '@store'
+import { FilterTable } from '@pages/dashboard-report-transactions/_components'
 import './PaginationTable.scss'
 
 export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const [data, setData] = useState<TCreditTickets[]>([])
   const [page, setPage] = useState<number>(1)
+  const [indexLoading, setIndexLoading] = useState<number>(0)
+  const { branches, setBranches, setLoading } = useTransactionsStore()
 
   const { control, watch } = useForm({
     defaultValues: { pageSize: 10 }
@@ -30,11 +37,27 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         <span>{merchantable_type === 'merchant_cashier' ? 'آفلاین' : 'آنلاین'}</span>
       )
     },
+
     {
       title: 'وضعیت تراکنش',
       keyData: 'status',
-      cellFC: (status) => <span>{status}</span>
+      cellFC: (status: TTicketStatus) => (
+        <Chip color={(TICKET_STATUS[status]?.color as TColor) || 'default'}>
+          {TICKET_STATUS[status]?.title}
+        </Chip>
+      )
     },
+
+    {
+      title: 'تاریخ تراکنش',
+      keyData: 'created_at',
+      cellFC: (created_at: string) => (
+        <span className="sc-interp">
+          {created_at ? utcToJalaali(created_at || '') : ''}
+        </span>
+      )
+    },
+
     {
       title: 'مبلغ',
       keyData: 'amount',
@@ -45,12 +68,16 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       cellStyle: { width: '80px' },
       cellFC: (record) => (
         <button
-          className="btn-2"
-          onClick={(record) => {
-            openDialog(record)
+          className="btn-2 block"
+          onClick={() => {
+            customerInfo(record)
           }}
         >
-          جزئیات
+          {indexLoading === record?.customer_id ? (
+            <SpinnerSVG className="spinner" />
+          ) : (
+            'جزئیات'
+          )}
         </button>
       )
     }
@@ -64,27 +91,74 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     setData(pageData)
   }
 
-  const handleDataRes = (data: IHomeRes) => {
+  const setBranchOptions = (data: IHomeRes) => {
+    const temp = hasItem(data?.merchant_store?.branches)
+      ? data?.merchant_store?.branches?.map((el) => ({
+          value: el?.id,
+          title: el?.store_name
+        }))
+      : []
+
+    temp?.unshift({ title: 'همه شعب', value: 0 })
+
+    setBranches(temp)
+  }
+
+  const handleDataRes = (data: IHomeRes, branchId: number | undefined) => {
     const userData = getUserData()
-    if (userData?.merchant_id) {
-      totalData.current = [...totalData.current, ...data?.merchant_store?.credit_tickets]
-    } else {
+    if (branches.length <= 1) {
+      setBranchOptions(data)
+    }
+
+    if (branchId || !Boolean(userData?.merchant_id)) {
       const branch = data?.merchant_store?.branches[0]
       totalData.current = branch ? [...totalData.current, ...branch?.credit_tickets] : []
+    } else {
+      totalData.current = [...totalData.current, ...data?.merchant_store?.credit_tickets]
     }
 
     updateData()
   }
 
-  useEffect(() => {
+  const customerInfo = (record: TCreditTickets) => {
+    const customer_id = record?.customer_id
+    setIndexLoading(customer_id)
+
     apis.report
-      .home()
+      .customerInfo({ customer_id })
       .then((res) => {
-        handleDataRes(res?.data?.payload?.data)
+        openDialog({ record, ...res?.data?.payload?.data })
       })
       .catch((e) => {
         handleResponseError(e)
       })
+      .finally(() => setIndexLoading(0))
+  }
+
+  const getDataTable = (payload?: IHomePayload) => {
+    setLoading(true)
+
+    apis.report
+      .home(payload)
+      .then((res) => {
+        handleDataRes(res?.data?.payload?.data, payload?.provider_branch_id)
+      })
+      .catch((e) => {
+        handleResponseError(e)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
+
+  const refreshTable = (payload?: IHomePayload) => {
+    totalData.current = []
+    setData([])
+    getDataTable(payload)
+  }
+
+  useEffect(() => {
+    getDataTable()
   }, [])
 
   useEffect(() => {
@@ -101,6 +175,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
   return (
     <div>
+      <FilterTable getData={refreshTable} />
       <TableGrid className="pagination-table-grid" headers={headers} data={data} />
       <div className="pagination-table">
         <div className="pagination-table__size">
