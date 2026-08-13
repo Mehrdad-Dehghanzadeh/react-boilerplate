@@ -29,7 +29,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const pageSize = watch('pageSize')
 
   const headers: TTableGridHeaders = [
-    { title: ' شماره تراکنش', keyData: 'ticket_number' },
+    { title: 'شماره تراکنش', keyData: 'ticket_number' },
     {
       title: 'نوع تراکنش',
       keyData: 'merchantable_type',
@@ -175,7 +175,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
   return (
     <div>
-      <FilterTable getData={refreshTable} />
+      <FilterTable getData={refreshTable} data={data} />
       <TableGrid className="pagination-table-grid" headers={headers} data={data} />
       <div className="pagination-table">
         <div className="pagination-table__size">

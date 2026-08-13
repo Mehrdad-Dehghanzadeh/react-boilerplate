@@ -35,6 +35,11 @@
     @include button-outlined(var(--color-green));
   }
 
+  &-success {
+    box-shadow: rgba(15, 138, 70, 0.22) 0px 6px 16px;
+    @include button-color(#08704f);
+  }
+
   &-gray-1 {
     @include button-outlined(var(--color-text-t5));
   }

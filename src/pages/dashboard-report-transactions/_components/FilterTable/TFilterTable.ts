@@ -1,4 +1,4 @@
-import type { TTicketStatus } from '@ts/Merchant';
+import type { TTicketStatus, TCreditTickets } from '@ts/Merchant';
 import type { IHomePayload } from '@ts/services/Report'
 
 export type TForm = {
@@ -9,4 +9,5 @@ export type TForm = {
 
 export type TFiltersProps = {
   getData: (payload: IHomePayload) => void
+  data: TCreditTickets[]
 }

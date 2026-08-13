@@ -1,4 +1,4 @@
-import type { TColor } from "./Colors";
+import type { TColor } from './Colors'
 
 export type TRoles = 'admin' | 'reporter' | 'viewer'
 
@@ -23,3 +23,10 @@ export type TBranchItem = {
 }
 
 export type TBranchItems = TBranchItem[]
+
+export type TCsvColumn = {
+  title: string
+  dataIndex: string
+}
+
+export type TCsvColumns = TCsvColumn[]
