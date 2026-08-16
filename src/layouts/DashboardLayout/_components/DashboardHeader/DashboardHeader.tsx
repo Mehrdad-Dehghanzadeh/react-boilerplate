@@ -1,10 +1,10 @@
 import { type FC } from 'react'
-import './DashboardHeader.scss'
 import { useAppStore } from '@store'
 import { ROLES_MAPPER, URLS } from '@constants'
 import { apis } from '@services'
 import { handleResponseError, deleteAllCookie } from '@utils'
-import { useNavigate, useLocation } from '@tanstack/react-router'
+import { useNavigate, useLocation, Link } from '@tanstack/react-router'
+import './DashboardHeader.scss'
 
 export const DashboardHeader: FC = () => {
   const navigation = useNavigate()
@@ -49,7 +49,7 @@ export const DashboardHeader: FC = () => {
       </div>
 
       <div className="dashboard-header-avatar">
-        <a className="dashboard-header-avatar__wrapper">
+        <Link className="dashboard-header-avatar__wrapper" to={URLS.profile.href}>
           <div className="dashboard-header-avatar__circle">
             {profile?.account?.last_name?.[0] || ''}
           </div>
@@ -58,6 +58,7 @@ export const DashboardHeader: FC = () => {
               <span className="ml-1">{`${profile?.account?.first_name || ''}`}</span>
               <span>{`${profile?.account?.last_name || ''}`}</span>
             </div>
+
             <div className="dashboard-header-avatar__sub-title">
               {profile?.account?.role &&
               ['admin', 'reporter'].includes(profile?.account?.role)
@@ -78,7 +79,7 @@ export const DashboardHeader: FC = () => {
           >
             <path data-dc-tpl="43" d="M6 9l6 6 6-6"></path>
           </svg>
-        </a>
+        </Link>
 
         <button className="dashboard-header-avatar__logout" title="خروج" onClick={logout}>
           <svg

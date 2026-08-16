@@ -33,6 +33,12 @@ export const URLS = deepFreeze<TUrls>({
     isAdmin: true
   },
 
+  profile: {
+    href: '/dashboard/profile',
+    title: 'پروفایل کاربر',
+    subTitle: 'اطلاعات کاربر'
+  },
+
   uikit: {
     href: '/ui-kit',
     title: 'uikit'

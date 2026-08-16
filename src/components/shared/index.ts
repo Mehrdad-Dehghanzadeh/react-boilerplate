@@ -8,3 +8,5 @@ export * from './SelectiveCard/SelectiveCard'
 export * from './SelectiveCard/TSelectiveCard'
 
 export * from './PaginationTable/PaginationTable'
+
+export * from './Info/Info'

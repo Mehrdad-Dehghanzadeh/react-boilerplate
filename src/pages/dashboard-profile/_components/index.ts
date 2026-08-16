@@ -1,0 +1,7 @@
+export * from './ProfileHeader/ProfileHeader'
+export * from './ProfileTabs/ProfileTabs'
+export * from './GeneralInfoTab/GeneralInfoTab'
+export * from './ContractInfoTab/ContractInfoTab'
+export * from './BankInfoTab/BankInfoTab'
+export * from './HistoryInfoTab/HistoryInfoTab'
+export * from './ProfileTabs/ProfileTabs'
