@@ -145,11 +145,21 @@ export const SelectField: FC<TSelectFieldProps> = ({
   }
 
   const calculateDomRect = () => {
-    if (fieldRef.current) {
+    if (fieldRef.current && open) {
       const client = fieldRef.current.getBoundingClientRect()
+
+      const menuHeight = listRef?.current?.offsetHeight || 240
+      const spaceBelow = window.innerHeight - client.bottom
+      const spaceAbove = client.top
+
+      const openUp = spaceBelow < menuHeight && spaceAbove > spaceBelow
+
       setDomRect(() => ({
         width: `${client.width}px`,
-        top: `${client.top + client.height + 12}px`,
+        top: openUp
+          ? `${client.top + window.scrollY - menuHeight - 8}px`
+          : `${client.bottom + window.scrollY + 8}px`,
+
         left: `${client.x}px`
       }))
     }
@@ -164,7 +174,6 @@ export const SelectField: FC<TSelectFieldProps> = ({
     e.stopPropagation()
     if (fieldRef.current && !loading && !disabled) {
       setOpen(true)
-      calculateDomRect()
     }
   }
 
@@ -200,6 +209,7 @@ export const SelectField: FC<TSelectFieldProps> = ({
 
   useEffect(() => {
     scrollToTop()
+    calculateDomRect()
   }, [open])
 
   return (

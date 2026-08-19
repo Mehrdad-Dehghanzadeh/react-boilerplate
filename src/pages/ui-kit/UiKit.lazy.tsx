@@ -8,7 +8,8 @@ import {
   TableGrid,
   type TTableGridHeaders,
   Chip,
-  Group
+  Group,
+  SelectField
 } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { requiredRule } from '@assets/validationsRules'
@@ -54,6 +55,8 @@ const UIKitPage = () => {
 
   return (
     <article id="ui-kit-page" className="ui-kit-page">
+      <TableGrid className="mt-10 mx-8" headers={headers} data={data} />
+
       <form className="px-1" onSubmit={handleSubmit(t)}>
         <Link to={URLS.login.href}>transfers</Link>
         <TextField
@@ -64,7 +67,12 @@ const UIKitPage = () => {
           name="text"
         />
 
-        <OTPField control={control} rules={{ required: requiredRule() }} name="otp" length={6}/>
+        <OTPField
+          control={control}
+          rules={{ required: requiredRule() }}
+          name="otp"
+          length={6}
+        />
         <Button type="submit">text</Button>
         <Group
           className="flex gap-2"
@@ -74,10 +82,21 @@ const UIKitPage = () => {
         >
           <SelectiveCard title="مدیر" key={'admin'}></SelectiveCard>
           <SelectiveCard title="کارشناس" key={'reporter'}></SelectiveCard>
+
+          <SelectField
+            name="select"
+            control={control}
+            options={[
+              { title: '1', value: 1 },
+              // { title: '2', value: 2 },
+              // { title: '3', value: 3 },
+              // { title: '4', value: 4 },
+              // { title: '5', value: 5 },
+              // { title: '6', value: '6' }
+            ]}
+          />
         </Group>
       </form>
-
-      <TableGrid className="mt-10 mx-8" headers={headers} data={data} />
     </article>
   )
 }
