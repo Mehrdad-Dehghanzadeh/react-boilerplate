@@ -9,7 +9,8 @@ import {
   type TTableGridHeaders,
   Chip,
   Group,
-  SelectField
+  SelectField,
+  SelectSheetField
 } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { requiredRule } from '@assets/validationsRules'
@@ -22,7 +23,9 @@ const UIKitPage = () => {
   const [selected, setSelected] = useState<string>('')
   const { control, handleSubmit } = useForm({ defaultValues: { text: '', otp: '' } })
 
-  const t = () => {}
+  const t = (data: any) => {
+    console.log(data)
+  }
 
   const data = [
     { user: 'مهرداد دهقان زاده', mobile: '09197570713', role: 'مدیر', branch: 'تهران' },
@@ -88,11 +91,20 @@ const UIKitPage = () => {
             control={control}
             options={[
               { title: '1', value: 1 },
-              // { title: '2', value: 2 },
+              { title: '2', value: 2 }
               // { title: '3', value: 3 },
               // { title: '4', value: 4 },
               // { title: '5', value: 5 },
               // { title: '6', value: '6' }
+            ]}
+          />
+
+          <SelectSheetField
+            name="select2"
+            control={control}
+            options={[
+              { title: '1', value: 1 },
+              { title: '2', value: 2 }
             ]}
           />
         </Group>

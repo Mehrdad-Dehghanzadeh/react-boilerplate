@@ -7,7 +7,7 @@
   border-radius: 12px;
   height: fit-content;
   max-height: 240px;
-  padding: 16px 8px;
+  padding: 4px 8px;
   overflow-y: auto;
   z-index: var(--index-select-field-menu);
   border: 2px solid rgb(229, 229, 220);
@@ -17,7 +17,6 @@
     display: flex;
     width: 100%;
     padding: 8px 4px;
-    margin-bottom: 4px;
     @include pointer-none();
   }
 

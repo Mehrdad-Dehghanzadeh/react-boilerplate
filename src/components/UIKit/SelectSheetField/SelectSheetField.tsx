@@ -1,11 +1,5 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  type FC,
-  type MouseEventHandler
-} from 'react'
-import type { TSelectSheetFieldProps, TSelectSheetItem } from './TSelectSheetField'
+import { useEffect, useRef, useState, type FC, type MouseEventHandler } from 'react'
+import type { TSelectSheetFieldProps } from './TSelectSheetField'
 import type { RenderFC } from '@ts/Forms'
 import { Controller } from 'react-hook-form'
 import useFormElements from '@hooks/useFormElements'
@@ -13,6 +7,7 @@ import clsx from 'clsx'
 import { hasItem } from '@utils'
 import ChevronDown from '@assets/svg/chevron-down.svg?react'
 import { BottomSheet } from '@UIKit'
+import { useSelectField } from '@hooks'
 import './SelectSheetField.scss'
 
 export const SelectSheetField: FC<TSelectSheetFieldProps> = ({
@@ -25,42 +20,35 @@ export const SelectSheetField: FC<TSelectSheetFieldProps> = ({
   itemHoc,
   textHoc,
   noItemMessage,
-  noItemsAction,
   onClick,
   loading = false,
   label = '',
   className = '',
   classNameControl = '',
   fieldTextClassName = '',
-  items = [],
+  options = [],
   title = '',
   ...props
 }) => {
-  const [open, setOpen] = useState<boolean>(false)
-  const selectRef = useRef<HTMLSelectElement>(null)
-  const fieldRef = useRef<HTMLDivElement>(null)
-  const listRef = useRef<HTMLUListElement>(null)
+  const {
+    open,
+    setOpen,
+    selectRef,
+    fieldRef,
+    listRef,
+    hasOptions,
+    changeValue,
+    setHasValue
+  } = useSelectField({
+    options,
+    scrollTop
+  })
 
   const { selfId } = useFormElements({ id })
 
-  const setHasItems = (): boolean => {
-    return hasItem(items)
-  }
-
-  const blockDialogOpening = (): boolean => {
-    return noItemsAction ? !hasItem(items) : true
-  }
-
-  const hasItems = setHasItems()
-  const blockDialogOpen = blockDialogOpening()
-
   const renderFC: RenderFC = {
     render({ field, fieldState }) {
-      const setHasValue = (): boolean => {
-        return hasItems ? !!items?.find?.((item) => item.value == field.value) : false
-      }
-
-      const hasValue = setHasValue()
+      const hasValue = setHasValue(field.value)
 
       const onChangeEvent: React.ChangeEventHandler<HTMLSelectElement> = async (e) => {
         e.isTrusted = true
@@ -88,8 +76,8 @@ export const SelectSheetField: FC<TSelectSheetFieldProps> = ({
               <div className={clsx('select-field__text', fieldTextClassName)}>
                 {hasValue
                   ? textHoc?.(
-                      items.find((el) => el.value == field.value) as TSelectSheetItem
-                    ) || items.find((el) => el.value == field.value)?.title
+                      options.find((el) => el.value == field.value) as TSelectOption
+                    ) || options.find((el) => el.value == field.value)?.title
                   : ''}
               </div>
 
@@ -120,8 +108,8 @@ export const SelectSheetField: FC<TSelectSheetFieldProps> = ({
             hidden
           >
             <option value=""></option>
-            {hasItems &&
-              items?.map((item) => (
+            {hasOptions &&
+              options?.map((item) => (
                 <option key={`${item.value}-${selfId}`} value={item.value}>
                   {item.title}
                 </option>
@@ -139,49 +127,17 @@ export const SelectSheetField: FC<TSelectSheetFieldProps> = ({
   const openBottomSheet: MouseEventHandler<HTMLDivElement> = (e) => {
     e.stopPropagation()
 
-    if (blockDialogOpen) {
-      noItemsAction?.()
-      return
-    }
-
     if (fieldRef.current && !loading) {
       setOpen(true)
     }
   }
 
-  const changeValue = (value: any) => {
+  const selectItem = (value: any) => {
     if (selectRef.current) {
-      selectRef.current.value = value
-      const event = new Event('change', { bubbles: true })
-      selectRef.current.dispatchEvent(event)
+      changeValue(value)
       closeBottomSheet()
     }
   }
-
-  const scrollToTop = () => {
-    const menuList = listRef?.current
-
-    if (scrollTop && menuList && open) {
-      const tops = {
-        middle: (menuList?.scrollHeight - menuList?.clientHeight) * 0.5,
-        quarterTop: (menuList?.scrollHeight - menuList?.clientHeight) * 0.25,
-        quarterBottom: (menuList?.scrollHeight - menuList?.clientHeight) * 0.75
-      }
-      const top =
-        typeof scrollTop === 'string' &&
-        ['middle', 'quarterTop', 'quarterBottom'].includes(scrollTop)
-          ? (tops[scrollTop] as number)
-          : (scrollTop as number)
-
-      menuList.scrollTo({
-        top
-      })
-    }
-  }
-
-  useEffect(() => {
-    scrollToTop()
-  }, [open])
 
   return (
     <>
@@ -196,8 +152,8 @@ export const SelectSheetField: FC<TSelectSheetFieldProps> = ({
 
       <BottomSheet open={open} setOpen={setOpen} title={title}>
         <ul className={clsx('select-sheet-field-menu', {})} ref={listRef}>
-          {hasItems ? (
-            items?.map((item: TSelectSheetItem) => (
+          {hasOptions ? (
+            options?.map((item: TSelectOption) => (
               <li
                 key={`${item.value}-${selfId}`}
                 className={clsx('select-sheet-field-menu__item', {
@@ -205,7 +161,7 @@ export const SelectSheetField: FC<TSelectSheetFieldProps> = ({
                     selectRef?.current?.value == item.value
                 })}
                 onClick={() => {
-                  changeValue(item.value)
+                  selectItem(item.value)
                 }}
               >
                 {itemHoc?.(item) || (

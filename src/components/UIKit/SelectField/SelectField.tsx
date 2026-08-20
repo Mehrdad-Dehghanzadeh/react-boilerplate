@@ -7,6 +7,7 @@ import useFormElements from '@hooks/useFormElements'
 import clsx from 'clsx'
 import { hasItem } from '@utils'
 import ChevronDown from '@assets/svg/chevron-down.svg?react'
+import { useSelectField } from '@hooks'
 import './SelectField.scss'
 
 export const SelectField: FC<TSelectFieldProps> = ({
@@ -33,29 +34,29 @@ export const SelectField: FC<TSelectFieldProps> = ({
 }) => {
   const menuRoot = document.getElementById('select-menu-root') as HTMLElement
 
-  const [open, setOpen] = useState<boolean>(false)
-  const [domRect, setDomRect] = useState<TDomRect | null>(null)
-  const selectRef = useRef<HTMLSelectElement>(null)
-  const fieldRef = useRef<HTMLDivElement>(null)
-  const listRef = useRef<HTMLUListElement>(null)
-
   const { selfId } = useFormElements({ id })
 
-  const hasOptioning = (): boolean => {
-    return hasItem(options)
-  }
-
-  const hasOptions = hasOptioning()
+  const {
+    open,
+    setOpen,
+    domRect,
+    calculateDomRect,
+    selectRef,
+    fieldRef,
+    listRef,
+    hasOptions,
+    changeValue,
+    setHasValue
+  } = useSelectField({
+    options,
+    scrollTop
+  })
 
   const renderFC: RenderFC = {
     render({ field, fieldState }) {
-      const setHasValue = () => {
-        return hasOptions ? !!options?.find?.((item) => item.value == field.value) : false
-      }
+      const hasValue = setHasValue(field.value)
 
-      const hasValue = setHasValue()
-
-      const onChangeEvent: React.ChangeEventHandler<HTMLSelectElement> = async (e) => {
+      const onChangeEvent: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
         e.isTrusted = true
         field.onChange(e)
         onChange?.(e)
@@ -144,27 +145,6 @@ export const SelectField: FC<TSelectFieldProps> = ({
     setOpen(false)
   }
 
-  const calculateDomRect = () => {
-    if (fieldRef.current && open) {
-      const client = fieldRef.current.getBoundingClientRect()
-
-      const menuHeight = listRef?.current?.offsetHeight || 240
-      const spaceBelow = window.innerHeight - client.bottom
-      const spaceAbove = client.top
-
-      const openUp = spaceBelow < menuHeight && spaceAbove > spaceBelow
-
-      setDomRect(() => ({
-        width: `${client.width}px`,
-        top: openUp
-          ? `${client.top + window.scrollY - menuHeight - 8}px`
-          : `${client.bottom + window.scrollY + 8}px`,
-
-        left: `${client.x}px`
-      }))
-    }
-  }
-
   const clickOuter: MouseEventHandler<HTMLDivElement> = (e: any) => {
     e?.preventDefault()
     closeMenu()
@@ -177,38 +157,14 @@ export const SelectField: FC<TSelectFieldProps> = ({
     }
   }
 
-  const changeValue = (value: any) => {
+  const selectItem = (value: any) => {
     if (selectRef.current) {
-      selectRef.current.value = value
-      const event = new Event('change', { bubbles: true })
-      selectRef.current.dispatchEvent(event)
+      changeValue(value)
       closeMenu()
     }
   }
 
-  const scrollToTop = () => {
-    const menuList = listRef?.current
-
-    if (scrollTop && menuList && open) {
-      const tops = {
-        middle: (menuList?.scrollHeight - menuList?.clientHeight) * 0.5,
-        quarterTop: (menuList?.scrollHeight - menuList?.clientHeight) * 0.25,
-        quarterBottom: (menuList?.scrollHeight - menuList?.clientHeight) * 0.75
-      }
-      const top =
-        typeof scrollTop === 'string' &&
-        ['middle', 'quarterTop', 'quarterBottom'].includes(scrollTop)
-          ? (tops[scrollTop] as number)
-          : (scrollTop as number)
-
-      menuList.scrollTo({
-        top
-      })
-    }
-  }
-
   useEffect(() => {
-    scrollToTop()
     calculateDomRect()
   }, [open])
 
@@ -254,7 +210,7 @@ export const SelectField: FC<TSelectFieldProps> = ({
                     key={`${item.value}-${selfId}`}
                     className="select-field-menu__item"
                     onClick={() => {
-                      changeValue(item.value)
+                      selectItem(item.value)
                     }}
                   >
                     {itemHoc?.(item) || (

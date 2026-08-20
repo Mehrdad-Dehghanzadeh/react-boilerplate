@@ -101,3 +101,11 @@ type TChartStates = {
 type TChartPeriod = 'day' | 'week' | 'month' | 'year'
 
 type TGender = 'MALE' | 'FEMALE'
+
+type TSelectOption<T = any> = {
+  title: string
+  value: string | number | EmptyString
+  itemData?: T
+}
+
+type TSelectOptions<T = any> = TSelectOption<T>[]

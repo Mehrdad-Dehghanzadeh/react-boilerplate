@@ -11,7 +11,6 @@ export type TSvgIcon = FunctionComponent<
   }
 >
 
-
 export type TInputProps = {
   control: any
   name: string
@@ -35,11 +34,21 @@ export type TSelectInputItem<T = any> = {
   itemData?: T
 }
 
-export type TSelectInputProps<TItem> = {
+export type TScrollTop = number | 'middle' | 'quarterTop' | 'quarterBottom'
+
+export type TSelectInputProps<T = any> = {
+  options: TSelectOptions<T>
   fieldTextClassName?: ClassValue
-  scrollTop?: number | 'middle' | 'quarterTop' | 'quarterBottom'
-  itemHoc?: (item: TItem) => React.ReactNode
-  textHoc?: (item: TItem) => React.ReactNode
+  scrollTop?: TScrollTop
+  itemHoc?: (item: TSelectOption<T>) => React.ReactNode
+  textHoc?: (item: TSelectOption<T>) => React.ReactNode
   loading?: boolean
   noItemMessage?: string | React.ReactNode
+}
+
+
+export type TDomRect = {
+  width: string
+  top: string
+  left: string
 }
