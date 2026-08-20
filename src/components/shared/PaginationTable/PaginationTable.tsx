@@ -18,7 +18,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const [data, setData] = useState<TCreditTickets[]>([])
   const [page, setPage] = useState<number>(1)
   const [indexLoading, setIndexLoading] = useState<number>(0)
-  const { branches, setBranches, setLoading } = useTransactionsStore()
+  const { branches, setBranches, setLoading, loading } = useTransactionsStore()
 
   const { control, watch } = useForm({
     defaultValues: { pageSize: 10 }
@@ -176,7 +176,12 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   return (
     <div>
       <FilterTable getData={refreshTable} data={data} />
-      <TableGrid className="pagination-table-grid" headers={headers} data={data} />
+      <TableGrid
+        className="pagination-table-grid"
+        headers={headers}
+        data={data}
+        loading={loading}
+      />
       <div className="pagination-table">
         <div className="pagination-table__size">
           <span data-dc-tpl="118">نمایش</span>

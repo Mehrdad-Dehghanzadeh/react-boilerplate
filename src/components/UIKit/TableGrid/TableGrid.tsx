@@ -7,6 +7,7 @@ import './TableGrid.scss'
 export const TableGrid: FC<TTableGridProps> = ({
   headers,
   data,
+  loading = false,
   className = '',
   ...props
 }) => {
@@ -43,7 +44,69 @@ export const TableGrid: FC<TTableGridProps> = ({
         </thead>
 
         <tbody className="table-grid__body">
-          {hasItem(data) ? (
+          {loading ? (
+            <>
+              <tr className="table-grid__row skelton-loading ">
+                {headers.map((head, indexCell) => (
+                  <td
+                    className=" h-12"
+                    key={`${indexCell}-${selfId}-table-cell`}
+                    style={head.cellStyle}
+                  ></td>
+                ))}
+              </tr>
+
+              <tr className="table-grid__row skelton-loading ">
+                {headers.map((head, indexCell) => (
+                  <td
+                    className=" h-12"
+                    key={`${indexCell}-${selfId}-table-cell`}
+                    style={head.cellStyle}
+                  ></td>
+                ))}
+              </tr>
+
+              <tr className="table-grid__row skelton-loading ">
+                {headers.map((head, indexCell) => (
+                  <td
+                    className=" h-12"
+                    key={`${indexCell}-${selfId}-table-cell`}
+                    style={head.cellStyle}
+                  ></td>
+                ))}
+              </tr>
+
+              <tr className="table-grid__row skelton-loading">
+                {headers.map((head, indexCell) => (
+                  <td
+                    className=" h-12"
+                    key={`${indexCell}-${selfId}-table-cell`}
+                    style={head.cellStyle}
+                  ></td>
+                ))}
+              </tr>
+
+              <tr className="table-grid__row skelton-loading">
+                {headers.map((head, indexCell) => (
+                  <td
+                    className=" h-12"
+                    key={`${indexCell}-${selfId}-table-cell`}
+                    style={head.cellStyle}
+                  ></td>
+                ))}
+              </tr>
+
+              <tr className="table-grid__row skelton-loading">
+                {headers.map((head, indexCell) => (
+                  <td
+                    className=" h-12"
+                    key={`${indexCell}-${selfId}-table-cell`}
+                    style={head.cellStyle}
+                  ></td>
+                ))}
+              </tr>
+            </>
+          ) : (
             data.map((recode, indexRow) => (
               <tr className="table-grid__row" key={`${indexRow}-${selfId}-table-row`}>
                 {headers.map((head, indexCell) => (
@@ -57,8 +120,6 @@ export const TableGrid: FC<TTableGridProps> = ({
                 ))}
               </tr>
             ))
-          ) : (
-            <></>
           )}
         </tbody>
       </table>

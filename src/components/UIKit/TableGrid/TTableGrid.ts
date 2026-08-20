@@ -13,4 +13,5 @@ export type TTableGridHeaders<T = any> = THeaderItem<T>[]
 export type TTableGridProps<TTableData = any> = ComponentProps<'div'> & {
   headers: TTableGridHeaders<TTableData>
   data: TTableData[]
+  loading?: boolean
 }

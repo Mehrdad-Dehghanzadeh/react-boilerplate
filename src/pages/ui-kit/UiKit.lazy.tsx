@@ -58,7 +58,7 @@ const UIKitPage = () => {
 
   return (
     <article id="ui-kit-page" className="ui-kit-page">
-      <TableGrid className="mt-10 mx-8" headers={headers} data={data} />
+      <TableGrid className="mt-10 mx-8" headers={headers} data={data}  />
 
       <form className="px-1" onSubmit={handleSubmit(t)}>
         <Link to={URLS.login.href}>transfers</Link>
