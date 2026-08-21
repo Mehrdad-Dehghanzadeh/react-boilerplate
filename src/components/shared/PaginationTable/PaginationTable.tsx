@@ -31,6 +31,8 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const pageSize = watch('pageSize')
 
   const headers: TTableGridHeaders = [
+    { title: 'شناسه', keyData: 'id' },
+
     { title: 'شماره تراکنش', keyData: 'ticket_number' },
     {
       title: 'نوع تراکنش',
@@ -86,7 +88,6 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   ]
 
   const updateData = () => {
-    debugger
     const startIndex = (page - 1) * pageSize
     const pageData = totalData.current.slice(startIndex, startIndex + pageSize)
     setData(pageData)
@@ -159,7 +160,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   const goNextPage = async () => {
-    if (page * pageSize <= totalData.current.length) {
+    if (page * pageSize >= totalData.current.length) {
       setLoading(true)
       const last_id = totalData.current[totalData.current.length - 1]?.id
 
@@ -228,6 +229,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
           <button
             className="tp-icnbtn pagination-table__left-chevron"
             onClick={goPrevPage}
+            disabled={page == 1}
           >
             <svg
               width="16"
