@@ -49,7 +49,7 @@ export const DashboardHeader: FC = () => {
       </div>
 
       <div className="dashboard-header-avatar">
-        <Link className="dashboard-header-avatar__wrapper" to={URLS.profile.href}>
+        <Link className="dashboard-header-avatar__wrapper" to={'#'}>
           <div className="dashboard-header-avatar__circle">
             {profile?.account?.last_name?.[0] || ''}
           </div>

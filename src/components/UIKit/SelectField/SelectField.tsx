@@ -5,8 +5,8 @@ import { Controller } from 'react-hook-form'
 import { createPortal } from 'react-dom'
 import useFormElements from '@hooks/useFormElements'
 import clsx from 'clsx'
-import { hasItem } from '@utils'
 import ChevronDown from '@assets/svg/chevron-down.svg?react'
+import CrossCircle from '@assets/svg/cross-circle.svg?react'
 import { useSelectField } from '@hooks'
 import './SelectField.scss'
 
@@ -19,6 +19,7 @@ export const SelectField: FC<TSelectFieldProps> = ({
   scrollTop,
   itemHoc,
   textHoc,
+  clearable,
   noItemMessage,
   openBottom = false,
   loading = false,
@@ -103,8 +104,20 @@ export const SelectField: FC<TSelectFieldProps> = ({
                 </div>
               </div>
 
-              <span className="select-field__icon">
-                <ChevronDown className="w-6 h-6" />
+              <span className="flex">
+                {Boolean(clearable && hasValue) ? (
+                  <CrossCircle
+                    className="w-6 h-6"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      changeValue('')
+                    }}
+                  />
+                ) : (
+                  <span className="select-field__icon">
+                    <ChevronDown className="w-6 h-6" />
+                  </span>
+                )}
               </span>
             </div>
           </div>

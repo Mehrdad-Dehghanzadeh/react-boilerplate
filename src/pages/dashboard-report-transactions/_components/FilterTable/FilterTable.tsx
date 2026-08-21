@@ -13,6 +13,10 @@ import { useCsvBuilder } from '@hooks'
 export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
   const ExcelColumns: TCsvColumns = [
     {
+      title: 'شناسه',
+      dataIndex: 'id'
+    },
+    {
       title: 'شماره تراکنش',
       dataIndex: 'ticket_number'
     },
@@ -78,26 +82,32 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
         <SelectField
           className="w-[196px]"
           name="status"
+          inputLabel="وضعیت"
           control={control}
           options={TICKET_STATUS_LIST}
           disabled={loading}
+          clearable
         />
 
         <SelectField
           className="w-[196px]"
           name="duration_create"
+          inputLabel="دوره"
           control={control}
           options={[
+            { title: 'روزانه', value: 1 },
             { title: 'هفته', value: 7 },
             { title: 'ماه', value: 30 },
             { title: 'سه ماه', value: 90 }
           ]}
           disabled={loading}
+          clearable
         />
 
         <SelectField
           className="w-[196px]"
           name="provider_branch_id"
+          inputLabel="شعبه"
           control={control}
           options={branches}
           disabled={loading}

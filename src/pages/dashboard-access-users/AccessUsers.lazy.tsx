@@ -91,7 +91,7 @@ const AccessUsersPage: FC = () => {
         <div>
           <div className="ml-2">
             <h1>کاربر پنل</h1>
-            <strong>۴ کاربر</strong>
+            <strong className="flex justify-between">{`${data.length ?? 0} کاربر`}</strong>
           </div>
 
           <div></div>

@@ -41,7 +41,7 @@ export const Step3: FC = () => {
           </div>
         </div>
         <h2 className="text-2xl mb-3 font-extrabold">ورود موفق</h2>
-        <div className="text-t3">
+        <div className="text-t3 flex">
           <span>خوش آمدید،</span>
           <span className="mx-1">{profile?.account?.first_name || ''}</span>
           <span>{profile?.account?.last_name || ''}</span>
