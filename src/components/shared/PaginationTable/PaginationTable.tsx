@@ -112,7 +112,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       setBranchOptions(data)
     }
 
-    if (branchId || !Boolean(userData?.merchant_id)) {
+    if (branchId || !Boolean(userData?.merchant_id) || filters?.provider_branch_id) {
       const branch = data?.merchant_store?.branches[0]
       totalData.current = branch ? [...totalData.current, ...branch?.credit_tickets] : []
     } else {
