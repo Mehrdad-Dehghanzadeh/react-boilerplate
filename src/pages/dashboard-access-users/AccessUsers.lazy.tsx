@@ -42,7 +42,7 @@ const AccessUsersPage: FC = () => {
         //@ts-ignore
         role ? <Chip>{ROLES_MAPPER[role]?.title}</Chip> : null
     },
-    { title: 'شعبه', keyData: 'provider_name', cellStyle: { width: '90px' } },
+    { title: 'شعبه', keyData: 'provider_name' },
     {
       title: 'عملیات',
       keyData: 'operation',

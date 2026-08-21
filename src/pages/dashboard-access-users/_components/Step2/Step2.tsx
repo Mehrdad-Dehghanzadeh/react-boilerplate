@@ -1,14 +1,13 @@
 import type { TFormData, TStep2Props } from './TStep2'
 import type { IAddBranchVerifyPayload } from '@ts/services/Auth'
 import type { TRoles } from '@ts/Common'
-import type { IAddBranchPayload } from '@ts/services/Auth'
 import { useState, type FC } from 'react'
 import { useAccessUserStore } from '@store'
 import { useForm } from 'react-hook-form'
 import { Button, OTPField } from '@UIKit'
 import { requiredRule } from '@assets/validationsRules'
-import { apis } from '@/services'
-import { handleResponseError } from '@/utils'
+import { apis } from '@services'
+import { handleResponseError } from '@utils'
 
 export const Step2: FC<TStep2Props> = ({ closeUpdate }) => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -24,7 +23,7 @@ export const Step2: FC<TStep2Props> = ({ closeUpdate }) => {
   const createPayload = (otp: string) => {
     if (formData && branchResData?.session_id) {
       const payload: IAddBranchVerifyPayload = {
-        branch_id: Number(formData?.branch_id),
+        branch_ids: formData?.branch_ids?.map((el) => Number(el)),
         mobile: formData?.mobile,
         role: formData?.role as TRoles,
         session_id: branchResData?.session_id,

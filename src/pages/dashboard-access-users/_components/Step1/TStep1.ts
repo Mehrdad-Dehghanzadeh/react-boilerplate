@@ -6,7 +6,7 @@ export type TStep1Props = {
 
 export type TAddUserForm = {
   mobile: string
-  branch_id: string
+  branch_ids: number[]
   role: TRoles | EmptyString
   first_name: string
   last_name: string

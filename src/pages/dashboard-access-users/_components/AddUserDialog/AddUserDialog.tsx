@@ -12,6 +12,7 @@ export const AddUserDialog: FC<TAddUserDialogProps> = ({ ref, getData }) => {
 
   const handleStep = () => {
     swiperRef.current?.swiper.slideTo(step)
+    document.getElementById('add-user-dialog')?.scrollTo({ top: 0 })
   }
 
   const close = () => {
@@ -40,10 +41,20 @@ export const AddUserDialog: FC<TAddUserDialogProps> = ({ ref, getData }) => {
     []
   )
 
-  useEffect(() => {}, [open])
+  useEffect(() => {
+    if (!open) {
+      clear()
+    }
+  }, [open])
 
   return (
-    <Modal size="sm" open={open} setOpen={setOpen} title="افزودن کاربر جدید">
+    <Modal
+      size="sm"
+      open={open}
+      setOpen={setOpen}
+      title="افزودن کاربر جدید"
+      id="add-user-dialog"
+    >
       <Swiper
         effect={'fade'}
         allowTouchMove={false}

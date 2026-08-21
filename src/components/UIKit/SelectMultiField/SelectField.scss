@@ -1,0 +1,40 @@
+@use '@styles/mixins' as *;
+@use '@styles/abstracts' as *;
+
+.select-field-menu {
+  position: absolute;
+  background-color: var(--color-white);
+  border-radius: 12px;
+  height: fit-content;
+  max-height: 240px;
+  padding: 4px 8px;
+  overflow-y: auto;
+  z-index: var(--index-select-field-menu);
+  border: 2px solid rgb(229, 229, 220);
+
+  &__item {
+    display: flex;
+    width: 100%;
+    padding: 8px 4px;
+    @include pointer-none();
+
+    &--selected {
+      color: var(--color-success);
+    }
+  }
+
+  &--fill {
+    background-color: rgb(29 29 29);
+
+    .select-field-menu__item {
+      padding: 4px;
+      &:not(:last-child) {
+        border-bottom: 1px solid #888;
+      }
+    }
+  }
+
+  &--bottom-open {
+    border-radius: 0 0 8px 8px;
+  }
+}

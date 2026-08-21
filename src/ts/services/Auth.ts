@@ -67,7 +67,7 @@ export interface IGetUserRes {
 
 export interface IAddBranchPayload {
   mobile: string
-  branch_id: number
+  branch_ids: number[]
   role: TRoles
 }
 

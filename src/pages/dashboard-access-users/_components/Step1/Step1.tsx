@@ -2,16 +2,15 @@ import type { TAddUserForm } from './TStep1'
 import type { TStep1Props } from './TStep1'
 import { type TRoles } from '@ts/Common'
 import type { ILoginRes } from '@ts/services/Auth'
-import { type AxiosResponse } from 'axios'
 import { useEffect, useState, type FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, Group, SelectField, TextField } from '@UIKit'
+import { Button, Group, SelectField, TextField, SelectMultiField } from '@UIKit'
 import { mobileRule, requiredRule } from '@assets/validationsRules'
 import { SelectiveCard } from '@shared'
 import { useAccessUserStore } from '@store'
-import { apis } from '@/services'
-import type { IAddBranchPayload } from '@/ts/services/Auth'
-import { handleResponseError, showSnackbar } from '@/utils'
+import { apis } from '@services'
+import type { IAddBranchPayload } from '@ts/services/Auth'
+import { handleResponseError, showSnackbar } from '@utils'
 
 export const Step1: FC<TStep1Props> = ({ close }) => {
   const { branches, setBranchResData, setFormData, setStep } = useAccessUserStore()
@@ -21,7 +20,7 @@ export const Step1: FC<TStep1Props> = ({ close }) => {
   const { control, handleSubmit, setValue } = useForm<TAddUserForm>({
     defaultValues: {
       mobile: '',
-      branch_id: '',
+      branch_ids: [],
       role: '',
       first_name: '',
       last_name: ''
@@ -44,9 +43,10 @@ export const Step1: FC<TStep1Props> = ({ close }) => {
 
   const handleForm = (formData: TAddUserForm) => {
     if (formData.role) {
+      console.log(formData)
       setLoading(true)
       const payload: IAddBranchPayload = {
-        branch_id: Number(formData.branch_id),
+        branch_ids: formData.branch_ids?.map((el) => Number(el)),
         mobile: formData.mobile,
         role: formData.role
       }
@@ -115,9 +115,9 @@ export const Step1: FC<TStep1Props> = ({ close }) => {
           />
         </Group>
 
-        <SelectField
+        <SelectMultiField
           control={control}
-          name="branch_id"
+          name="branch_ids"
           className="mb-4"
           options={options}
           label="شعبه"

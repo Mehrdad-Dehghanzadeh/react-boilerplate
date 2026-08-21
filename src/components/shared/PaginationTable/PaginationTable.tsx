@@ -13,15 +13,17 @@ import SpinnerSVG from '@assets/svg/spinner.svg?react'
 import { useTransactionsStore } from '@store'
 import { FilterTable } from '@pages/dashboard-report-transactions/_components'
 import './PaginationTable.scss'
+import { flushSync } from 'react-dom'
 
 export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const [data, setData] = useState<TCreditTickets[]>([])
   const [page, setPage] = useState<number>(1)
   const [indexLoading, setIndexLoading] = useState<number>(0)
-  const { branches, setBranches, setLoading, loading } = useTransactionsStore()
+  const { branches, setBranches, setLoading, loading, filters, setFilters } =
+    useTransactionsStore()
 
-  const { control, watch } = useForm({
-    defaultValues: { pageSize: 10 }
+  const { watch } = useForm({
+    defaultValues: { pageSize: 50 }
   })
 
   const totalData = useRef<TCreditTickets[]>([])
@@ -83,9 +85,8 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     }
   ]
 
-  const pages = [1, 2, 3, 4, 5]
-
   const updateData = () => {
+    debugger
     const startIndex = (page - 1) * pageSize
     const pageData = totalData.current.slice(startIndex, startIndex + pageSize)
     setData(pageData)
@@ -116,8 +117,6 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     } else {
       totalData.current = [...totalData.current, ...data?.merchant_store?.credit_tickets]
     }
-
-    updateData()
   }
 
   const customerInfo = (record: TCreditTickets) => {
@@ -142,6 +141,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       .home(payload)
       .then((res) => {
         handleDataRes(res?.data?.payload?.data, payload?.provider_branch_id)
+        updateData()
       })
       .catch((e) => {
         handleResponseError(e)
@@ -154,7 +154,40 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const refreshTable = (payload?: IHomePayload) => {
     totalData.current = []
     setData([])
+    setFilters(null)
     getDataTable(payload)
+  }
+
+  const goNextPage = async () => {
+    if (page * pageSize <= totalData.current.length) {
+      setLoading(true)
+      const last_id = totalData.current[totalData.current.length - 1]?.id
+
+      const payload = {
+        ...filters,
+        last_id
+      }
+      apis.report
+        .home(payload)
+        .then((res) => {
+          handleDataRes(res?.data?.payload?.data, payload?.provider_branch_id)
+          setPage((page) => ++page)
+        })
+        .catch((e) => {
+          handleResponseError(e)
+        })
+        .finally(() => {
+          setLoading(false)
+        })
+    } else {
+      setPage((page) => ++page)
+    }
+  }
+
+  const goPrevPage = () => {
+    if (page > 1) {
+      setPage((page) => --page)
+    }
   }
 
   useEffect(() => {
@@ -164,14 +197,6 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   useEffect(() => {
     updateData()
   }, [page])
-
-  useEffect(() => {
-    if (page == 1) {
-      updateData()
-    } else {
-      setPage(1)
-    }
-  }, [pageSize])
 
   return (
     <div>
@@ -183,7 +208,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         loading={loading}
       />
       <div className="pagination-table">
-        <div className="pagination-table__size">
+        {/* <div className="pagination-table__size">
           <span data-dc-tpl="118">نمایش</span>
           <SelectField
             control={control}
@@ -197,10 +222,13 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
           <span>
             <span className="sc-interp"></span>
           </span>
-        </div>
+        </div> */}
 
         <div className="pagination-table__pages">
-          <button className="tp-icnbtn pagination-table__left-chevron">
+          <button
+            className="tp-icnbtn pagination-table__left-chevron"
+            onClick={goPrevPage}
+          >
             <svg
               width="16"
               height="16"
@@ -214,7 +242,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
               <path data-dc-tpl="126" d="M9 18l6-6-6-6"></path>
             </svg>
           </button>
-
+          {/* 
           {pages?.map((pageItem) => (
             <button
               key={pageItem}
@@ -227,9 +255,13 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
             >
               <span className="sc-interp">{pageItem}</span>
             </button>
-          ))}
+          ))} */}
 
-          <button data-dc-tpl="129" className="tp-icnbtn pagination-table__right-chevron">
+          <button
+            data-dc-tpl="129"
+            className="tp-icnbtn pagination-table__right-chevron"
+            onClick={goNextPage}
+          >
             <svg
               width="16"
               height="16"

@@ -5,7 +5,7 @@ import { hasItem } from '@utils'
 type TConfig = { options: TSelectOptions; scrollTop?: TScrollTop }
 
 export function useSelectField({ options, scrollTop }: TConfig) {
-  const selectRef = useRef<HTMLSelectElement>(null)
+  const selectRef = useRef<HTMLSelectElement | HTMLInputElement>(null)
   const fieldRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
 

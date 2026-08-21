@@ -38,7 +38,7 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
     }
   ]
 
-  const { branches, loading } = useTransactionsStore()
+  const { branches, loading, setFilters } = useTransactionsStore()
   const { control, handleSubmit } = useForm<TForm>({
     defaultValues: {
       provider_branch_id: 0,
@@ -56,6 +56,7 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
       status: data.status
     })
 
+    setFilters(payload)
     getData(payload)
   }
 
@@ -108,10 +109,16 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
       </form>
 
       <div>
-        <Button className="w-36" type="button" loading={csvLoading} onClick={createExcel} color="success">
+        <Button
+          className="w-36"
+          type="button"
+          loading={csvLoading}
+          onClick={createExcel}
+          color="success"
+        >
           <span className="flex items-center">
-          <ExcelIcon />
-          <span className="font-sm font-bold mr-2">خروجی Excel</span>
+            <ExcelIcon />
+            <span className="font-sm font-bold mr-2">خروجی Excel</span>
           </span>
         </Button>
       </div>

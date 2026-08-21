@@ -66,3 +66,5 @@ export * from './TableGrid/TTableGrid'
 
 export * from './Modal/Modal'
 export * from './Modal/TModal'
+
+export * from './SelectMultiField/SelectMultiField'
