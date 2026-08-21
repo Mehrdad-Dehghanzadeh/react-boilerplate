@@ -87,8 +87,9 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     }
   ]
 
-  const updateData = () => {
-    const startIndex = (page - 1) * pageSize
+  const updateData = (p?: number) => {
+    const t = p || page
+    const startIndex = (t - 1) * pageSize
     const pageData = totalData.current.slice(startIndex, startIndex + pageSize)
     setData(pageData)
   }
@@ -142,7 +143,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       .home(payload)
       .then((res) => {
         handleDataRes(res?.data?.payload?.data, payload?.provider_branch_id)
-        updateData()
+        updateData(1)
       })
       .catch((e) => {
         handleResponseError(e)
@@ -263,6 +264,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
             data-dc-tpl="129"
             className="tp-icnbtn pagination-table__right-chevron"
             onClick={goNextPage}
+            disabled={page * pageSize > totalData.current?.length}
           >
             <svg
               width="16"
