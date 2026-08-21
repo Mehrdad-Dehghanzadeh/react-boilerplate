@@ -154,6 +154,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   const refreshTable = (payload?: IHomePayload) => {
+    setPage(1)
     totalData.current = []
     setData([])
     setFilters(null)
