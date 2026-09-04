@@ -14,6 +14,7 @@ export type TAccountItem = {
   last_name: string
   merchant_id: number
   mobile: string
+  status: boolean
   role: TRoles
 }
 

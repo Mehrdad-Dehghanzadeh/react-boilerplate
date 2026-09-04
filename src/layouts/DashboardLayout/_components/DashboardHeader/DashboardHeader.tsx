@@ -3,7 +3,8 @@ import { useAppStore } from '@store'
 import { ROLES_MAPPER, URLS } from '@constants'
 import { apis } from '@services'
 import { handleResponseError, deleteAllCookie } from '@utils'
-import { useNavigate, useLocation, Link } from '@tanstack/react-router'
+import { useNavigate, useLocation } from '@tanstack/react-router'
+import UserOctagon from '@assets/svg/user-octagon.svg?react'
 import './DashboardHeader.scss'
 
 export const DashboardHeader: FC = () => {
@@ -40,63 +41,21 @@ export const DashboardHeader: FC = () => {
   return (
     <header className="dashboard-header">
       <div className="dashboard-header__content">
-        <div className="min-w-0">
-          <div className="dashboard-header__page-name">{headerText?.title}</div>
-          <div data-dc-tpl="35" className="dashboard-header__description">
-            {headerText?.subTitle}
+        <UserOctagon className="w-12 h-12 text-secondary" />
+
+        <div className="leading-[1.3]">
+          <div className="dashboard-header-avatar__title">
+            <span className="ml-1">{`${profile?.account?.first_name || ''}`}</span>
+            <span>{`${profile?.account?.last_name || ''}`}</span>
+          </div>
+
+          <div className="dashboard-header-avatar__sub-title">
+            {profile?.account?.role &&
+            ['admin', 'reporter'].includes(profile?.account?.role)
+              ? ROLES_MAPPER[profile?.account?.role]?.title
+              : ''}
           </div>
         </div>
-      </div>
-
-      <div className="dashboard-header-avatar">
-        <Link className="dashboard-header-avatar__wrapper" to={'#'}>
-          <div className="dashboard-header-avatar__circle">
-            {profile?.account?.last_name?.[0] || ''}
-          </div>
-          <div className="leading-[1.3]">
-            <div className="dashboard-header-avatar__title">
-              <span className="ml-1">{`${profile?.account?.first_name || ''}`}</span>
-              <span>{`${profile?.account?.last_name || ''}`}</span>
-            </div>
-
-            <div className="dashboard-header-avatar__sub-title">
-              {profile?.account?.role &&
-              ['admin', 'reporter'].includes(profile?.account?.role)
-                ? ROLES_MAPPER[profile?.account?.role]?.title
-                : ''}
-            </div>
-          </div>
-          <svg
-            data-dc-tpl="42"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#AEAEA8"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path data-dc-tpl="43" d="M6 9l6 6 6-6"></path>
-          </svg>
-        </Link>
-
-        <button className="dashboard-header-avatar__logout" title="خروج" onClick={logout}>
-          <svg
-            data-dc-tpl="45"
-            width="19"
-            height="19"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#DE3730"
-            strokeWidth="1.9"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path data-dc-tpl="46" d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-            <path data-dc-tpl="47" d="M16 17l5-5-5-5M21 12H9"></path>
-          </svg>
-        </button>
       </div>
     </header>
   )

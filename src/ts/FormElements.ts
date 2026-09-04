@@ -26,6 +26,7 @@ export type TInputProps = {
   clearCb?: () => void
   prefixIcon?: ReactNode
   ltr?: boolean
+  dense?: boolean
 }
 
 export type TSelectInputItem<T = any> = {
@@ -45,7 +46,6 @@ export type TSelectInputProps<T = any> = {
   loading?: boolean
   noItemMessage?: string | React.ReactNode
 }
-
 
 export type TDomRect = {
   width: string

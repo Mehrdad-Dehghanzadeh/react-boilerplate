@@ -19,14 +19,14 @@ const dashboardRoute = createRoute({
   }
 })
 
-const homeDashboard = createRoute({
-  getParentRoute: () => dashboardRoute,
-  path: '/'
-}).lazy(() => import('@pages/dashboard/Dashboard.lazy').then((d) => d.Route))
+// const homeDashboard = createRoute({
+//   getParentRoute: () => dashboardRoute,
+//   path: '/'
+// }).lazy(() => import('@pages/dashboard/Dashboard.lazy').then((d) => d.Route))
 
 const reportTransactionsDashboard = createRoute({
   getParentRoute: () => dashboardRoute,
-  path: '/report-transactions'
+  path: '/'
 }).lazy(() =>
   import('@pages/dashboard-report-transactions/ReportTransactions.lazy').then(
     (d) => d.Route
@@ -46,7 +46,6 @@ const profileDashboard = createRoute({
 }).lazy(() => import('@pages/dashboard-profile/Profile.lazy').then((d) => d.Route))
 
 export const dashboardRouteTree = dashboardRoute.addChildren([
-  homeDashboard,
   reportTransactionsDashboard,
   accessUsersDashboard,
   profileDashboard

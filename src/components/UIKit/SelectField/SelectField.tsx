@@ -31,6 +31,7 @@ export const SelectField: FC<TSelectFieldProps> = ({
   inputLabel = '',
   options = [],
   disabled = false,
+  dense = false,
   ...props
 }) => {
   const menuRoot = document.getElementById('select-menu-root') as HTMLElement
@@ -88,7 +89,8 @@ export const SelectField: FC<TSelectFieldProps> = ({
           >
             <div
               className={clsx('select-field__input', {
-                'select-field__input--error': fieldState.invalid
+                'select-field__input--error': fieldState.invalid,
+                'select-field__input--dense': dense
               })}
             >
               <div className="select-field__text-wrapper">

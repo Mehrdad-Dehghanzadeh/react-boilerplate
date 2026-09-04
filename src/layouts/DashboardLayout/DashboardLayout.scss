@@ -2,17 +2,18 @@
   display: flex;
   min-height: 100vh;
   background: rgb(243, 243, 238);
+  padding: 40px 32px;
 
   &__container {
     flex: 1 1 0%;
     min-width: 0px;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    max-height: calc(100vh - 80px);
   }
 
   &__main {
-    flex: 1 1 0%;
-    padding: 28px 32px;
+    padding: 28px 0 32px;
+    overflow-y: auto;
   }
 }

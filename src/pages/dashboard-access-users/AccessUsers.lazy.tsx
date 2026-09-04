@@ -1,4 +1,4 @@
-import type { TAccountItem, TRoles } from '@/ts/Common'
+import type { TAccountItem } from '@/ts/Common'
 import { useState, type FC, useRef, useEffect } from 'react'
 import { createLazyRoute } from '@tanstack/react-router'
 import { ROLES_MAPPER, URLS } from '@constants'
@@ -8,7 +8,8 @@ import {
   AddUserDialog,
   type TAddUserDialogHandle,
   RemoveUserDialog,
-  type TRemoveUserDialogHandle
+  type TRemoveUserDialogHandle,
+  FiltersTable
 } from './_components'
 import { apis } from '@services'
 import { deepClone, hasItem } from '@utils'
@@ -18,6 +19,7 @@ import { useAccessUserStore } from '@store'
 const AccessUsersPage: FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [data, setData] = useState<TAccountItem[]>([])
+  const totalData = useRef<TAccountItem[]>([])
   const { setBranches } = useAccessUserStore()
 
   const addUserDialogRef = useRef<TAddUserDialogHandle>(null)
@@ -34,7 +36,17 @@ const AccessUsersPage: FC = () => {
         </span>
       )
     },
-    { title: 'موبایل', keyData: 'mobile' },
+
+    {
+      title: 'وضعیت',
+      keyData: 'status',
+      cellFC: (status) =>
+        //@ts-ignore
+        status ? (
+          <Chip color={status ? 'success' : 'error'}>{status ? 'فعال' : 'غیر فعال'}</Chip>
+        ) : null
+    },
+
     {
       title: 'نقش',
       keyData: 'role',
@@ -42,7 +54,10 @@ const AccessUsersPage: FC = () => {
         //@ts-ignore
         role ? <Chip>{ROLES_MAPPER[role]?.title}</Chip> : null
     },
+
+    { title: 'موبایل', keyData: 'mobile' },
     { title: 'شعبه', keyData: 'provider_name' },
+
     {
       title: 'عملیات',
       keyData: 'operation',
@@ -68,6 +83,7 @@ const AccessUsersPage: FC = () => {
       .getUser()
       .then((res) => {
         if (hasItem(res?.data?.payload?.data?.accounts)) {
+          totalData.current = deepClone(res?.data?.payload?.data?.accounts)
           setData(deepClone(res?.data?.payload?.data?.accounts))
         }
 
@@ -87,16 +103,9 @@ const AccessUsersPage: FC = () => {
 
   return (
     <article id="access-users-page" className="full-page-relative">
-      <div className="flex justify-between items-center mb-5">
-        <div>
-          <div className="ml-2">
-            <h1>کاربر پنل</h1>
-            <strong className="flex justify-between">{`${data.length ?? 0} کاربر`}</strong>
-          </div>
+      <h1 className="text-primary text-xl font-black">مدیریت دسترسی</h1>
 
-          <div></div>
-        </div>
-
+      <div className="flex justify-end my-3 ">
         <Button
           className="max-w-[120px]"
           type="button"
@@ -107,6 +116,8 @@ const AccessUsersPage: FC = () => {
           افزودن کاربر
         </Button>
       </div>
+
+      <FiltersTable totalData={totalData.current} setData={setData} />
       <TableGrid data={data} headers={headers} loading={loading} />
 
       <AddUserDialog getData={getData} ref={addUserDialogRef} />

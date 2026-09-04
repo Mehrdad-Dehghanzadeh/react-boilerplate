@@ -24,6 +24,7 @@ export const TextField: FC<TTextFieldProps> = ({
   suffix = '',
   ltr = false,
   disabled = false,
+  dense = false,
   ...props
 }) => {
   const { selfId } = useFormElements({ id })
@@ -59,7 +60,11 @@ export const TextField: FC<TTextFieldProps> = ({
             classNameControl
           )}
         >
-          {Boolean(label) && <label className="control__label" htmlFor={selfId}>{label}</label>}
+          {Boolean(label) && (
+            <label className="control__label" htmlFor={selfId}>
+              {label}
+            </label>
+          )}
           <div className="control__wrapper">
             {Boolean(prefixIcon) && (
               <span className="control__prefix-icon">{prefixIcon}</span>
@@ -70,7 +75,8 @@ export const TextField: FC<TTextFieldProps> = ({
                 {
                   'control__input--error': fieldState.invalid,
                   'control--has-clearable': clearable,
-                  'control__input--ltr': ltr
+                  'control__input--ltr': ltr,
+                  'control__input--dense': dense
                 }
               ])}
               type={type}

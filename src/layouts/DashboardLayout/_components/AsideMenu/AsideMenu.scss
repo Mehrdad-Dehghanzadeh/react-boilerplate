@@ -1,14 +1,16 @@
 .aside-menu {
   flex: 0 0 auto;
-  width: 264px;
-  height: 100vh;
+  width: 300px;
+  height: calc(100vh - 80px);
   position: sticky;
   top: 0px;
   background: rgb(255, 255, 255);
   border-left: 1px solid rgb(237, 237, 229);
   display: flex;
   flex-direction: column;
-  padding: 22px 16px;
+  padding: 24px 24px 40px;
+  margin-left: 16px;
+  border-radius: 16px;
 
   &-logo {
     display: flex;
@@ -81,47 +83,9 @@
 
   &-profile {
     margin-top: auto;
-    padding: 14px;
-    background: rgb(251, 250, 244);
-    border: 1px solid rgb(237, 237, 229);
-    border-radius: 14px;
+    padding: 40px 14px 14px;
+    border-top: 1px solid #0000000D;
     display: flex;
     align-items: center;
-    gap: 11px;
-
-    &__avatar {
-      flex: 0 0 auto;
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(140deg, rgb(0, 183, 206), rgb(0, 146, 165));
-      color: rgb(255, 255, 255);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 15px;
-    }
-
-    &__content {
-      flex: 1 1 0%;
-      min-width: 0px;
-    }
-
-    &__name {
-      font-size: 13px;
-      font-weight: 700;
-      color: rgb(24, 24, 22);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: flex;
-      align-items: center;
-    }
-
-    &__subname {
-      font-size: 11px;
-      color: rgb(174, 174, 168);
-    }
   }
 }

@@ -1,41 +1,30 @@
 .login-page {
   display: flex;
   min-height: 100vh;
-  width: 100%;
-  background: rgb(243, 243, 238);
+  width: 100vw;
+  background: #fff;
+  color: #000;
+  align-items: center;
+}
+
+.login-bg {
+  height: 80vh;
 }
 
 .login-left-section {
   position: relative;
-  flex: 1 1 0%;
-  min-height: 100vh;
   overflow: hidden;
-  background: linear-gradient(
-    150deg,
-    rgb(0, 183, 206) 0%,
-    rgb(0, 146, 165) 55%,
-    rgb(0, 110, 124) 100%
-  );
+  width: 50%;
+  padding: 20px;
 }
 
 .login-right-section {
-  flex: 0 0 auto;
-  width: min(560px, 44vw);
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 40px 56px;
   background: rgb(255, 255, 255);
-}
-
-#login-svg {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  height: auto;
-  opacity: 0.14;
-  pointer-events: none;
 }
 
 .login-top-bubble {
@@ -85,4 +74,12 @@
   align-items: center;
   justify-content: center;
   box-shadow: rgba(16, 185, 129, 0.35) 0px 10px 24px;
+}
+
+.login-wizard {
+  width: 400px;
+}
+
+.login-step {
+  padding: 0 8px;
 }

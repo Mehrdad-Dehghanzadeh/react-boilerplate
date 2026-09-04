@@ -20,6 +20,6 @@ const ReportTransactionsPage: FC = () => {
   )
 }
 
-export const Route = createLazyRoute(URLS.reportTransactions.href)({
+export const Route = createLazyRoute(URLS.dashboard.href)({
   component: ReportTransactionsPage
 })

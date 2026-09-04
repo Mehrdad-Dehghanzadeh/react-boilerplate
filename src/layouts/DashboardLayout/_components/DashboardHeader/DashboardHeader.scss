@@ -8,8 +8,10 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  height: 74px;
+  height: 86px;
+  flex: 0 0 86px;
   padding: 0px 32px;
+  border-radius: 16px;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: saturate(160%) blur(10px);
   border-bottom: 1px solid rgb(237, 237, 229);

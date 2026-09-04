@@ -57,6 +57,10 @@
       direction: ltr;
       text-align: right;
     }
+
+    &--dense {
+      height: 40px;
+    }
   }
 
   &__suffix {
@@ -132,11 +136,11 @@
   }
 
   &__label {
-    color: #334155;
+    color: #1F2833;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 12px;
     display: block;
-    padding-bottom: 8px;
+    padding-bottom: 2px;
     padding-right: 8px;
   }
 

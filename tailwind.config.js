@@ -9,6 +9,7 @@ module.exports = {
       white: 'var(--color-white)',
       black: 'var(--color-black)',
       green: 'var(--color-green)',
+      primary: 'var(--color-primary)',
       success: 'var(--color-success)',
       'success-dark': 'var(--color-success-dark)',
       yellow: 'var(--color-yellow)',
@@ -26,6 +27,7 @@ module.exports = {
       t4: 'var(--color-text-t4)',
       t5: 'var(--color-text-t5)',
       t7: 'var(--color-text-t7)',
+      't-dark': 'var(--color-text-dark)',
       'success-dark': 'var(--color-success-dark)'
     },
     fontFamily: {
