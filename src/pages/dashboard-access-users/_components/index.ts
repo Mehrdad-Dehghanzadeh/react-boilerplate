@@ -11,4 +11,4 @@ export * from './Step2/Step2'
 export * from './Step2/TStep2'
 
 export * from './FiltersTable/FiltersTable'
-export * from './FiltersTable/TFiltersTable'
+
