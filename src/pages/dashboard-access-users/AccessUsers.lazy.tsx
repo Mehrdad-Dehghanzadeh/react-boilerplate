@@ -14,13 +14,14 @@ import {
 import { apis } from '@services'
 import { deepClone, hasItem } from '@utils'
 import TrashIcon from '@assets/svg/trash.svg?react'
+import EditIcon from '@assets/svg/edit.svg?react'
 import { useAccessUserStore } from '@store'
+import { flushSync } from 'react-dom'
 
 const AccessUsersPage: FC = () => {
+  const [records, setRecords] = useState<TAccountItem[]>([])
   const [loading, setLoading] = useState<boolean>(false)
-  const [data, setData] = useState<TAccountItem[]>([])
-  const totalData = useRef<TAccountItem[]>([])
-  const { setBranches } = useAccessUserStore()
+  const { setBranches, setData, setEditRecord, editRecord } = useAccessUserStore()
 
   const addUserDialogRef = useRef<TAddUserDialogHandle>(null)
   const removeUserDialogRef = useRef<TRemoveUserDialogHandle>(null)
@@ -63,14 +64,30 @@ const AccessUsersPage: FC = () => {
       keyData: 'operation',
       cellStyle: { width: '90px' },
       cellFC: (record) => (
-        <span
-          className="remove-btn"
-          role="button"
-          onClick={() => {
-            removeUserDialogRef?.current?.openDialog(record)
-          }}
-        >
-          <TrashIcon />
+        <span className="flex gap-3 items-center">
+          <span
+            className="remove-btn"
+            role="button"
+            onClick={() => {
+              removeUserDialogRef?.current?.openDialog(record)
+            }}
+          >
+            <TrashIcon />
+          </span>
+
+          <span
+            className="edit-btn"
+            role="button"
+            onClick={() => {
+              setEditRecord({ ...record })
+              flushSync(() => {
+                console.log(editRecord)
+                addUserDialogRef?.current?.openDialog()
+              })
+            }}
+          >
+            <EditIcon />
+          </span>
         </span>
       )
     }
@@ -83,7 +100,6 @@ const AccessUsersPage: FC = () => {
       .getUser()
       .then((res) => {
         if (hasItem(res?.data?.payload?.data?.accounts)) {
-          totalData.current = deepClone(res?.data?.payload?.data?.accounts)
           setData(deepClone(res?.data?.payload?.data?.accounts))
         }
 
@@ -117,9 +133,8 @@ const AccessUsersPage: FC = () => {
         </Button>
       </div>
 
-      <FiltersTable totalData={totalData.current} setData={setData} />
-      <TableGrid data={data} headers={headers} loading={loading} />
-
+      <FiltersTable setRecords={setRecords} />
+      <TableGrid data={records} headers={headers} loading={loading} />
       <AddUserDialog getData={getData} ref={addUserDialogRef} />
       <RemoveUserDialog getData={getData} ref={removeUserDialogRef} />
     </article>

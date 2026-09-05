@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Button, SelectField, TextField } from '@UIKit'
 import { mobileRule } from '@assets/validationsRules'
 import TrashIcon from '@assets/svg/trash.svg?react'
+import { useAccessUserStore } from '@store'
 
 const initialFormData: TFormData = {
   fullName: '',
@@ -11,7 +12,9 @@ const initialFormData: TFormData = {
   status: null
 }
 
-export const FiltersTable: FC<TFiltersTableProps> = ({ totalData, setData }) => {
+export const FiltersTable: FC<TFiltersTableProps> = ({ setRecords }) => {
+  const { data } = useAccessUserStore()
+
   const { control, handleSubmit, setValues } = useForm<TFormData>({
     defaultValues: {
       ...initialFormData
@@ -22,19 +25,19 @@ export const FiltersTable: FC<TFiltersTableProps> = ({ totalData, setData }) => 
     const { fullName, mobile, status: s } = formData
     const status = s ? Number(s) : null
 
-    const filterItems = totalData
+    const filterItems = data
       ?.filter((el1) => (status == null ? el1 : Boolean(status ?? Boolean(status))))
       ?.filter((el2) => (mobile ? el2.mobile === mobile : el2))
       ?.filter((el3) =>
         fullName ? el3?.first_name === fullName || el3?.last_name === fullName : el3
       )
 
-    setData(() => [...filterItems])
+    setRecords(() => [...filterItems])
   }
 
   const clearAll = () => {
     setValues(initialFormData)
-    setData(() => [...totalData])
+    setRecords(() => [...data])
   }
 
   return (

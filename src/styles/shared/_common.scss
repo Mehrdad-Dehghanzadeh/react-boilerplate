@@ -82,6 +82,25 @@
   overflow: hidden;
 }
 
+.edit-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  border: 1px solid #D0FBE5;
+  background: #D0FBE5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 1;
+  color: #14e77a;
+
+  &:hover {
+    background-color: #d7e7df;
+  }
+}
+
+
 .remove-btn {
   width: 34px;
   height: 34px;

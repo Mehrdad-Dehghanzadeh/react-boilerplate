@@ -8,6 +8,7 @@ import { useAccessUserStore } from '@store'
 export const AddUserDialog: FC<TAddUserDialogProps> = ({ ref, getData }) => {
   const { step, clear } = useAccessUserStore()
   const [open, setOpen] = useState<boolean>(false)
+
   const swiperRef = useRef<SwiperRef>(null)
 
   const handleStep = () => {

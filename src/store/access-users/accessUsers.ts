@@ -6,10 +6,15 @@ export const useAccessUserStore = create<TAccessUsersStore>((set) => ({
   formData: null,
   branchResData: null,
   branches: [],
+  data: [],
+  editRecord: null,
 
   setBranchResData: (branchResData) => set(() => ({ branchResData })),
+  setData: (data) => set(() => ({ data })),
   setBranches: (branches) => set(() => ({ branches })),
   setFormData: (formData) => set(() => ({ formData })),
   setStep: (step: number) => set(() => ({ step })),
-  clear: () => set(() => ({ step: 0, formData: null, branchResData: null }))
+  setEditRecord: (editRecord) => set(() => ({ editRecord })),
+  clear: () =>
+    set(() => ({ step: 0, formData: null, branchResData: null, editRecord: null }))
 }))

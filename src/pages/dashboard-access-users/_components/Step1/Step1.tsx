@@ -12,18 +12,26 @@ import { apis } from '@services'
 import type { IAddBranchPayload } from '@ts/services/Auth'
 import { handleResponseError, showSnackbar } from '@utils'
 
+const formDefaultValues: TAddUserForm = {
+  mobile: '',
+  branch_ids: [],
+  role: '',
+  first_name: '',
+  last_name: ''
+}
+
 export const Step1: FC<TStep1Props> = ({ close }) => {
-  const { branches, setBranchResData, setFormData, setStep } = useAccessUserStore()
+  const { branches, setBranchResData, setFormData, setStep, editRecord } =
+    useAccessUserStore()
+
+  const isEdit = (): boolean => Boolean(editRecord)
+
   const [role, setRole] = useState<TRoles | EmptyString>('')
   const [loading, setLoading] = useState<boolean>(false)
 
   const { control, handleSubmit, setValue } = useForm<TAddUserForm>({
     defaultValues: {
-      mobile: '',
-      branch_ids: [],
-      role: '',
-      first_name: '',
-      last_name: ''
+      ...formDefaultValues
     }
   })
 
@@ -43,7 +51,6 @@ export const Step1: FC<TStep1Props> = ({ close }) => {
 
   const handleForm = (formData: TAddUserForm) => {
     if (formData.role) {
-      console.log(formData)
       setLoading(true)
       const payload: IAddBranchPayload = {
         branch_ids: formData.branch_ids?.map((el) => Number(el)),
@@ -74,6 +81,18 @@ export const Step1: FC<TStep1Props> = ({ close }) => {
   useEffect(() => {
     setValue('role', role)
   }, [role])
+
+  useEffect(() => {
+    if (isEdit()) {
+      setValue('mobile', editRecord?.mobile || '')
+      setValue('first_name', editRecord?.first_name || '')
+      setValue('last_name', editRecord?.last_name || '')
+      setValue('role', editRecord?.role || '')
+      if (editRecord?.branch_id) {
+        setValue('branch_ids', [editRecord?.branch_id])
+      }
+    }
+  }, [editRecord])
 
   return (
     <section className="add-user-step-1">
