@@ -10,4 +10,5 @@ export type TAddUserForm = {
   role: TRoles | EmptyString
   first_name: string
   last_name: string
+  active: boolean | null
 }

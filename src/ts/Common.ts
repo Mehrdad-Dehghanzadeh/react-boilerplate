@@ -8,6 +8,7 @@ export type TAccountItem = {
   id: number
   active: boolean
   branch_id: number
+  branch_ids?: number[]
   created_at: string
   deleted_at: string
   first_name: string

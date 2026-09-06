@@ -69,6 +69,7 @@ export interface IAddBranchPayload {
   mobile: string
   branch_ids: number[]
   role: TRoles
+  active: boolean
 }
 
 export interface IAddBranchVerifyPayload extends IAddBranchPayload {
@@ -76,4 +77,10 @@ export interface IAddBranchVerifyPayload extends IAddBranchPayload {
   last_name: string
   session_id: string
   otp: string
+}
+
+export interface IUpdateUserPayload extends IAddBranchPayload {
+  user_account_id: number
+  first_name: string
+  last_name: string
 }

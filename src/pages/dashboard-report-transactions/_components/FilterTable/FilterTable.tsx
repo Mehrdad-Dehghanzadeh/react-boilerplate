@@ -7,8 +7,15 @@ import { type FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { removeFalseValue, hasItem, price, utcToJalaali } from '@utils'
 import { TICKET_STATUS_LIST, TICKET_STATUS } from '@constants'
-import ExcelIcon from '@assets/svg/excel.svg?react'
 import { useCsvBuilder } from '@hooks'
+import ExcelIcon from '@assets/svg/excel.svg?react'
+import TrashIcon from '@assets/svg/trash.svg?react'
+
+const INITIAL_FORM_VALUES: TForm = {
+  provider_branch_id: 0,
+  duration_create: 0,
+  status: ''
+}
 
 export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
   const ExcelColumns: TCsvColumns = [
@@ -43,15 +50,15 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
   ]
 
   const { branches, loading, setFilters } = useTransactionsStore()
-  const { control, handleSubmit } = useForm<TForm>({
-    defaultValues: {
-      provider_branch_id: 0,
-      duration_create: 0,
-      status: ''
-    }
+  const { control, handleSubmit, setValues } = useForm<TForm>({
+    defaultValues: { ...INITIAL_FORM_VALUES }
   })
 
   const { getDataCsv, csvLoading } = useCsvBuilder({ tableColumns: ExcelColumns })
+
+  const clearAll = () => {
+    setValues({ ...INITIAL_FORM_VALUES })
+  }
 
   const submit = (data: TForm) => {
     const payload: IHomePayload = removeFalseValue({
@@ -82,17 +89,18 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
         <SelectField
           className="w-[196px]"
           name="status"
-          inputLabel="وضعیت"
+          label="وضعیت"
           control={control}
           options={TICKET_STATUS_LIST}
           disabled={loading}
           clearable
+          dense
         />
 
         <SelectField
           className="w-[196px]"
           name="duration_create"
-          inputLabel="دوره"
+          label="دوره"
           control={control}
           options={[
             { title: 'روزانه', value: 1 },
@@ -102,20 +110,35 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
           ]}
           disabled={loading}
           clearable
+          dense
         />
 
         <SelectField
           className="w-[196px]"
           name="provider_branch_id"
-          inputLabel="شعبه"
+          label="شعبه"
           control={control}
           options={branches}
           disabled={loading}
+          dense
         />
 
-        <Button className="w-fit" loading={loading} type="submit">
+        <Button
+          className="w-[128px] h-10 mt-4 mr-4"
+          loading={loading}
+          type="submit"
+          curve
+        >
           فیلتر
         </Button>
+
+        <span
+          className="mr-4 flex items-center mt-5 text-error font-bold pointer-none"
+          onClick={clearAll}
+        >
+          <TrashIcon className="ml-1" />
+          <span>حذف همه</span>
+        </span>
       </form>
 
       <div>

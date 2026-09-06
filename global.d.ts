@@ -104,7 +104,7 @@ type TGender = 'MALE' | 'FEMALE'
 
 type TSelectOption<T = any> = {
   title: string
-  value: string | number | EmptyString
+  value: string | number | EmptyString | boolean
   itemData?: T
 }
 

@@ -20,8 +20,8 @@ import { flushSync } from 'react-dom'
 
 const AccessUsersPage: FC = () => {
   const [records, setRecords] = useState<TAccountItem[]>([])
-  const [loading, setLoading] = useState<boolean>(false)
-  const { setBranches, setData, setEditRecord, editRecord } = useAccessUserStore()
+  const { setBranches, setData, setEditRecord, editRecord, loading, setLoading } =
+    useAccessUserStore()
 
   const addUserDialogRef = useRef<TAddUserDialogHandle>(null)
   const removeUserDialogRef = useRef<TRemoveUserDialogHandle>(null)
@@ -101,9 +101,11 @@ const AccessUsersPage: FC = () => {
       .then((res) => {
         if (hasItem(res?.data?.payload?.data?.accounts)) {
           setData(deepClone(res?.data?.payload?.data?.accounts))
+          setRecords(deepClone(res?.data?.payload?.data?.accounts))
         }
 
         if (hasItem(res?.data?.payload?.data?.branches)) {
+          console.log(res?.data?.payload?.data?.branches)
           setBranches(deepClone(res?.data?.payload?.data?.branches))
         }
       })

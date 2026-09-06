@@ -5,6 +5,7 @@ import type { TAccountItem } from '@/ts/Common'
 
 export type TAccessUsersStates = {
   step: number
+  loading: boolean
   branchResData: ILoginRes | null
   formData: TAddUserForm | null
   branches: TBranchItems
@@ -14,6 +15,7 @@ export type TAccessUsersStates = {
 
 export type TAccessUsersStore = TAccessUsersStates & {
   setStep: (step: number) => void
+  setLoading: (loading: boolean) => void
   setBranchResData: (data: ILoginRes) => void
   setFormData: (data: TAddUserForm) => void
   setBranches: (branches: TBranchItems) => void

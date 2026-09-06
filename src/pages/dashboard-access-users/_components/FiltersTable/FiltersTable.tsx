@@ -13,7 +13,7 @@ const initialFormData: TFormData = {
 }
 
 export const FiltersTable: FC<TFiltersTableProps> = ({ setRecords }) => {
-  const { data } = useAccessUserStore()
+  const { data, loading } = useAccessUserStore()
 
   const { control, handleSubmit, setValues } = useForm<TFormData>({
     defaultValues: {
@@ -71,7 +71,7 @@ export const FiltersTable: FC<TFiltersTableProps> = ({ setRecords }) => {
         dense
       />
 
-      <Button type="submit" className="w-[180px] h-10 mt-5 mr-4" curve>
+      <Button loading={loading} type="submit" className="w-[180px] h-10 mt-5 mr-4" curve>
         مشاهده
       </Button>
 

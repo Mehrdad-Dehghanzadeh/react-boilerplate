@@ -31,7 +31,7 @@ export type TInputProps = {
 
 export type TSelectInputItem<T = any> = {
   title: string
-  value: string | number | EmptyString
+  value: string | number | EmptyString | boolean
   itemData?: T
 }
 

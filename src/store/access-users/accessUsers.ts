@@ -8,8 +8,10 @@ export const useAccessUserStore = create<TAccessUsersStore>((set) => ({
   branches: [],
   data: [],
   editRecord: null,
+  loading: false,
 
   setBranchResData: (branchResData) => set(() => ({ branchResData })),
+  setLoading: (loading) => set(() => ({ loading })),
   setData: (data) => set(() => ({ data })),
   setBranches: (branches) => set(() => ({ branches })),
   setFormData: (formData) => set(() => ({ formData })),
