@@ -1,0 +1,15 @@
+@use '@styles/mixins' as *;
+
+.clipboard {
+  display: flex;
+  align-items: flex-start;
+  width: fit-content;
+  @include pointer-none();
+
+  &__icon {
+    display: block;
+    color: var(--color-primary);
+    margin: 0 8px;
+    font-size: 24px;
+  }
+}

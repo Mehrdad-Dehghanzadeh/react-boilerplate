@@ -1,6 +1,5 @@
 import type { TAddUserForm } from './TStep1'
 import type { TStep1Props } from './TStep1'
-import { type TRoles } from '@ts/Common'
 import type { ILoginRes, IUpdateUserPayload } from '@ts/services/Auth'
 import { useEffect, useState, type FC } from 'react'
 import { useForm } from 'react-hook-form'
@@ -80,8 +79,7 @@ export const Step1: FC<TStep1Props> = ({ close, closeUpdate }) => {
       setLoading(true)
 
       const payload: IUpdateUserPayload = {
-        branch_id_providers: formData.branch_ids?.map((el) => Number(el)),
-        mobile: formData.mobile,
+        branch_ids: formData.branch_ids?.map((el) => Number(el)),
         role: formData.role,
         active: Boolean(formData.active),
         first_name: formData.first_name?.trim(),
@@ -122,8 +120,8 @@ export const Step1: FC<TStep1Props> = ({ close, closeUpdate }) => {
       setValue('first_name', editRecord?.first_name || '')
       setValue('last_name', editRecord?.last_name || '')
       setValue('role', editRecord?.role || '')
-      if (editRecord?.branch_ids && hasItem(editRecord?.branch_ids)) {
-        setValue('branch_ids', [...editRecord?.branch_ids])
+      if (editRecord?.branch_id_providers && hasItem(editRecord?.branch_id_providers)) {
+        setValue('branch_ids', [...editRecord?.branch_id_providers])
       }
 
       if (typeof editRecord?.status === 'boolean') {
@@ -144,6 +142,7 @@ export const Step1: FC<TStep1Props> = ({ close, closeUpdate }) => {
             label="نام"
             rules={{ required: requiredRule() }}
           />
+
           <TextField
             control={control}
             name="last_name"
@@ -151,13 +150,16 @@ export const Step1: FC<TStep1Props> = ({ close, closeUpdate }) => {
             rules={{ required: requiredRule() }}
           />
         </div>
-        <TextField
-          className="mb-4"
-          control={control}
-          name="mobile"
-          label="شماره موبایل"
-          rules={{ required: requiredRule(), validate: mobileRule }}
-        />
+
+        {isEdit() && (
+          <TextField
+            className="mb-4"
+            control={control}
+            name="mobile"
+            label="شماره موبایل"
+            rules={{ required: requiredRule(), validate: mobileRule }}
+          />
+        )}
 
         <SelectField
           className="mb-4"

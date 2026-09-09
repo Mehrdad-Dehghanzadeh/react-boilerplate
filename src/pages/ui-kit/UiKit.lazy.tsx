@@ -10,7 +10,8 @@ import {
   Chip,
   Group,
   SelectField,
-  SelectSheetField
+  SelectSheetField,
+  Clipboard
 } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { requiredRule } from '@assets/validationsRules'
@@ -109,6 +110,8 @@ const UIKitPage = () => {
           />
         </Group>
       </form>
+
+      <Clipboard value='222' >سلام دنیا !</Clipboard>
     </article>
   )
 }

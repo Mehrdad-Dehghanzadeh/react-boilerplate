@@ -3,9 +3,8 @@ import type { TColor } from '@ts/Colors'
 import type { TCreditTickets, TTicketStatus } from '@ts/Merchant'
 import type { TPaginationTableProps } from './TPaginationTable'
 import { useEffect, useRef, useState, type FC } from 'react'
-import { Chip, SelectField, TableGrid, type TTableGridHeaders } from '@UIKit'
+import { Chip,TableGrid, type TTableGridHeaders } from '@UIKit'
 import { useForm } from 'react-hook-form'
-import { clsx } from 'clsx'
 import { apis } from '@services'
 import { TICKET_STATUS } from '@constants'
 import { getUserData, handleResponseError, hasItem, price, utcToJalaali } from '@utils'
@@ -13,7 +12,6 @@ import SpinnerSVG from '@assets/svg/spinner.svg?react'
 import { useTransactionsStore } from '@store'
 import { FilterTable } from '@pages/dashboard-report-transactions/_components'
 import './PaginationTable.scss'
-import { flushSync } from 'react-dom'
 
 export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const [data, setData] = useState<TCreditTickets[]>([])
@@ -33,7 +31,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const headers: TTableGridHeaders = [
     { title: 'شناسه', keyData: 'id' },
 
-    { title: 'شماره تراکنش', keyData: 'ticket_number' },
+    { title: 'شماره تراکنش', keyData: 'track_number' },
     {
       title: 'نوع تراکنش',
       keyData: 'merchantable_type',

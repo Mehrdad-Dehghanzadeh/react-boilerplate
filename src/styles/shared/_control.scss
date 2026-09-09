@@ -60,6 +60,16 @@
 
     &--dense {
       height: 40px;
+      padding: 8px 16px;
+
+      & + .control__clear {
+        top: 14px;
+
+      }
+
+      & + .control__clear-icon {
+        @include create-square(8px)
+      }
     }
   }
 
@@ -136,7 +146,7 @@
   }
 
   &__label {
-    color: #1F2833;
+    color: #1f2833;
     font-weight: 600;
     font-size: 12px;
     display: block;

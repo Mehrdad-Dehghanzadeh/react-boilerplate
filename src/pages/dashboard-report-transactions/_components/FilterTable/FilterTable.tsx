@@ -1,7 +1,7 @@
 import type { TCsvColumns } from '@ts/Common'
 import type { TForm, TFiltersProps } from './TFilterTable'
 import type { IHomePayload } from '@ts/services/Report'
-import { Button, SelectField } from '@UIKit'
+import { Button, SelectField, TextField } from '@UIKit'
 import { useTransactionsStore } from '@store'
 import { type FC } from 'react'
 import { useForm } from 'react-hook-form'
@@ -10,11 +10,14 @@ import { TICKET_STATUS_LIST, TICKET_STATUS } from '@constants'
 import { useCsvBuilder } from '@hooks'
 import ExcelIcon from '@assets/svg/excel.svg?react'
 import TrashIcon from '@assets/svg/trash.svg?react'
+import { mobileRule } from '@/assets/validationsRules'
 
 const INITIAL_FORM_VALUES: TForm = {
   provider_branch_id: 0,
   duration_create: 0,
-  status: ''
+  status: '',
+  mobile: '',
+  track_number: ''
 }
 
 export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
@@ -25,7 +28,7 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
     },
     {
       title: 'شماره تراکنش',
-      dataIndex: 'ticket_number'
+      dataIndex: 'track_number'
     },
 
     {
@@ -64,7 +67,9 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
     const payload: IHomePayload = removeFalseValue({
       provider_branch_id: Number(data?.provider_branch_id),
       duration_create: Number(data.duration_create),
-      status: data.status
+      status: data.status,
+      mobile: data.mobile,
+      track_number: data.track_number
     })
 
     setFilters(payload)
@@ -85,7 +90,28 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
 
   return (
     <section className="flex justify-between items-center mb-10" id="table-filter">
-      <form className="flex gap-3 items-center" onSubmit={handleSubmit(submit)}>
+      <form className="flex gap-3" onSubmit={handleSubmit(submit)}>
+        <TextField
+          className="w-[196px]"
+          name="mobile"
+          label="تلفن همراه کاربر"
+          rules={{ validate: mobileRule }}
+          control={control}
+          disabled={loading}
+          dense
+          clearable
+        />
+
+        <TextField
+          className="w-[196px]"
+          name="track_number"
+          label="کد پیگیری تراکنش"
+          control={control}
+          disabled={loading}
+          dense
+          clearable
+        />
+
         <SelectField
           className="w-[196px]"
           name="status"
@@ -147,6 +173,7 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
           type="button"
           loading={csvLoading}
           onClick={createExcel}
+          disabled={loading}
           color="success"
         >
           <span className="flex items-center">

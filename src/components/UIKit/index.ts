@@ -68,3 +68,6 @@ export * from './Modal/Modal'
 export * from './Modal/TModal'
 
 export * from './SelectMultiField/SelectMultiField'
+
+export * from './Clipboard/Clipboard'
+export * from './Clipboard/TClipboard'
