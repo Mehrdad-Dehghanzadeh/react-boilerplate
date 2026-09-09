@@ -4,7 +4,7 @@ import { type TRoles } from '@ts/Common'
 import type { ILoginRes, IUpdateUserPayload } from '@ts/services/Auth'
 import { useEffect, useState, type FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, Group, SelectField, TextField, SelectMultiField } from '@UIKit'
+import { Button, SelectField, TextField, SelectMultiField } from '@UIKit'
 import { mobileRule, requiredRule } from '@assets/validationsRules'
 import { useAccessUserStore } from '@store'
 import { apis } from '@services'
@@ -14,13 +14,14 @@ import { handleResponseError, showSnackbar, hasItem } from '@utils'
 const formDefaultValues: TAddUserForm = {
   mobile: '',
   branch_ids: [],
+  branch_id_providers: [],
   role: '',
   first_name: '',
   last_name: '',
   active: null
 }
 
-export const Step1: FC<TStep1Props> = ({ close }) => {
+export const Step1: FC<TStep1Props> = ({ close, closeUpdate }) => {
   const { branches, setBranchResData, setFormData, setStep, editRecord } =
     useAccessUserStore()
 
@@ -79,7 +80,7 @@ export const Step1: FC<TStep1Props> = ({ close }) => {
       setLoading(true)
 
       const payload: IUpdateUserPayload = {
-        branch_ids: formData.branch_ids?.map((el) => Number(el)),
+        branch_id_providers: formData.branch_ids?.map((el) => Number(el)),
         mobile: formData.mobile,
         role: formData.role,
         active: Boolean(formData.active),
@@ -91,6 +92,7 @@ export const Step1: FC<TStep1Props> = ({ close }) => {
       apis.auth
         .updateUser(payload)
         .then(() => {
+          closeUpdate()
           showSnackbar({ type: 'success', message: 'اطلاعات کاربر ویرایش شد' })
         })
         .catch((e) => {
@@ -122,6 +124,12 @@ export const Step1: FC<TStep1Props> = ({ close }) => {
       setValue('role', editRecord?.role || '')
       if (editRecord?.branch_ids && hasItem(editRecord?.branch_ids)) {
         setValue('branch_ids', [...editRecord?.branch_ids])
+      }
+
+      if (typeof editRecord?.status === 'boolean') {
+        setValue('active', editRecord?.status ? 1 : 0)
+      } else {
+        setValue('active', null)
       }
     }
   }, [editRecord])

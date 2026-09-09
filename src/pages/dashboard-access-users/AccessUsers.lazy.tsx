@@ -12,7 +12,7 @@ import {
   FiltersTable
 } from './_components'
 import { apis } from '@services'
-import { deepClone, hasItem } from '@utils'
+import { deepClone, handleResponseError, hasItem } from '@utils'
 import TrashIcon from '@assets/svg/trash.svg?react'
 import EditIcon from '@assets/svg/edit.svg?react'
 import { useAccessUserStore } from '@store'
@@ -74,20 +74,21 @@ const AccessUsersPage: FC = () => {
           >
             <TrashIcon />
           </span>
-
-          <span
-            className="edit-btn"
-            role="button"
-            onClick={() => {
-              setEditRecord({ ...record })
-              flushSync(() => {
-                console.log(editRecord)
-                addUserDialogRef?.current?.openDialog()
-              })
-            }}
-          >
-            <EditIcon />
-          </span>
+          {!Boolean(record?.merchant_id) && (
+            <span
+              className="edit-btn"
+              role="button"
+              onClick={() => {
+                setEditRecord({ ...record })
+                flushSync(() => {
+                  console.log(editRecord)
+                  addUserDialogRef?.current?.openDialog()
+                })
+              }}
+            >
+              <EditIcon />
+            </span>
+          )}
         </span>
       )
     }
@@ -109,7 +110,9 @@ const AccessUsersPage: FC = () => {
           setBranches(deepClone(res?.data?.payload?.data?.branches))
         }
       })
-      .catch(() => {})
+      .catch((e) => {
+        handleResponseError(e)
+      })
       .finally(() => {
         setLoading(false)
       })

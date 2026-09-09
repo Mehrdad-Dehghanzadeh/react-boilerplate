@@ -67,7 +67,7 @@ export interface IGetUserRes {
 
 export interface IAddBranchPayload {
   mobile: string
-  branch_ids: number[]
+  branch_ids?: number[]
   role: TRoles
   active: boolean
 }
@@ -83,4 +83,5 @@ export interface IUpdateUserPayload extends IAddBranchPayload {
   user_account_id: number
   first_name: string
   last_name: string
+  branch_id_providers?: number[]
 }

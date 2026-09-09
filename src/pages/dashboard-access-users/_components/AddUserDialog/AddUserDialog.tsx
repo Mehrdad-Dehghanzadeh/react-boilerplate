@@ -63,7 +63,7 @@ export const AddUserDialog: FC<TAddUserDialogProps> = ({ ref, getData }) => {
         ref={swiperRef}
       >
         <SwiperSlide>
-          <Step1 close={close} />
+          <Step1 close={close} closeUpdate={closeUpdate} />
         </SwiperSlide>
 
         <SwiperSlide>

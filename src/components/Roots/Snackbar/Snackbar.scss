@@ -24,6 +24,11 @@
     color: var(--color-status-error);
   }
 
+  &-success {
+    background-color: var(--color-tag-success);
+    color: var(--color-status-success);
+  }
+
   &__icon {
     display: block;
     margin-left: 8px;

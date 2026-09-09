@@ -60,11 +60,7 @@ export const TextField: FC<TTextFieldProps> = ({
             classNameControl
           )}
         >
-          {Boolean(label) && (
-            <label className="control__label" htmlFor={selfId}>
-              {label}
-            </label>
-          )}
+          {Boolean(label) && <span className="control__label">{label}</span>}
           <div className="control__wrapper">
             {Boolean(prefixIcon) && (
               <span className="control__prefix-icon">{prefixIcon}</span>

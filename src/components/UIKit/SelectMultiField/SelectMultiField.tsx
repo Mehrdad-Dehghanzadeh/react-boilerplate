@@ -116,11 +116,7 @@ export const SelectMultiField: FC<TSelectMultiFieldProps> = ({
             )}
             role="combobox"
           >
-            {Boolean(label) && (
-              <label className="control__label" htmlFor={selfId}>
-                {label}
-              </label>
-            )}
+            {Boolean(label) && <span className="control__label">{label}</span>}
 
             <div
               className={clsx('control__wrapper', {

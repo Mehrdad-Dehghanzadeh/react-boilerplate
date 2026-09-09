@@ -75,11 +75,7 @@ export const SelectField: FC<TSelectFieldProps> = ({
             classNameControl
           )}
         >
-          {Boolean(label) && (
-            <label className="control__label" htmlFor={selfId}>
-              {label}
-            </label>
-          )}
+          {Boolean(label) && <span className="control__label">{label}</span>}
 
           <div
             className={clsx('control__wrapper', {
@@ -146,7 +142,7 @@ export const SelectField: FC<TSelectFieldProps> = ({
             <option value=""></option>
             {hasOptions &&
               options?.map((item) => (
-                <option key={`${item.value}-${selfId}`} value={item.value}>
+                <option key={`${item.value}-${selfId}`} value={item.value as 'string' | 'number'}>
                   {item.title}
                 </option>
               ))}
