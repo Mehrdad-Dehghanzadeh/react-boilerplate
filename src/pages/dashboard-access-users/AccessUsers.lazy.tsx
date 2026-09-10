@@ -38,12 +38,15 @@ const AccessUsersPage: FC = () => {
 
     {
       title: 'وضعیت',
-      keyData: 'status',
-      cellFC: (status) =>
+      cellFC: (record) =>
         //@ts-ignore
-        status ? (
-          <Chip color={status ? 'success' : 'error'}>{status ? 'فعال' : 'غیر فعال'}</Chip>
-        ) : null
+        {
+          return (
+            <Chip color={record?.status ? 'success' : 'error'}>
+              {record?.status ? 'فعال' : 'غیر فعال'}
+            </Chip>
+          )
+        }
     },
 
     {

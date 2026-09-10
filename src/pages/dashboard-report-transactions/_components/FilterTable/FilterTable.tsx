@@ -51,10 +51,10 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
 
   const INITIAL_FORM_VALUES: TForm = {
     provider_branch_id: profile?.branches?.[0]?.provider_id ?? 0,
-    duration_create: 0,
     status: '',
     mobile: '',
-    track_number: ''
+    track_number: '',
+    amount: 0
   }
 
   const { control, handleSubmit, setValues } = useForm<TForm>({
@@ -70,10 +70,10 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
   const submit = (data: TForm) => {
     const payload: IHomePayload = removeFalseValue({
       provider_branch_id: Number(data?.provider_branch_id),
-      duration_create: Number(data.duration_create),
       status: data.status,
       mobile: data.mobile,
-      track_number: data.track_number
+      track_number: data.track_number,
+      amount: data.amount ?  Number(data.amount) : 0
     })
 
     setFilters(payload)
@@ -102,81 +102,74 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
 
   return (
     <section className="flex justify-between items-center mb-10" id="table-filter">
-      <form className="flex gap-3" onSubmit={handleSubmit(submit)}>
-        <TextField
-          className="w-[196px]"
-          name="mobile"
-          label="تلفن همراه کاربر"
-          rules={{ validate: mobileRule }}
-          control={control}
-          disabled={loading}
-          dense
-          clearable
-        />
+      <form className="flex gap-2" onSubmit={handleSubmit(submit)}>
+        <div className="flex flex-wrap gap-3">
+          <TextField
+            className="w-[196px]"
+            name="mobile"
+            label="تلفن همراه کاربر"
+            rules={{ validate: mobileRule }}
+            control={control}
+            disabled={loading}
+            dense
+            clearable
+          />
 
-        <TextField
-          className="w-[196px]"
-          name="track_number"
-          label="کد پیگیری تراکنش"
-          control={control}
-          disabled={loading}
-          dense
-          clearable
-        />
+          <TextField
+            className="w-[196px]"
+            name="amount"
+            label="مبلغ"
+            control={control}
+            disabled={loading}
+            dense
+            clearable
+          />
 
-        <SelectField
-          className="w-[196px]"
-          name="status"
-          label="وضعیت"
-          control={control}
-          options={TICKET_STATUS_LIST}
-          disabled={loading}
-          clearable
-          dense
-        />
+          <TextField
+            className="w-[196px]"
+            name="track_number"
+            label="کد پیگیری تراکنش"
+            control={control}
+            disabled={loading}
+            dense
+            clearable
+          />
 
-        <SelectField
-          className="w-[196px]"
-          name="duration_create"
-          label="دوره"
-          control={control}
-          options={[
-            { title: 'روزانه', value: 1 },
-            { title: 'هفته', value: 7 },
-            { title: 'ماه', value: 30 },
-            { title: 'سه ماه', value: 90 }
-          ]}
-          disabled={loading}
-          clearable
-          dense
-        />
+          <SelectField
+            className="w-[196px]"
+            name="status"
+            label="وضعیت"
+            control={control}
+            options={TICKET_STATUS_LIST}
+            disabled={loading}
+            clearable
+            dense
+          />
 
-        <SelectField
-          className="w-[196px]"
-          name="provider_branch_id"
-          label="شعبه"
-          control={control}
-          options={getBranchesOptions()}
-          disabled={loading}
-          dense
-        />
+          <SelectField
+            className="w-[196px]"
+            name="provider_branch_id"
+            label="شعبه"
+            control={control}
+            options={getBranchesOptions()}
+            disabled={loading}
+            dense
+          />
+        </div>
 
-        <Button
-          className="w-[128px] h-10 mt-4 mr-4"
-          loading={loading}
-          type="submit"
-          curve
-        >
-          فیلتر
-        </Button>
+        <div className="flex w-fit items-end pl-5">
+          <Button className="w-[128px] h-10" loading={loading} type="submit" curve>
+            فیلتر
+          </Button>
 
-        <span
-          className="mr-4 flex items-center mt-5 text-error font-bold pointer-none"
-          onClick={clearAll}
-        >
-          <TrashIcon className="ml-1" />
-          <span>حذف همه</span>
-        </span>
+          <span
+            className="mr-4 flex items-center mb-2 text-error font-bold pointer-none whitespace-nowrap"
+            onClick={clearAll}
+          >
+            <TrashIcon className="ml-1" />
+            <span>حذف همه</span>
+          </span>
+        </div>
       </form>
 
       {/* <div>

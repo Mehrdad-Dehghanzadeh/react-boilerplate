@@ -54,8 +54,7 @@ export const Step1: FC<TStep1Props> = ({ close, closeUpdate }) => {
       const payload: IAddBranchPayload = {
         branch_ids: formData.branch_ids?.map((el) => Number(el)),
         mobile: formData.mobile,
-        role: formData.role,
-        active: Boolean(formData.active)
+        role: formData.role
       }
 
       apis.auth
@@ -77,11 +76,10 @@ export const Step1: FC<TStep1Props> = ({ close, closeUpdate }) => {
   const editUser = (formData: TAddUserForm) => {
     if (formData.role && editRecord?.id) {
       setLoading(true)
-
       const payload: IUpdateUserPayload = {
         branch_ids: formData.branch_ids?.map((el) => Number(el)),
         role: formData.role,
-        active: Boolean(formData.active),
+        active: formData.active ? Boolean(Number(formData.active)) : false,
         first_name: formData.first_name?.trim(),
         last_name: formData.last_name?.trim(),
         user_account_id: editRecord?.id
@@ -137,6 +135,7 @@ export const Step1: FC<TStep1Props> = ({ close, closeUpdate }) => {
       <form onSubmit={handleSubmit(handleForm)}>
         <div className="flex gap-3 mb-4">
           <TextField
+            className="w-full"
             control={control}
             name="first_name"
             label="نام"
@@ -144,6 +143,7 @@ export const Step1: FC<TStep1Props> = ({ close, closeUpdate }) => {
           />
 
           <TextField
+            className="w-full"
             control={control}
             name="last_name"
             label="نام خانوادگی"
@@ -161,17 +161,19 @@ export const Step1: FC<TStep1Props> = ({ close, closeUpdate }) => {
           />
         )}
 
-        <SelectField
-          className="mb-4"
-          name="active"
-          label="وضعیت کاربر"
-          control={control}
-          options={[
-            { title: 'فعال', value: 1 },
-            { title: 'غیر فعال', value: 0 }
-          ]}
-          rules={{ required: requiredRule() }}
-        />
+        {isEdit() && (
+          <SelectField
+            className="mb-4"
+            name="active"
+            label="وضعیت کاربر"
+            control={control}
+            options={[
+              { title: 'فعال', value: 1 },
+              { title: 'غیر فعال', value: 0 }
+            ]}
+            rules={{ required: requiredRule() }}
+          />
+        )}
 
         <SelectField
           className="mb-4"

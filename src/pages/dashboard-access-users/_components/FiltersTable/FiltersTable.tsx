@@ -26,7 +26,9 @@ export const FiltersTable: FC<TFiltersTableProps> = ({ setRecords }) => {
     const status = s ? Number(s) : null
 
     const filterItems = data
-      ?.filter((el1) => (status == null ? el1 : Boolean(status ?? Boolean(status))))
+      ?.filter((el1) =>
+        status == null ? el1 : el1.status == Boolean(status ?? Boolean(status))
+      )
       ?.filter((el2) => (mobile ? el2.mobile === mobile : el2))
       ?.filter((el3) =>
         fullName ? el3?.first_name === fullName || el3?.last_name === fullName : el3

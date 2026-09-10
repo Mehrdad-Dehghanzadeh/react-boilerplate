@@ -19,9 +19,10 @@ export interface IDashboardRes {
 
 export interface IHomePayload {
   last_id?: number
-  duration_create?: number
   provider_branch_id?: number
   status?: TTicketStatus | ''
+  track_number?: string
+  amount?: number
 }
 
 export interface IHomeRes {

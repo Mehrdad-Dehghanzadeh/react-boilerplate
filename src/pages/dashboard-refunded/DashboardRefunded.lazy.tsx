@@ -2,10 +2,10 @@ import { useEffect, type FC } from 'react'
 import { createLazyRoute } from '@tanstack/react-router'
 import { URLS } from '@constants'
 import { TransactionsTab } from './_components'
-import { useTransactionsStore } from '@store'
+import { useRefundStore } from '@store'
 
 const DashboardRefunded: FC = () => {
-  const { setFilters } = useTransactionsStore()
+  const { setFilters } = useRefundStore()
 
   useEffect(
     () => () => {
