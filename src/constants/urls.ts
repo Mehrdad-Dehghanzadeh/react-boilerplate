@@ -13,8 +13,8 @@ export const URLS = deepFreeze<TUrls>({
 
   dashboard: {
     href: '/dashboard',
-    title: 'گزارش تراکنش ها و تسویه',
-    subTitle: 'مشاهده و مدیریت تراکنش‌ها و تسویه‌ها',
+    title: 'گزارش تراکنش ها',
+    subTitle: 'مشاهده و مدیریت تراکنش‌ها',
     icon: 'FileIcon'
   },
 

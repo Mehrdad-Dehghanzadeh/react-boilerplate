@@ -31,12 +31,15 @@ export interface IVerifyRes {
 }
 
 export interface IProfileRes {
-  branch: {
-    id: number
-    created_at: string
-    provider_id: number
-    merchant_id: number
-  } | null
+  branches:
+    | {
+        name: string
+        id: number
+        created_at: string
+        provider_id: number
+        merchant_id: number
+      }[]
+    | null
 
   merchant: {
     id: number

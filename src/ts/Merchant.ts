@@ -38,6 +38,7 @@ export type TTicketStatus =
   | 'REFUNDED'
   | 'SUCCEED'
   | 'PENDING'
+  | 'PARTIAL_REFUNDED'
 
 export type TMerchantTypes = 'merchant_cashier' | 'merchant_branch'
 

@@ -1,3 +1,5 @@
+@use '@styles/mixins' as *;
+
 .dashboard-layout {
   display: flex;
   min-height: 100vh;
@@ -15,5 +17,12 @@
   &__main {
     padding: 28px 0 32px;
     overflow-y: auto;
+  }
+
+  &__loading {
+    height: 100%;
+    color: var(--color-secondary);
+    font-size: 128px;
+    @include flex-center();
   }
 }

@@ -10,15 +10,8 @@ import { TICKET_STATUS_LIST, TICKET_STATUS } from '@constants'
 import { useCsvBuilder } from '@hooks'
 import ExcelIcon from '@assets/svg/excel.svg?react'
 import TrashIcon from '@assets/svg/trash.svg?react'
-import { mobileRule } from '@/assets/validationsRules'
-
-const INITIAL_FORM_VALUES: TForm = {
-  provider_branch_id: 0,
-  duration_create: 0,
-  status: '',
-  mobile: '',
-  track_number: ''
-}
+import { mobileRule } from '@assets/validationsRules'
+import { useAppStore } from '@store'
 
 export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
   const ExcelColumns: TCsvColumns = [
@@ -52,7 +45,18 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
     }
   ]
 
+  const { profile } = useAppStore()
+
   const { branches, loading, setFilters } = useTransactionsStore()
+
+  const INITIAL_FORM_VALUES: TForm = {
+    provider_branch_id: profile?.branches?.[0]?.provider_id ?? 0,
+    duration_create: 0,
+    status: '',
+    mobile: '',
+    track_number: ''
+  }
+
   const { control, handleSubmit, setValues } = useForm<TForm>({
     defaultValues: { ...INITIAL_FORM_VALUES }
   })
@@ -87,6 +91,14 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
 
     getDataCsv(payload, `transactions-${Date.now()}`)
   }
+
+  const getBranchesOptions = () =>
+    Boolean(profile?.account?.merchant_id)
+      ? branches
+      : profile?.branches?.map((el) => ({
+          title: el?.name,
+          value: Number(el?.provider_id)
+        })) || []
 
   return (
     <section className="flex justify-between items-center mb-10" id="table-filter">
@@ -144,7 +156,7 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
           name="provider_branch_id"
           label="شعبه"
           control={control}
-          options={branches}
+          options={getBranchesOptions()}
           disabled={loading}
           dense
         />
@@ -167,7 +179,7 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
         </span>
       </form>
 
-      <div>
+      {/* <div>
         <Button
           className="w-36"
           type="button"
@@ -181,7 +193,7 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
             <span className="font-sm font-bold mr-2">خروجی Excel</span>
           </span>
         </Button>
-      </div>
+      </div> */}
     </section>
   )
 }

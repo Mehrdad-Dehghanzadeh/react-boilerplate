@@ -151,7 +151,7 @@ export const Step1: FC<TStep1Props> = ({ close, closeUpdate }) => {
           />
         </div>
 
-        {isEdit() && (
+        {!isEdit() && (
           <TextField
             className="mb-4"
             control={control}

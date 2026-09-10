@@ -37,6 +37,10 @@ export const TICKET_STATUS: Record<TTicketStatus, EnumMapper> = {
     title: 'مسترد'
   },
 
+  PARTIAL_REFUNDED: {
+    title: 'استرداد'
+  },
+
   REJECTED: {
     title: 'رد'
   },

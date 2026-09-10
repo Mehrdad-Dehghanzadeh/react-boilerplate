@@ -3,13 +3,13 @@ import type { TColor } from '@ts/Colors'
 import type { TCreditTickets, TTicketStatus } from '@ts/Merchant'
 import type { TPaginationTableProps } from './TPaginationTable'
 import { useEffect, useRef, useState, type FC } from 'react'
-import { Chip,TableGrid, type TTableGridHeaders } from '@UIKit'
+import { Chip, TableGrid, type TTableGridHeaders, Clipboard } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { apis } from '@services'
 import { TICKET_STATUS } from '@constants'
 import { getUserData, handleResponseError, hasItem, price, utcToJalaali } from '@utils'
 import SpinnerSVG from '@assets/svg/spinner.svg?react'
-import { useTransactionsStore } from '@store'
+import { useAppStore, useTransactionsStore } from '@store'
 import { FilterTable } from '@pages/dashboard-report-transactions/_components'
 import './PaginationTable.scss'
 
@@ -24,6 +24,8 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     defaultValues: { pageSize: 50 }
   })
 
+  const { profile } = useAppStore()
+
   const totalData = useRef<TCreditTickets[]>([])
 
   const pageSize = watch('pageSize')
@@ -31,7 +33,19 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const headers: TTableGridHeaders = [
     { title: 'شناسه', keyData: 'id' },
 
-    { title: 'شماره تراکنش', keyData: 'track_number' },
+    {
+      title: 'نام کاربر',
+      cellFC: (record) => <span>{`${record?.name} ${record?.family}`}</span>
+    },
+
+    {
+      title: 'شماره تراکنش',
+      keyData: 'track_number',
+      cellFC: (track_number) =>
+        track_number ? <Clipboard value={track_number}>{track_number}</Clipboard> : null
+    },
+    { title: 'نام شعبه', keyData: 'store_name' },
+
     {
       title: 'نوع تراکنش',
       keyData: 'merchantable_type',
@@ -65,24 +79,24 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       keyData: 'amount',
       cellFC: (amount) => <span>{price(amount)}</span>
     },
-    {
-      title: 'جزئیات',
-      cellStyle: { width: '80px' },
-      cellFC: (record) => (
-        <button
-          className="btn-2 block"
-          onClick={() => {
-            customerInfo(record)
-          }}
-        >
-          {indexLoading === record?.customer_id ? (
-            <SpinnerSVG className="spinner" />
-          ) : (
-            'جزئیات'
-          )}
-        </button>
-      )
-    }
+    // {
+    //   title: 'جزئیات',
+    //   cellStyle: { width: '80px' },
+    //   cellFC: (record) => (
+    //     <button
+    //       className="btn-2 block"
+    //       onClick={() => {
+    //         customerInfo(record)
+    //       }}
+    //     >
+    //       {indexLoading === record?.customer_id ? (
+    //         <SpinnerSVG className="spinner" />
+    //       ) : (
+    //         'جزئیات'
+    //       )}
+    //     </button>
+    //   )
+    // }
   ]
 
   const updateData = (p?: number) => {
@@ -93,6 +107,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   const setBranchOptions = (data: IHomeRes) => {
+    const userData = getUserData()
     const temp = hasItem(data?.merchant_store?.branches)
       ? data?.merchant_store?.branches?.map((el) => ({
           value: el?.id,
@@ -100,7 +115,9 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         }))
       : []
 
-    temp?.unshift({ title: 'همه شعب', value: 0 })
+    if (Boolean(userData?.merchant_id)) {
+      temp?.unshift({ title: 'همه شعب', value: 0 })
+    }
 
     setBranches(temp)
   }
@@ -192,7 +209,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   useEffect(() => {
-    getDataTable()
+    getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
   }, [])
 
   useEffect(() => {
