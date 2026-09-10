@@ -110,7 +110,7 @@ export const SelectSheetField: FC<TSelectSheetFieldProps> = ({
             <option value=""></option>
             {hasOptions &&
               options?.map((item) => (
-                <option key={`${item.value}-${selfId}`} value={item.value}>
+                <option key={`${item.value}-${selfId}`} value={item.value as string}>
                   {item.title}
                 </option>
               ))}

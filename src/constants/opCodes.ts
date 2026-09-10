@@ -11,5 +11,6 @@ export const OP_CODES = {
   UPDATE_USER: 11,
   HOME: 200,
   DASHBOARD: 201,
+  REFUNDED: 201,
   CUSTOMER_INFO: 203
 }

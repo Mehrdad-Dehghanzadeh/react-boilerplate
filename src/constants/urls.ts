@@ -18,6 +18,13 @@ export const URLS = deepFreeze<TUrls>({
     icon: 'FileIcon'
   },
 
+  refunded: {
+    href: '/dashboard/refunded',
+    title: 'گزارش استرداد وجه',
+    subTitle: 'گزارش استرداد وجه',
+    icon: 'MoneyTick'
+  },
+
   accessUsers: {
     href: '/dashboard/access-users',
     title: 'مدیریت دسترسی',
@@ -38,4 +45,4 @@ export const URLS = deepFreeze<TUrls>({
   }
 })
 
-export const DASHBOARD_NAV: TUrlList = [URLS.dashboard, URLS.accessUsers]
+export const DASHBOARD_NAV: TUrlList = [URLS.dashboard, URLS.refunded, URLS.accessUsers]

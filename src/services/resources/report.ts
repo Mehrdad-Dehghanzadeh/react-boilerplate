@@ -5,7 +5,8 @@ import type {
   IDashboardPayload,
   IHomeRes,
   ICustomerInfoPayload,
-  ICustomerInfoRes
+  ICustomerInfoRes,
+  IRefundPayload
 } from '@ts/services/Report'
 
 export default {
@@ -26,6 +27,13 @@ export default {
   customerInfo(payload: ICustomerInfoPayload) {
     return axiosInstance.post<IResponse<ICustomerInfoRes>>(API_RESOURCES.REPORT, {
       op_code: OP_CODES.CUSTOMER_INFO,
+      payload: JSON.stringify(payload)
+    })
+  },
+
+  refunded(payload?: IRefundPayload) {
+    return axiosInstance.post<IResponse>(API_RESOURCES.REPORT, {
+      op_code: OP_CODES.REFUNDED,
       payload: JSON.stringify(payload)
     })
   }

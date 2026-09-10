@@ -2,8 +2,7 @@ import type { TAccountItem } from '@/ts/Common'
 import { useState, type FC, useRef, useEffect } from 'react'
 import { createLazyRoute } from '@tanstack/react-router'
 import { ROLES_MAPPER, URLS } from '@constants'
-import { Button, Chip, TableGrid, type TTableGridHeaders } from '@UIKit'
-import { ProfileBadge } from '@shared'
+import { Button, Chip, TableGrid, type TTableGridHeaders, Clipboard } from '@UIKit'
 import {
   AddUserDialog,
   type TAddUserDialogHandle,
@@ -32,7 +31,6 @@ const AccessUsersPage: FC = () => {
       keyData: 'name',
       cellFC: (record) => (
         <span className="flex items-center">
-          <ProfileBadge color="secondary" name={record?.last_name} />
           <strong className="mr-3">{`${record?.first_name || ''} ${record?.last_name || ''}`}</strong>
         </span>
       )
@@ -56,7 +54,13 @@ const AccessUsersPage: FC = () => {
         role ? <Chip>{ROLES_MAPPER[role]?.title}</Chip> : null
     },
 
-    { title: 'موبایل', keyData: 'mobile' },
+    {
+      title: 'موبایل',
+      keyData: 'mobile',
+      cellFC: (mobile) =>
+        //@ts-ignore
+        mobile ? <Clipboard value={mobile}>{mobile}</Clipboard> : null
+    },
     { title: 'شعبه', keyData: 'provider_name' },
 
     {
@@ -65,29 +69,32 @@ const AccessUsersPage: FC = () => {
       cellStyle: { width: '90px' },
       cellFC: (record) => (
         <span className="flex gap-3 items-center">
-          <span
-            className="remove-btn"
-            role="button"
-            onClick={() => {
-              removeUserDialogRef?.current?.openDialog(record)
-            }}
-          >
-            <TrashIcon />
-          </span>
           {!Boolean(record?.merchant_id) && (
-            <span
-              className="edit-btn"
-              role="button"
-              onClick={() => {
-                setEditRecord({ ...record })
-                flushSync(() => {
-                  console.log(editRecord)
-                  addUserDialogRef?.current?.openDialog()
-                })
-              }}
-            >
-              <EditIcon />
-            </span>
+            <>
+              {/* <span
+                className="remove-btn"
+                role="button"
+                onClick={() => {
+                  removeUserDialogRef?.current?.openDialog(record)
+                }}
+              >
+                <TrashIcon />
+              </span> */}
+              <span
+                className="edit-btn"
+                role="button"
+                onClick={() => {
+                  setEditRecord({ ...record })
+                  flushSync(() => {
+                    console.log(editRecord)
+                    addUserDialogRef?.current?.openDialog()
+                  })
+                }}
+              >
+                <EditIcon />
+                <span className="mr-1">ویرایش</span>
+              </span>
+            </>
           )}
         </span>
       )
@@ -106,7 +113,6 @@ const AccessUsersPage: FC = () => {
         }
 
         if (hasItem(res?.data?.payload?.data?.branches)) {
-          console.log(res?.data?.payload?.data?.branches)
           setBranches(deepClone(res?.data?.payload?.data?.branches))
         }
       })

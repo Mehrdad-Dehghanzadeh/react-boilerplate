@@ -5,6 +5,7 @@ import DashboardIcon from '@assets/svg/dashboard.svg?react'
 import UsersIcon from '@assets/svg/users.svg?react'
 import FileIcon from '@assets/svg/file.svg?react'
 import DoorIcon from '@assets/svg/Door.svg?react'
+import MoneyTick from '@assets/svg/money-tick.svg?react'
 import { useAppStore } from '@store'
 import { getUserData, handleResponseError, deleteAllCookie } from '@utils'
 import { apis } from '@services'
@@ -23,7 +24,8 @@ export const AsideMenu: FC = () => {
     const icons = {
       DashboardIcon: <DashboardIcon />,
       UsersIcon: <UsersIcon />,
-      FileIcon: <FileIcon />
+      FileIcon: <FileIcon />,
+      MoneyTick: <MoneyTick />
     }
     return icons?.[icon as keyof typeof iconMapper] || null
   }

@@ -45,8 +45,16 @@ const profileDashboard = createRoute({
   path: '/profile'
 }).lazy(() => import('@pages/dashboard-profile/Profile.lazy').then((d) => d.Route))
 
+
+const refundedDashboard = createRoute({
+  getParentRoute: () => dashboardRoute,
+  path: '/refunded'
+}).lazy(() => import('@pages/dashboard-refunded/DashboardRefunded.lazy').then((d) => d.Route))
+
+
 export const dashboardRouteTree = dashboardRoute.addChildren([
   reportTransactionsDashboard,
   accessUsersDashboard,
-  profileDashboard
+  profileDashboard,
+  refundedDashboard
 ])

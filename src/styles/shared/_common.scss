@@ -83,20 +83,23 @@
 }
 
 .edit-btn {
-  width: 34px;
-  height: 34px;
+  width: fit-content;
+  height: 28px;
   border-radius: 9px;
-  border: 1px solid #D0FBE5;
-  background: #D0FBE5;
+  background: #00B7CE;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   opacity: 1;
-  color: #14e77a;
+  color:#D0FBE5;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  padding: 4px 10px;
 
   &:hover {
-    background-color: #d7e7df;
+    background-color: #00b6ce86;
   }
 }
 

@@ -20,6 +20,19 @@ export type TCreditTickets = {
   updated_at: string
 }
 
+export type TRefund = {
+  id: number
+  requested_amount: number
+  amount: number
+  status: TRefundStatus
+  created_at: string
+  mobile: string
+  name: string
+  family: string
+  store_name: string
+  track_number: string
+}
+
 export type TTransactions = {
   merchant_payable_amount: number
   remaining_amount: number
@@ -40,9 +53,12 @@ export type TTicketStatus =
   | 'PENDING'
   | 'PARTIAL_REFUNDED'
 
+export type TRefundStatus = 'PENDING' | 'APPROVED' | 'CANCELED' | 'REJECTED'
+
 export type TMerchantTypes = 'merchant_cashier' | 'merchant_branch'
 
 export type TBranch = {
+  credit_ticket_refunded: any
   id: number
   store_name: string
   manager_name: string
