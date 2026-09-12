@@ -1,0 +1,48 @@
+.calendar-field {
+  &__day-picker {
+    --rdp-today-color: var(--color-green);
+    --rdp-day_button-border-radius: 12px;
+    --rdp-selected-border: 2px solid var(--color-green);
+
+    margin-top: 24px;
+
+    .rdp-months {
+      width: 100%;
+      max-width: initial;
+    }
+
+    .rdp-month,
+    .rdp-month_grid {
+      width: 100%;
+    }
+
+    .rdp-chevron {
+      fill: var(--color-fg);
+    }
+
+    .rdp-nav {
+      top: 0;
+      left: 8px;
+    }
+
+    .rdp-selected .rdp-day_button {
+      color: var(--color-green);
+    }
+
+    .rdp-day_button {
+      margin: 0 auto;
+    }
+
+    .rdp-day.rdp-disabled {
+      opacity: 0.35;
+    }
+  }
+
+  .control__suffix {
+    top: 14px;
+
+    svg {
+      height: 24px;
+    }
+  }
+}

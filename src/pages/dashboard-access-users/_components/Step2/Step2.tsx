@@ -29,7 +29,6 @@ export const Step2: FC<TStep2Props> = ({ closeUpdate }) => {
         session_id: branchResData?.session_id,
         first_name: formData?.first_name,
         last_name: formData?.last_name,
-        active: Boolean(formData.active),
         otp
       }
 

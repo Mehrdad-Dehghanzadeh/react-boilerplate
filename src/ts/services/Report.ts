@@ -57,6 +57,7 @@ export interface IRefundPayload {
   status?: TRefundStatus | ''
   mobile?: string
   amount?: number
+  create_time?: number
 }
 
 const merchant_store = {

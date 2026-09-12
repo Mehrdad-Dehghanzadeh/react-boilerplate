@@ -11,7 +11,8 @@ import {
   Group,
   SelectField,
   SelectSheetField,
-  Clipboard
+  Clipboard,
+  CalendarField
 } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { requiredRule } from '@assets/validationsRules'
@@ -22,7 +23,7 @@ import './style.scss'
 
 const UIKitPage = () => {
   const [selected, setSelected] = useState<string>('')
-  const { control, handleSubmit } = useForm({ defaultValues: { text: '', otp: '' } })
+  const { control, handleSubmit } = useForm({ defaultValues: { text: '', otp: '', cal: '' } })
 
   const t = (data: any) => {
     console.log(data)
@@ -70,6 +71,8 @@ const UIKitPage = () => {
           prefixIcon={<PhoneIcon />}
           name="text"
         />
+
+        <CalendarField control={control} name="cal" />
 
         <OTPField
           control={control}

@@ -38,11 +38,6 @@
       & + .control__legend {
         @extend %active-legend;
       }
-
-      &.control--has-label {
-        padding-top: 24px;
-        padding-bottom: 12px;
-      }
     }
 
     &__error-message {
@@ -64,11 +59,14 @@
 
       & + .control__clear {
         top: 14px;
-
       }
 
       & + .control__clear-icon {
-        @include create-square(8px)
+        @include create-square(8px);
+      }
+
+      & + .control__suffix {
+        top: 8px;
       }
     }
   }
@@ -167,11 +165,6 @@
   &--has-value {
     .control__legend {
       @extend %active-legend;
-    }
-
-    & .control--has-label {
-      padding-top: 24px;
-      padding-bottom: 12px;
     }
   }
 

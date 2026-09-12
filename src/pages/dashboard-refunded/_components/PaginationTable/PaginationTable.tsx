@@ -52,7 +52,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   const headers: TTableGridHeaders = [
-    { title: 'شناسه', keyData: 'id' },
+    { title: 'ردیف', keyData: 'id' },
 
     {
       title: 'نام کاربر',

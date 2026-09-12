@@ -31,20 +31,46 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const pageSize = watch('pageSize')
 
   const headers: TTableGridHeaders = [
-    { title: 'شناسه', keyData: 'id' },
+    { title: 'ردیف', keyData: 'id' },
 
     {
-      title: 'نام کاربر',
+      title: 'نام و نام خانوادگی کاربر',
       cellFC: (record) => <span>{`${record?.name} ${record?.family}`}</span>
     },
 
     {
-      title: 'شماره تراکنش',
+      title: 'کد پیگیری سفارش',
       keyData: 'track_number',
       cellFC: (track_number) =>
         track_number ? <Clipboard value={track_number}>{track_number}</Clipboard> : null
     },
+
+    {
+      title: 'شماره تماس کاربر',
+      keyData: 'mobile',
+      cellFC: (mobile) => (mobile ? <Clipboard value={mobile}>{mobile}</Clipboard> : null)
+    },
+
     { title: 'نام شعبه', keyData: 'store_name' },
+
+    {
+      title: 'تاریخ ثبت پرداخت',
+      keyData: 'created_at',
+      cellFC: (created_at: string) => (
+        <span className="sc-interp">
+          {created_at ? utcToJalaali(created_at || '') : ''}
+        </span>
+      )
+    },
+
+    {
+      title: 'تاریخ انجام پرداخت',
+      cellFC: (record) => (
+        <span className="sc-interp">
+          {record?.paid_at ? utcToJalaali(record?.paid_at || '') : '-'}
+        </span>
+      )
+    },
 
     {
       title: 'نوع تراکنش',
@@ -65,20 +91,10 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     },
 
     {
-      title: 'تاریخ تراکنش',
-      keyData: 'created_at',
-      cellFC: (created_at: string) => (
-        <span className="sc-interp">
-          {created_at ? utcToJalaali(created_at || '') : ''}
-        </span>
-      )
-    },
-
-    {
       title: 'مبلغ',
       keyData: 'amount',
       cellFC: (amount) => <span>{price(amount)}</span>
-    },
+    }
     // {
     //   title: 'جزئیات',
     //   cellStyle: { width: '80px' },

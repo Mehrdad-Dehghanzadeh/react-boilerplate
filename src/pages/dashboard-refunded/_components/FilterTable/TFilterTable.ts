@@ -6,7 +6,8 @@ export type TForm = {
   provider_branch_id: number
   status: TRefundStatus | ''
   mobile: string
-  track_number: string
+  amount: string
+  create_time: string
 }
 
 export type TFiltersProps = {

@@ -12,7 +12,6 @@ import {
 } from './_components'
 import { apis } from '@services'
 import { deepClone, handleResponseError, hasItem } from '@utils'
-import TrashIcon from '@assets/svg/trash.svg?react'
 import EditIcon from '@assets/svg/edit.svg?react'
 import { useAccessUserStore } from '@store'
 import { flushSync } from 'react-dom'

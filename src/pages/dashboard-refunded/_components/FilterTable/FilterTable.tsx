@@ -1,15 +1,16 @@
 import type { TCsvColumns } from '@ts/Common'
 import type { TForm, TFiltersProps } from './TFilterTable'
-import type {  IRefundPayload } from '@ts/services/Report'
-import { Button, SelectField, TextField } from '@UIKit'
+import type { IRefundPayload } from '@ts/services/Report'
+import { Button, CalendarField, SelectField, TextField } from '@UIKit'
 import { type FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { removeFalseValue, price, utcToJalaali } from '@utils'
+import { removeFalseValue, price, utcToJalaali, jalaliToUnix } from '@utils'
 import { REFUND_STATUS_LIST } from '@constants'
 import { useCsvBuilder } from '@hooks'
 import TrashIcon from '@assets/svg/trash.svg?react'
 import { mobileRule } from '@assets/validationsRules'
 import { useAppStore, useRefundStore } from '@store'
+import { CalendarDay } from '@daypicker/react'
 
 export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
   const ExcelColumns: TCsvColumns = [
@@ -52,7 +53,8 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
     duration_create: 0,
     status: '',
     mobile: '',
-    track_number: ''
+    amount: '',
+    create_time: ''
   }
 
   const { control, handleSubmit, setValues } = useForm<TForm>({
@@ -69,7 +71,9 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
     const payload: IRefundPayload = removeFalseValue({
       provider_branch_id: Number(data?.provider_branch_id),
       status: data.status,
-      mobile: data.mobile
+      mobile: data.mobile,
+      amount: Number(data.amount),
+      create_time: data.create_time ?  jalaliToUnix(data.create_time) : 0
     })
 
     setFilters(payload)
@@ -80,7 +84,7 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
     const payload = data?.map((el) => ({
       ...el,
       created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
-      amount: price(el.amount || '', ''),
+      amount: price(el.amount || '', '')
     }))
 
     getDataCsv(payload, `transactions-${Date.now()}`)
@@ -97,80 +101,71 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
   return (
     <section className="flex justify-between items-center mb-10" id="table-filter">
       <form className="flex gap-3" onSubmit={handleSubmit(submit)}>
-        <TextField
-          className="w-[196px]"
-          name="mobile"
-          label="تلفن همراه کاربر"
-          rules={{ validate: mobileRule }}
-          control={control}
-          disabled={loading}
-          dense
-          clearable
-        />
+        <div className="flex gap-3 flex-wrap">
+          <TextField
+            className="w-[196px]"
+            name="mobile"
+            label="تلفن همراه کاربر"
+            rules={{ validate: mobileRule }}
+            control={control}
+            disabled={loading}
+            dense
+            clearable
+          />
 
-        <TextField
-          className="w-[196px]"
-          name="track_number"
-          label="کد پیگیری تراکنش"
-          control={control}
-          disabled={loading}
-          dense
-          clearable
-        />
+          <TextField
+            className="w-[196px]"
+            name="amount"
+            label="مبلغ"
+            control={control}
+            disabled={loading}
+            dense
+            clearable
+          />
 
-        <SelectField
-          className="w-[196px]"
-          name="status"
-          label="وضعیت"
-          control={control}
-          options={REFUND_STATUS_LIST}
-          disabled={loading}
-          clearable
-          dense
-        />
+          <SelectField
+            className="w-[196px]"
+            name="status"
+            label="وضعیت"
+            control={control}
+            options={REFUND_STATUS_LIST}
+            disabled={loading}
+            clearable
+            dense
+          />
 
-        <SelectField
-          className="w-[196px]"
-          name="duration_create"
-          label="دوره"
-          control={control}
-          options={[
-            { title: 'روزانه', value: 1 },
-            { title: 'هفته', value: 7 },
-            { title: 'ماه', value: 30 },
-            { title: 'سه ماه', value: 90 }
-          ]}
-          disabled={loading}
-          clearable
-          dense
-        />
+          <SelectField
+            className="w-[196px]"
+            name="provider_branch_id"
+            label="شعبه"
+            control={control}
+            options={getBranchesOptions()}
+            disabled={loading}
+            dense
+          />
 
-        <SelectField
-          className="w-[196px]"
-          name="provider_branch_id"
-          label="شعبه"
-          control={control}
-          options={getBranchesOptions()}
-          disabled={loading}
-          dense
-        />
+          <CalendarField
+            control={control}
+            name="create_time"
+            label="تاریخ ثبت تراکنش"
+            disabled={loading}
+            dense
+          />
+        </div>
 
-        <Button
-          className="w-[128px] h-10 mt-4 mr-4"
-          loading={loading}
-          type="submit"
-          curve
-        >
-          فیلتر
-        </Button>
+        <div className="flex items-end mr-4">
+          <Button className="w-[128px] h-10  " loading={loading} type="submit" curve>
+            فیلتر
+          </Button>
 
-        <span
-          className="mr-4 flex items-center mt-5 text-error font-bold pointer-none"
-          onClick={clearAll}
-        >
-          <TrashIcon className="ml-1" />
-          <span>حذف همه</span>
-        </span>
+          <span
+            className="mr-4 flex items-center mb-2 text-error font-bold pointer-none whitespace-nowrap"
+            onClick={clearAll}
+          >
+            <TrashIcon className="ml-1" />
+            <span>حذف همه</span>
+          </span>
+        </div>
       </form>
 
       {/* <div>
