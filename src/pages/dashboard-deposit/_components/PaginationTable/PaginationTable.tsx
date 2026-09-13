@@ -1,24 +1,23 @@
-import type { IHomeRes, IHomePayload } from '@ts/services/Report'
+import type { IHomeRes, IRefundPayload } from '@ts/services/Report'
 import type { TColor } from '@ts/Colors'
-import type { TCreditTickets, TTicketStatus } from '@ts/Merchant'
+import type { TCreditTickets, TRefund, TRefundStatus } from '@ts/Merchant'
 import type { TPaginationTableProps } from './TPaginationTable'
-import { useEffect, useRef, useState, type FC } from 'react'
+import { act, useEffect, useRef, useState, type FC } from 'react'
 import { Chip, TableGrid, type TTableGridHeaders, Clipboard } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { apis } from '@services'
-import { TICKET_STATUS } from '@constants'
+import { REFUND_STATUS } from '@constants'
 import { getUserData, handleResponseError, hasItem, price, utcToJalaali } from '@utils'
-import SpinnerSVG from '@assets/svg/spinner.svg?react'
-import { useAppStore, useTransactionsStore } from '@store'
-import { FilterTable } from '@pages/dashboard-report-transactions/_components'
+import { useAppStore, useDeposit } from '@store'
+import { FilterTable } from '@pages/dashboard-refunded/_components'
 import './PaginationTable.scss'
 
 export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
-  const [data, setData] = useState<TCreditTickets[]>([])
+  const [data, setData] = useState<TRefund[]>([])
   const [page, setPage] = useState<number>(1)
   const [indexLoading, setIndexLoading] = useState<number>(0)
   const { branches, setBranches, setLoading, loading, filters, setFilters } =
-    useTransactionsStore()
+    useDeposit()
 
   const { watch } = useForm({
     defaultValues: { pageSize: 50 }
@@ -26,16 +25,44 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
   const { profile } = useAppStore()
 
-  const totalData = useRef<TCreditTickets[]>([])
+  const totalData = useRef<TRefund[]>([])
 
   const pageSize = watch('pageSize')
+
+  const setStatusTitle = (
+    status: TRefundStatus,
+    amount: number,
+    requestAmount: number
+  ): string => {
+    let val = ''
+
+    if (status != 'APPROVED') {
+      val = REFUND_STATUS[status]?.title || ''
+    } else {
+      if (amount == requestAmount) {
+        val = 'استرداد کل مبلغ '
+      }
+
+      if (amount > requestAmount) {
+        val = 'استرداد بخشی از مبلغ '
+      }
+    }
+
+    return val
+  }
 
   const headers: TTableGridHeaders = [
     { title: 'ردیف', keyData: 'id' },
 
     {
-      title: 'نام و نام خانوادگی کاربر',
+      title: 'نام کاربر',
       cellFC: (record) => <span>{`${record?.name} ${record?.family}`}</span>
+    },
+
+    {
+      title: 'شماره تماس کاربر',
+      keyData: 'mobile',
+      cellFC: (mobile) => (mobile ? <Clipboard value={mobile}>{mobile}</Clipboard> : null)
     },
 
     {
@@ -43,12 +70,6 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       keyData: 'track_number',
       cellFC: (track_number) =>
         track_number ? <Clipboard value={track_number}>{track_number}</Clipboard> : null
-    },
-
-    {
-      title: 'شماره تماس کاربر',
-      keyData: 'mobile',
-      cellFC: (mobile) => (mobile ? <Clipboard value={mobile}>{mobile}</Clipboard> : null)
     },
 
     { title: 'نام شعبه', keyData: 'store_name' },
@@ -64,37 +85,26 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     },
 
     {
-      title: 'تاریخ انجام پرداخت',
-      cellFC: (record) => (
-        <span className="sc-interp">
-          {record?.paid_at ? utcToJalaali(record?.paid_at || '') : '-'}
-        </span>
-      )
-    },
-
-    {
-      title: 'نوع تراکنش',
-      keyData: 'merchantable_type',
-      cellFC: (merchantable_type) => (
-        <span>{merchantable_type === 'merchant_cashier' ? 'آفلاین' : 'آنلاین'}</span>
-      )
-    },
-
-    {
-      title: 'وضعیت تراکنش',
-      keyData: 'status',
-      cellFC: (status: TTicketStatus) => (
-        <Chip color={(TICKET_STATUS[status]?.color as TColor) || 'default'}>
-          {TICKET_STATUS[status]?.title}
-        </Chip>
-      )
-    },
-
-    {
-      title: 'مبلغ',
+      title: 'مبلغ پرداخت',
       keyData: 'amount',
       cellFC: (amount) => <span>{price(amount)}</span>
+    },
+
+    {
+      title: 'مبلغ استرداد',
+      keyData: 'requested_amount',
+      cellFC: (requested_amount) => <span>{price(requested_amount)}</span>
+    },
+
+    {
+      title: 'وضعیت',
+      cellFC: ({ status, amount, requested_amount }: TRefund) => (
+        <Chip color={(REFUND_STATUS[status]?.color as TColor) || 'default'}>
+          {setStatusTitle(status, amount, requested_amount)}
+        </Chip>
+      )
     }
+
     // {
     //   title: 'جزئیات',
     //   cellStyle: { width: '80px' },
@@ -146,9 +156,14 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
     if (branchId || !Boolean(userData?.merchant_id) || filters?.provider_branch_id) {
       const branch = data?.merchant_store?.branches[0]
-      totalData.current = branch ? [...totalData.current, ...branch?.credit_tickets] : []
+      totalData.current = branch
+        ? [...totalData.current, ...branch?.credit_ticket_refunded]
+        : []
     } else {
-      totalData.current = [...totalData.current, ...data?.merchant_store?.credit_tickets]
+      totalData.current = [
+        ...totalData.current,
+        ...data?.merchant_store?.credit_ticket_refunded
+      ]
     }
   }
 
@@ -167,11 +182,11 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       .finally(() => setIndexLoading(0))
   }
 
-  const getDataTable = (payload?: IHomePayload) => {
+  const getDataTable = (payload?: IRefundPayload) => {
     setLoading(true)
 
     apis.report
-      .home(payload)
+      .refunded(payload)
       .then((res) => {
         handleDataRes(res?.data?.payload?.data, payload?.provider_branch_id)
         updateData(1)
@@ -184,7 +199,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       })
   }
 
-  const refreshTable = (payload?: IHomePayload) => {
+  const refreshTable = (payload?: IRefundPayload) => {
     setPage(1)
     totalData.current = []
     setData([])
@@ -202,7 +217,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         last_id
       }
       apis.report
-        .home(payload)
+        .refunded(payload)
         .then((res) => {
           handleDataRes(res?.data?.payload?.data, payload?.provider_branch_id)
           setPage((page) => ++page)
@@ -225,7 +240,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   useEffect(() => {
-    getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
+    //getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
   }, [])
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import type { TTicketStatus, TCreditTickets } from '@ts/Merchant';
+import type { TTicketStatus, TCreditTickets } from '@ts/Merchant'
 import type { IHomePayload } from '@ts/services/Report'
 
 export type TForm = {
@@ -7,6 +7,8 @@ export type TForm = {
   mobile: string
   track_number: string
   amount: 0
+  pay_time: string
+  create_time: string
 }
 
 export type TFiltersProps = {

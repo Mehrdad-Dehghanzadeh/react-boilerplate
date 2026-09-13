@@ -15,3 +15,6 @@ export * from './transactions/TTransactions'
 
 export * from './refund/refund'
 export * from './refund/TRefund'
+
+export * from './deposit/deposit'
+export * from './deposit/TDeposit'

@@ -223,7 +223,7 @@ export function jalaliToUnix(str: string) {
     const date = new Date(Date.UTC(gy, gm - 1, gd, hour, minute, second))
     const utcTimestamp = Math.floor(date.getTime() / 1000)
 
-    val = utcTimestamp - 12600
+    val = utcTimestamp 
   }
 
   return val

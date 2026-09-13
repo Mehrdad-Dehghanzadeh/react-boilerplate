@@ -23,6 +23,8 @@ export interface IHomePayload {
   status?: TTicketStatus | ''
   track_number?: string
   amount?: number
+  create_time?: number
+  pay_time?: number
 }
 
 export interface IHomeRes {
