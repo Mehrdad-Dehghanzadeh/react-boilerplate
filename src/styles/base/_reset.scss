@@ -17,10 +17,14 @@ html {
   color: var(--color-fg);
 }
 
-body,
-button {
+body {
   @include text-size();
-  font-family: Vazirmatn;
+  font-family: "Yekan Bakh", sans-serif;
+}
+
+button, input, optgroup, select, textarea {
+    font-family: "Yekan Bakh", sans-serif;
+
 }
 
 /* Chrome, Safari, Edge, Opera */
