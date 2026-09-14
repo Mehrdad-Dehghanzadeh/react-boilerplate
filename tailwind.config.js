@@ -31,7 +31,7 @@ module.exports = {
       'success-dark': 'var(--color-success-dark)'
     },
     fontFamily: {
-      sans: ['Yekan Bakh', 'sans-serif']
+      yekan: ['Yekan Bakh', 'sans-serif']
     },
 
     container: {
