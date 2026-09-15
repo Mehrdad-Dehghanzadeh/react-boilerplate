@@ -1,6 +1,7 @@
 import type { TCalendarField } from './TCalendarField'
 import type { RenderFC } from '@ts/Forms'
-import { useState, useRef, type FC } from 'react'
+import type { DateRange } from '@daypicker/react'
+import { useState, useRef, type FC, useEffect } from 'react'
 import { Modal } from '@UIKit'
 import CrossIcon from '@assets/svg/cross.svg?react'
 import SolarCalendarIcon from '@assets/svg/solar-calendar.svg?react'
@@ -32,7 +33,7 @@ export const CalendarField: FC<TCalendarField> = ({
   ...props
 }) => {
   const [open, setOpen] = useState<boolean>(false)
-  const [selected, setSelected] = useState<Date>()
+  const [selected, setSelected] = useState<DateRange>()
   const { selfId } = useFormElements({ id })
   const fieldRef = useRef<HTMLInputElement>(null)
 
@@ -50,10 +51,18 @@ export const CalendarField: FC<TCalendarField> = ({
       }
 
       const changeValue = () => {
-        const value = selected ? dateToJalaali(selected) : ''
+        const fromValue = selected?.from ? dateToJalaali(selected?.from) : ''
+        const toValue = selected?.to ? dateToJalaali(selected?.to) : ''
+        const value = `${toValue}-${fromValue}`
         field.onChange(value)
         setOpen(false)
       }
+
+      useEffect(() => {
+        if (!Boolean(field.value)) {
+          setSelected(undefined)
+        }
+      }, [field.value])
 
       return (
         <>
@@ -126,7 +135,7 @@ export const CalendarField: FC<TCalendarField> = ({
               locale={faIR}
               selected={selected}
               onSelect={setSelected}
-              mode="single"
+              mode="range"
               {...pickerProps}
             />
 

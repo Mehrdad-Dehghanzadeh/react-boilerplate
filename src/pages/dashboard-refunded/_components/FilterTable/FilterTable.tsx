@@ -68,12 +68,17 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
   }
 
   const submit = (data: TForm) => {
+    const createTime = data.create_time.split('-')
+
     const payload: IRefundPayload = removeFalseValue({
       provider_branch_id: Number(data?.provider_branch_id),
       status: data.status,
       mobile: data.mobile,
       amount: Number(data.amount),
-      create_time: data.create_time ?  jalaliToUnix(data.create_time) : 0
+      create_time_start: createTime[0] ? jalaliToUnix(createTime[0]) : 0,
+      create_time_end: createTime[1]
+        ? jalaliToUnix(createTime[1], { hour: 23, minute: 59, second: 59 })
+        : 0
     })
 
     setFilters(payload)

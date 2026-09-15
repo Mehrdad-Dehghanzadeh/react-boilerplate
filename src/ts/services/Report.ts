@@ -23,8 +23,10 @@ export interface IHomePayload {
   status?: TTicketStatus | ''
   track_number?: string
   amount?: number
-  create_time?: number
-  pay_time?: number
+  create_time_start?: number
+  create_time_end?: number
+  pay_time_start?: number
+  pay_time_end?: number
 }
 
 export interface IHomeRes {
@@ -59,7 +61,8 @@ export interface IRefundPayload {
   status?: TRefundStatus | ''
   mobile?: string
   amount?: number
-  create_time?: number
+  create_time_start?: number
+  create_time_end?: number
 }
 
 const merchant_store = {

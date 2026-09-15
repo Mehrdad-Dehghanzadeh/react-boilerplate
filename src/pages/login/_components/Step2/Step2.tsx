@@ -1,10 +1,10 @@
 import type { IVerifyPayload, IVerifyRes } from '@ts/services/Auth'
-import { useState, type FC } from 'react'
+import { useState, type FC, useRef } from 'react'
 import { useLoginStore } from '@store'
 import { useForm } from 'react-hook-form'
 import ChevronLeftIcon from '@assets/svg/chevron-left.svg?react'
 import { requiredRule } from '@assets/validationsRules'
-import { Button, OTPField } from '@UIKit'
+import { Button, OTPField, type OTPRef } from '@UIKit'
 import { apis } from '@services'
 import { useProfileData } from '@hooks'
 import {
@@ -18,15 +18,16 @@ import {
 const DEFAULT_OTP_LENGTH = 5
 
 export const Step2: FC = () => {
-  const { control, handleSubmit, getValues, setValue } = useForm({
+  const { control, handleSubmit, getValues } = useForm({
     defaultValues: { otp: '' }
   })
   const { setStep, mobile, loginResData } = useLoginStore()
   const { updateProfileData } = useProfileData()
   const [loading, setLoading] = useState<boolean>(false)
+  const otpRef = useRef<OTPRef>(null)
 
   const goBack = () => {
-    setValue('otp', '')
+    otpRef?.current?.clearValue()
     setStep(0)
   }
 
@@ -48,7 +49,7 @@ export const Step2: FC = () => {
       await setUserCookie(resData)
     }
   }
-  
+
   const handleStep2 = async () => {
     try {
       setLoading(true)
@@ -87,6 +88,7 @@ export const Step2: FC = () => {
         onSubmit={handleSubmit(handleStep2)}
       >
         <OTPField
+          ref={otpRef}
           length={loginResData?.otp_length || DEFAULT_OTP_LENGTH}
           control={control}
           name="otp"

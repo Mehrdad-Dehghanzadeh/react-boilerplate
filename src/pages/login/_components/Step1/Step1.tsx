@@ -61,9 +61,10 @@ export const Step1: FC = () => {
           control={control}
           placeholder="0912 345 6789"
           rules={{ required: requiredRule(), validate: mobileRule }}
-          type="number"
+          type="tel"
           inputMode="numeric"
           prefixIcon={<PhoneIcon />}
+          maxLength={11}
           ltr
         />
         <Button className="mt-6" type="submit" loading={loading}>

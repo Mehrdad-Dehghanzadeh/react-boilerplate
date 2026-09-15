@@ -210,20 +210,20 @@ export function dateToJalaali(date: Date) {
   return `${c.jy}/${month}/${day}`
 }
 
-export function jalaliToUnix(str: string) {
+export function jalaliToUnix(str: string, time?: { hour: number; minute: number; second: number }) {
   const times = str.split('/').map((el) => Number(el))
   let val = 0
   if (times.length === 3) {
-    const hour = 0
-    const minute = 0
-    const second = 0
+    const hour = time?.hour ?? 0
+    const minute = time?.minute ?? 0
+    const second = time?.second ?? 0
 
-    const { gy, gm, gd } = jalaali.toGregorian(times[0], times[1], times[2 ])
+    const { gy, gm, gd } = jalaali.toGregorian(times[0], times[1], times[2])
 
     const date = new Date(Date.UTC(gy, gm - 1, gd, hour, minute, second))
     const utcTimestamp = Math.floor(date.getTime() / 1000)
 
-    val = utcTimestamp 
+    val = utcTimestamp
   }
 
   return val

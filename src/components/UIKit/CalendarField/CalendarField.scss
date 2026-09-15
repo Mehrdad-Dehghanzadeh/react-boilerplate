@@ -6,6 +6,10 @@
 
     margin-top: 24px;
 
+    .rdp-range_start .rdp-day_button,
+    .rdp-range_end .rdp-day_button {
+      background-color: #fff;
+    }
     .rdp-months {
       width: 100%;
       max-width: initial;

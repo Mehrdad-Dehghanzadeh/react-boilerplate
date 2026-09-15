@@ -1,6 +1,14 @@
 import type { TOTPFieldProps } from './TOTPField'
 import type { RenderFC } from '@ts/Forms'
-import React, { useMemo, useId, useRef, useState, useEffect, type JSX } from 'react'
+import React, {
+  useMemo,
+  useId,
+  useRef,
+  useState,
+  useEffect,
+  type JSX,
+  useImperativeHandle
+} from 'react'
 import { minLengthRule } from '@assets/validationsRules'
 import { Controller } from 'react-hook-form'
 import useFormElements from '@hooks/useFormElements'
@@ -20,6 +28,7 @@ export const OTPField: React.FC<TOTPFieldProps> = ({
   onChange,
   rules,
   name,
+  ref,
   ...props
 }) => {
   const inputsPrefixId = useId()
@@ -27,11 +36,23 @@ export const OTPField: React.FC<TOTPFieldProps> = ({
 
   const activeIndex = useRef<number>(0)
   const inputRef = useRef<null | HTMLInputElement>(null)
+  const [value, setValue] = useState<string>('')
+
+  const clearValue = () => {
+    setValue('')
+    for (let i = 0; i <= length; ++i) {
+      const el = document.getElementById(`${inputsPrefixId}-${i}`) as HTMLInputElement
+      if (el) {
+        el.value = ''
+      }
+    }
+    activeIndex.current = 0
+  }
+
+  useImperativeHandle(ref, () => ({ clearValue }), [])
 
   const renderFC: RenderFC = {
     render({ field, fieldState }) {
-      const [value, setValue] = useState<string>('')
-
       const onChangeEvent = (e: any) => {
         field.onChange(e)
         onChange?.(e)
