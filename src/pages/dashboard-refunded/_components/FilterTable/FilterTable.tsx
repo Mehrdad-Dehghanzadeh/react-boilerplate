@@ -75,9 +75,9 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
       status: data.status,
       mobile: data.mobile,
       amount: Number(data.amount),
-      create_time_start: createTime[0] ? jalaliToUnix(createTime[0]) : 0,
-      create_time_end: createTime[1]
-        ? jalaliToUnix(createTime[1], { hour: 23, minute: 59, second: 59 })
+      create_time_start: createTime[1] ? jalaliToUnix(createTime[1]) : 0,
+      create_time_end: createTime[0]
+        ? jalaliToUnix(createTime[0], { hour: 23, minute: 59, second: 59 })
         : 0
     })
 
