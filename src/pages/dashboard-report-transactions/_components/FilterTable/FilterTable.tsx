@@ -188,14 +188,14 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
 
         <div className="flex w-fit items-end pl-5">
           <Button className="w-[128px] h-10 rounded-2xl" loading={loading} type="submit">
-            فیلتر
+            مشاهده
           </Button>
 
           <span
             className="mr-4 flex items-center mb-2 text-error font-bold pointer-none whitespace-nowrap"
             onClick={clearAll}
           >
-            <TrashIcon className="ml-1" />
+            <TrashIcon className="ml-1  text-[16px]" />
             <span>حذف همه</span>
           </span>
         </div>

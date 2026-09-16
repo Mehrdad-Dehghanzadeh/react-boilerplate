@@ -118,7 +118,7 @@ export const DashboardFilters: FC<TDashboardFiltersProps> = ({
           options={channelOptions}
           disabled={loading}
         />
-        <Button className="w-16" type="submit" loading={loading}>فیلتر</Button>
+        <Button className="w-16" type="submit" loading={loading}>مشاهده</Button>
       </form>
     </section>
   )
