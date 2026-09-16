@@ -153,7 +153,7 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
         </div>
 
         <div className="flex items-end mr-4">
-          <Button className="w-[128px] h-10  " loading={loading} type="submit" curve>
+          <Button className="w-[128px] h-10 rounded-2xl" loading={loading} type="submit">
             فیلتر
           </Button>
 

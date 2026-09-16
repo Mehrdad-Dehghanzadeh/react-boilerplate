@@ -1,4 +1,5 @@
 .calendar-field {
+  min-width: 220px;
   &__day-picker {
     --rdp-today-color: var(--color-green);
     --rdp-day_button-border-radius: 12px;

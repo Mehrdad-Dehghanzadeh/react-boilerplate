@@ -1,3 +1,5 @@
+@use '@styles/mixins' as *;
+
 .table-grid {
   $radius: 12px;
   overflow-x: auto;
@@ -48,5 +50,12 @@
     &:not(:last-child) {
       border-bottom: 1px solid #f1f5f9;
     }
+  }
+
+  &__no-item {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 32px;
+    @include flex-center();
   }
 }

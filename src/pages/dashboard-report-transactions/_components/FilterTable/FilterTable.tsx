@@ -173,19 +173,21 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
             control={control}
             name="create_time"
             label="تاریخ ثبت تراکنش"
+            disabled={loading}
             dense
           />
 
           <CalendarField
             control={control}
             name="pay_time"
-            label="تاریخ انجام تراکنش" 
+            label="تاریخ انجام تراکنش"
+            disabled={loading}
             dense
           />
         </div>
 
         <div className="flex w-fit items-end pl-5">
-          <Button className="w-[128px] h-10" loading={loading} type="submit" curve>
+          <Button className="w-[128px] h-10 rounded-2xl" loading={loading} type="submit">
             فیلتر
           </Button>
 

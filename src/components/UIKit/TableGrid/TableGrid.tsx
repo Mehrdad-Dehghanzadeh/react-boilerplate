@@ -26,6 +26,10 @@ export const TableGrid: FC<TTableGridProps> = ({
     return recode
   }
 
+  const showHasNoData = (): boolean => {
+    return !loading && !hasItem(data)
+  }
+
   return (
     <div className={clsx('table-grid', className)} {...props}>
       <table className="table-grid__table">
@@ -123,6 +127,12 @@ export const TableGrid: FC<TTableGridProps> = ({
           )}
         </tbody>
       </table>
+
+      {showHasNoData() && (
+        <div className="table-grid__no-item">
+          <strong className='text-lg font-semibold'>داده  برای نمایش وجود ندارد</strong>
+        </div>
+      )}
     </div>
   )
 }
