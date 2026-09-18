@@ -186,7 +186,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     setLoading(true)
 
     apis.report
-      .refunded(payload)
+      .settlment(payload)
       .then((res) => {
         handleDataRes(res?.data?.payload?.data, payload?.provider_branch_id)
         updateData(1)
@@ -240,7 +240,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   useEffect(() => {
-    //getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
+  getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
   }, [])
 
   useEffect(() => {
