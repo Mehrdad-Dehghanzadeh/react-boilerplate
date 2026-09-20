@@ -1,6 +1,6 @@
-import type { IHomeRes, IRefundPayload } from '@ts/services/Report'
+import type { IHomeRes, ISettlementPayload } from '@ts/services/Report'
 import type { TColor } from '@ts/Colors'
-import type { TCreditTickets, TRefund, TRefundStatus } from '@ts/Merchant'
+import type { TCreditTickets, TRefund, TRefundStatus, TSettlement } from '@ts/Merchant'
 import type { TPaginationTableProps } from './TPaginationTable'
 import { act, useEffect, useRef, useState, type FC } from 'react'
 import { Chip, TableGrid, type TTableGridHeaders, Clipboard } from '@UIKit'
@@ -9,15 +9,14 @@ import { apis } from '@services'
 import { REFUND_STATUS } from '@constants'
 import { getUserData, handleResponseError, hasItem, price, utcToJalaali } from '@utils'
 import { useAppStore, useDeposit } from '@store'
-import { FilterTable } from '@pages/dashboard-refunded/_components'
+import { FilterTable } from '@pages/dashboard-deposit/_components'
 import './PaginationTable.scss'
 
 export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
-  const [data, setData] = useState<TRefund[]>([])
+  const [data, setData] = useState<TSettlement[]>([])
   const [page, setPage] = useState<number>(1)
   const [indexLoading, setIndexLoading] = useState<number>(0)
-  const { branches, setBranches, setLoading, loading, filters, setFilters } =
-    useDeposit()
+  const { branches, setBranches, setLoading, loading, filters, setFilters } = useDeposit()
 
   const { watch } = useForm({
     defaultValues: { pageSize: 50 }
@@ -25,7 +24,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
   const { profile } = useAppStore()
 
-  const totalData = useRef<TRefund[]>([])
+  const totalData = useRef<TSettlement[]>([])
 
   const pageSize = watch('pageSize')
 
@@ -98,11 +97,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
     {
       title: 'وضعیت',
-      cellFC: ({ status, amount, requested_amount }: TRefund) => (
-        <Chip color={(REFUND_STATUS[status]?.color as TColor) || 'default'}>
-          {setStatusTitle(status, amount, requested_amount)}
-        </Chip>
-      )
+      cellFC: ({ status }: TSettlement) => <Chip color={'default'}>{status}</Chip>
     }
 
     // {
@@ -157,12 +152,12 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     if (branchId || !Boolean(userData?.merchant_id) || filters?.provider_branch_id) {
       const branch = data?.merchant_store?.branches[0]
       totalData.current = branch
-        ? [...totalData.current, ...branch?.credit_ticket_refunded]
+        ? [...totalData.current, ...branch?.credit_ticket_settlement]
         : []
     } else {
       totalData.current = [
         ...totalData.current,
-        ...data?.merchant_store?.credit_ticket_refunded
+        ...data?.merchant_store?.credit_ticket_settlement
       ]
     }
   }
@@ -182,11 +177,11 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       .finally(() => setIndexLoading(0))
   }
 
-  const getDataTable = (payload?: IRefundPayload) => {
+  const getDataTable = (payload?: ISettlementPayload) => {
     setLoading(true)
 
     apis.report
-      .settlment(payload)
+      .settlement(payload)
       .then((res) => {
         handleDataRes(res?.data?.payload?.data, payload?.provider_branch_id)
         updateData(1)
@@ -199,7 +194,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       })
   }
 
-  const refreshTable = (payload?: IRefundPayload) => {
+  const refreshTable = (payload?: ISettlementPayload) => {
     setPage(1)
     totalData.current = []
     setData([])
@@ -240,7 +235,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   useEffect(() => {
-  getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
+    getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
   }, [])
 
   useEffect(() => {

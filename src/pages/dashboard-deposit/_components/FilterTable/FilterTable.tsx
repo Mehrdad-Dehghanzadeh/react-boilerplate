@@ -1,6 +1,6 @@
 import type { TCsvColumns } from '@ts/Common'
 import type { TForm, TFiltersProps } from './TFilterTable'
-import type { IRefundPayload } from '@ts/services/Report'
+import type { ISettlementPayload } from '@ts/services/Report'
 import { Button, CalendarField, SelectField, TextField } from '@UIKit'
 import { type FC } from 'react'
 import { useForm } from 'react-hook-form'
@@ -52,8 +52,8 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
     duration_create: 0,
     status: '',
     mobile: '',
-    amount: '',
-    create_time: ''
+    create_time: '',
+    pay_time: ''
   }
 
   const { control, handleSubmit, setValues } = useForm<TForm>({
@@ -67,12 +67,22 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
   }
 
   const submit = (data: TForm) => {
-    const payload: IRefundPayload = removeFalseValue({
+    const createTime = data.create_time.split('-')
+    const payTime = data.pay_time.split('-')
+
+    const payload: ISettlementPayload = removeFalseValue({
       provider_branch_id: Number(data?.provider_branch_id),
       status: data.status,
       mobile: data.mobile,
-      amount: Number(data.amount),
-      create_time: data.create_time ? jalaliToUnix(data.create_time) : 0
+      create_time_start: createTime[1] ? jalaliToUnix(createTime[1]) : 0,
+      create_time_end: createTime[0]
+        ? jalaliToUnix(createTime[0], { hour: 23, minute: 59, second: 59 })
+        : 0,
+
+      pay_time_start: payTime[1] ? jalaliToUnix(payTime[1]) : 0,
+      pay_time_end: payTime[0]
+        ? jalaliToUnix(payTime[0], { hour: 23, minute: 59, second: 59 })
+        : 0
     })
 
     setFilters(payload)
@@ -112,16 +122,6 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
             clearable
           />
 
-          <TextField
-            className="w-[196px]"
-            name="amount"
-            label="مبلغ"
-            control={control}
-            disabled={loading}
-            dense
-            clearable
-          />
-
           <SelectField
             className="w-[196px]"
             name="status"
@@ -147,6 +147,14 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
             control={control}
             name="create_time"
             label="تاریخ ثبت تراکنش"
+            disabled={loading}
+            dense
+          />
+
+          <CalendarField
+            control={control}
+            name="pay_time"
+            label="تاریخ تسویه تراکنش"
             disabled={loading}
             dense
           />

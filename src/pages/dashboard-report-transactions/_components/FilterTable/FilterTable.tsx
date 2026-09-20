@@ -72,7 +72,7 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
   const submit = (data: TForm) => {
     const createTime = data.create_time.split('-')
     const payTime = data.pay_time.split('-')
-    
+
     const payload: IHomePayload = removeFalseValue({
       provider_branch_id: Number(data?.provider_branch_id),
       status: data.status,
@@ -99,7 +99,7 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
       created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
       status: TICKET_STATUS[el?.status].title,
       amount: price(el.amount || '', ''),
-      merchantable_type: el.merchantable_type === 'merchant_cashier' ? 'آفلاین' : 'آنلاین'
+      merchantable_type: el.merchantable_type === 'merchant_cashier' ? 'حضوری' : 'آنلاین'
     }))
 
     getDataCsv(payload, `transactions-${Date.now()}`)

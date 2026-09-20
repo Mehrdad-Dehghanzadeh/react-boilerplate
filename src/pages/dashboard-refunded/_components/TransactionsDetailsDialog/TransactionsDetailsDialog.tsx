@@ -75,7 +75,7 @@ export const TransactionsDetailsDialog: FC<TTransactionsDetailsDialogProps> = ({
               <span className="transaction-details__field-value">
                 <span className="sc-interp">
                   {data?.record?.merchantable_type == 'merchant_cashier'
-                    ? 'آفلاین'
+                    ? 'حضوری'
                     : 'آنلاین'}
                 </span>
               </span>
@@ -171,7 +171,7 @@ export const TransactionsDetailsDialog: FC<TTransactionsDetailsDialogProps> = ({
               <span className="transaction-details__field-value">
                 <span className="sc-interp">
                   {data?.record?.merchantable_type == 'merchant_cashier'
-                    ? 'آفلاین'
+                    ? 'حضوری'
                     : 'آنلاین'}
                 </span>
               </span>

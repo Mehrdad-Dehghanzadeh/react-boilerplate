@@ -75,7 +75,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       title: 'نوع تراکنش',
       keyData: 'merchantable_type',
       cellFC: (merchantable_type) => (
-        <span>{merchantable_type === 'merchant_cashier' ? 'آفلاین' : 'آنلاین'}</span>
+        <span>{merchantable_type === 'merchant_cashier' ? 'حضوری' : 'آنلاین'}</span>
       )
     },
 

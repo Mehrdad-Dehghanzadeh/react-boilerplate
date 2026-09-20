@@ -33,6 +33,7 @@ export interface IHomeRes {
   merchant_store: TMerchantStore & {
     credit_tickets: TCreditTickets[]
     credit_ticket_refunded: TRefund[]
+    credit_ticket_settlement: []
   }
 }
 
@@ -56,11 +57,21 @@ export interface ICustomerInfoRes {
 
 export interface IRefundPayload {
   last_id?: number
-  duration_create?: number
   provider_branch_id?: number
   status?: TRefundStatus | ''
   mobile?: string
   amount?: number
+  create_time_start?: number
+  create_time_end?: number
+}
+
+export interface ISettlementPayload {
+  last_id?: number
+  status?: TRefundStatus | ''
+  mobile?: string
+  provider_branch_id?: number
+  pay_time_start?: number
+  pay_time_end?: number
   create_time_start?: number
   create_time_end?: number
 }

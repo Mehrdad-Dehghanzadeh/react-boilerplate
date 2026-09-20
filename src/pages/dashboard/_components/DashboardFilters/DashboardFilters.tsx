@@ -38,8 +38,8 @@ export const DashboardFilters: FC<TDashboardFiltersProps> = ({
 
   const channelOptions: TSelectOptions = [
     { title: 'آنلاین', value: 'online' },
-    { title: 'آفلاین', value: 'offline' },
-    { title: 'آنلاین و آفلاین', value: 'both' }
+    { title: 'حضوری', value: 'offline' },
+    { title: 'آنلاین و حضوری', value: 'both' }
   ]
 
   const createPayload = (formData?: TForm): IDashboardPayload => {
@@ -118,7 +118,9 @@ export const DashboardFilters: FC<TDashboardFiltersProps> = ({
           options={channelOptions}
           disabled={loading}
         />
-        <Button className="w-16" type="submit" loading={loading}>مشاهده</Button>
+        <Button className="w-16" type="submit" loading={loading}>
+          مشاهده
+        </Button>
       </form>
     </section>
   )

@@ -31,7 +31,7 @@ export const ChannelSellSection: FC = () => {
   }
 
   const data = {
-    labels: ['آنلاین', 'آفلاین'],
+    labels: ['آنلاین', 'حضوری'],
     datasets: [
       {
         data: extractData(),
@@ -60,7 +60,7 @@ export const ChannelSellSection: FC = () => {
     >
       {!loading && (
         <>
-          <h2 className="title">فروش آنلاین / آفلاین</h2>
+          <h2 className="title">فروش آنلاین / حضوری</h2>
           <strong className="block caption">سهم کانال‌های فروش</strong>
 
           <div className="w-full h-[280px]">

@@ -38,7 +38,7 @@ export default {
     })
   },
 
-  settlment(payload?: IRefundPayload) {
+  settlement(payload?: IRefundPayload) {
     return axiosInstance.post<IResponse>(API_RESOURCES.REPORT, {
       op_code: OP_CODES.SETTLEMENT,
       payload: JSON.stringify(payload)
