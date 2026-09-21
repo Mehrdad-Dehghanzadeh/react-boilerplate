@@ -1,5 +1,5 @@
 import type { IHomeRes, ISettlementPayload } from '@ts/services/Report'
-import type { TColor } from '@ts/Colors'
+import type { TCsvColumns } from '@ts/Common'
 import type { TCreditTickets, TRefund, TRefundStatus, TSettlement } from '@ts/Merchant'
 import type { TPaginationTableProps } from './TPaginationTable'
 import { act, useEffect, useRef, useState, type FC } from 'react'
@@ -11,6 +11,37 @@ import { getUserData, handleResponseError, hasItem, price, utcToJalaali } from '
 import { useAppStore, useDeposit } from '@store'
 import { FilterTable } from '@pages/dashboard-deposit/_components'
 import './PaginationTable.scss'
+
+const ExcelColumns: TCsvColumns = [
+  {
+    title: 'شناسه',
+    dataIndex: 'id'
+  },
+  {
+    title: 'شماره تراکنش',
+    dataIndex: 'track_number'
+  },
+
+  {
+    title: 'نوع تراکنش',
+    dataIndex: 'merchantable_type'
+  },
+
+  {
+    title: 'وضعیت تراکنش',
+    dataIndex: 'status'
+  },
+
+  {
+    title: 'تاریخ تراکنش',
+    dataIndex: 'created_at'
+  },
+
+  {
+    title: 'مبلغ',
+    dataIndex: 'amount'
+  }
+]
 
 export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const [data, setData] = useState<TSettlement[]>([])
@@ -51,7 +82,14 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   const headers: TTableGridHeaders = [
-    { title: 'ردیف', keyData: 'id' },
+    {
+      title: 'ردیف',
+      cellFC: (_record, indexRow) => (
+        <span className="block text-center">
+          {pageSize * (page - 1) + (indexRow + 1)}
+        </span>
+      )
+    },
 
     {
       title: 'نام کاربر',
@@ -234,6 +272,14 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     }
   }
 
+  const converExcelData = (excelData: TSettlement[]) => {
+    return excelData?.map((el) => ({
+      ...el,
+      created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
+      amount: price(el.amount || '', '')
+    }))
+  }
+
   useEffect(() => {
     getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
   }, [])
@@ -250,6 +296,9 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         headers={headers}
         data={data}
         loading={loading}
+        excelColumns={ExcelColumns}
+        excelNamePrefix="Settlement"
+        convertExcelData={converExcelData}
       />
       <div className="pagination-table">
         {/* <div className="pagination-table__size">

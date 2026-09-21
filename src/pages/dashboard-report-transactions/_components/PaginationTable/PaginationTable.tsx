@@ -1,3 +1,4 @@
+import type { TCsvColumns } from '@ts/Common'
 import type { IHomeRes, IHomePayload } from '@ts/services/Report'
 import type { TColor } from '@ts/Colors'
 import type { TCreditTickets, TTicketStatus } from '@ts/Merchant'
@@ -11,6 +12,37 @@ import { getUserData, handleResponseError, hasItem, price, utcToJalaali } from '
 import { useAppStore, useTransactionsStore } from '@store'
 import { FilterTable } from '@pages/dashboard-report-transactions/_components'
 import './PaginationTable.scss'
+
+const ExcelColumns: TCsvColumns = [
+  {
+    title: 'شناسه',
+    dataIndex: 'id'
+  },
+  {
+    title: 'شماره تراکنش',
+    dataIndex: 'track_number'
+  },
+
+  {
+    title: 'نوع تراکنش',
+    dataIndex: 'merchantable_type'
+  },
+
+  {
+    title: 'وضعیت تراکنش',
+    dataIndex: 'status'
+  },
+
+  {
+    title: 'تاریخ تراکنش',
+    dataIndex: 'created_at'
+  },
+
+  {
+    title: 'مبلغ',
+    dataIndex: 'amount'
+  }
+]
 
 export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const [data, setData] = useState<TCreditTickets[]>([])
@@ -30,7 +62,14 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const pageSize = watch('pageSize')
 
   const headers: TTableGridHeaders = [
-    { title: 'ردیف', keyData: 'id' },
+    {
+      title: 'ردیف',
+      cellFC: (_record, indexRow) => (
+        <span className="block text-center">
+          {pageSize * (page - 1) + (indexRow + 1)}
+        </span>
+      )
+    },
 
     {
       title: 'نام و نام خانوادگی کاربر',
@@ -223,6 +262,16 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     }
   }
 
+  const convertExcelData = (excelData: TCreditTickets[]) => {
+    return excelData?.map((el) => ({
+      ...el,
+      created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
+      status: TICKET_STATUS[el?.status].title,
+      amount: price(el.amount || '', ''),
+      merchantable_type: el.merchantable_type === 'merchant_cashier' ? 'حضوری' : 'آنلاین'
+    }))
+  }
+
   useEffect(() => {
     getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
   }, [])
@@ -239,6 +288,9 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         headers={headers}
         data={data}
         loading={loading}
+        excelColumns={ExcelColumns}
+        convertExcelData={convertExcelData}
+        excelNamePrefix='transactions'
       />
       <div className="pagination-table">
         {/* <div className="pagination-table__size">

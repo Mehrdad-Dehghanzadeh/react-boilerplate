@@ -1,8 +1,9 @@
+import type { TCsvColumns } from '@ts/Common'
 import type { IHomeRes, IRefundPayload } from '@ts/services/Report'
 import type { TColor } from '@ts/Colors'
 import type { TCreditTickets, TRefund, TRefundStatus, TTicketStatus } from '@ts/Merchant'
 import type { TPaginationTableProps } from './TPaginationTable'
-import { act, useEffect, useRef, useState, type FC } from 'react'
+import { useEffect, useRef, useState, type FC } from 'react'
 import { Chip, TableGrid, type TTableGridHeaders, Clipboard } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { apis } from '@services'
@@ -11,6 +12,37 @@ import { getUserData, handleResponseError, hasItem, price, utcToJalaali } from '
 import { useAppStore, useRefundStore } from '@store'
 import { FilterTable } from '@pages/dashboard-refunded/_components'
 import './PaginationTable.scss'
+
+const ExcelColumns: TCsvColumns = [
+  {
+    title: 'شناسه',
+    dataIndex: 'id'
+  },
+  {
+    title: 'شماره تراکنش',
+    dataIndex: 'track_number'
+  },
+
+  {
+    title: 'نوع تراکنش',
+    dataIndex: 'merchantable_type'
+  },
+
+  {
+    title: 'وضعیت تراکنش',
+    dataIndex: 'status'
+  },
+
+  {
+    title: 'تاریخ تراکنش',
+    dataIndex: 'created_at'
+  },
+
+  {
+    title: 'مبلغ',
+    dataIndex: 'amount'
+  }
+]
 
 export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const [data, setData] = useState<TRefund[]>([])
@@ -52,7 +84,14 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   const headers: TTableGridHeaders = [
-    { title: 'ردیف', keyData: 'id' },
+    {
+      title: 'ردیف',
+      cellFC: (_record, indexRow) => (
+        <span className="block text-center">
+          {pageSize * (page - 1) + (indexRow + 1)}
+        </span>
+      )
+    },
 
     {
       title: 'نام کاربر',
@@ -239,6 +278,13 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     }
   }
 
+  const convertExcelData = (excelData: TRefund[]) =>
+    excelData?.map((el) => ({
+      ...el,
+      created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
+      amount: price(el.amount || '', '')
+    })) 
+
   useEffect(() => {
     getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
   }, [])
@@ -255,6 +301,9 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         headers={headers}
         data={data}
         loading={loading}
+        excelColumns={ExcelColumns}
+        excelNamePrefix="refund"
+        convertExcelData={convertExcelData}
       />
       <div className="pagination-table">
         {/* <div className="pagination-table__size">

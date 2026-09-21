@@ -5,15 +5,13 @@ import { Button, CalendarField, SelectField, TextField } from '@UIKit'
 import { useTransactionsStore } from '@store'
 import { type FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { removeFalseValue, price, utcToJalaali, jalaliToUnix } from '@utils'
-import { TICKET_STATUS_LIST, TICKET_STATUS } from '@constants'
-import { useCsvBuilder } from '@hooks'
-import ExcelIcon from '@assets/svg/excel.svg?react'
+import { removeFalseValue, jalaliToUnix } from '@utils'
+import { TICKET_STATUS_LIST,  } from '@constants'
 import TrashIcon from '@assets/svg/trash.svg?react'
 import { mobileRule } from '@assets/validationsRules'
 import { useAppStore } from '@store'
 
-export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
+export const FilterTable: FC<TFiltersProps> = ({ getData }) => {
   const ExcelColumns: TCsvColumns = [
     {
       title: 'شناسه',
@@ -63,8 +61,6 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
     defaultValues: { ...INITIAL_FORM_VALUES }
   })
 
-  const { getDataCsv, csvLoading } = useCsvBuilder({ tableColumns: ExcelColumns })
-
   const clearAll = () => {
     setValues({ ...INITIAL_FORM_VALUES })
   }
@@ -91,18 +87,6 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
 
     setFilters(payload)
     getData(payload)
-  }
-
-  const createExcel = () => {
-    const payload = data?.map((el) => ({
-      ...el,
-      created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
-      status: TICKET_STATUS[el?.status].title,
-      amount: price(el.amount || '', ''),
-      merchantable_type: el.merchantable_type === 'merchant_cashier' ? 'حضوری' : 'آنلاین'
-    }))
-
-    getDataCsv(payload, `transactions-${Date.now()}`)
   }
 
   const getBranchesOptions = () =>
@@ -200,22 +184,6 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
           </span>
         </div>
       </form>
-
-      {/* <div>
-        <Button
-          className="w-36"
-          type="button"
-          loading={csvLoading}
-          onClick={createExcel}
-          disabled={loading}
-          color="success"
-        >
-          <span className="flex items-center">
-            <ExcelIcon />
-            <span className="font-sm font-bold mr-2">خروجی Excel</span>
-          </span>
-        </Button>
-      </div> */}
     </section>
   )
 }

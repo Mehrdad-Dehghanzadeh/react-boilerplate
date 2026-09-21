@@ -1,49 +1,15 @@
-import type { TCsvColumns } from '@ts/Common'
 import type { TForm, TFiltersProps } from './TFilterTable'
 import type { IRefundPayload } from '@ts/services/Report'
 import { Button, CalendarField, SelectField, TextField } from '@UIKit'
 import { type FC } from 'react'
 import { useForm } from 'react-hook-form'
-import { removeFalseValue, price, utcToJalaali, jalaliToUnix } from '@utils'
+import { removeFalseValue, jalaliToUnix } from '@utils'
 import { REFUND_STATUS_LIST } from '@constants'
-import { useCsvBuilder } from '@hooks'
 import TrashIcon from '@assets/svg/trash.svg?react'
 import { mobileRule } from '@assets/validationsRules'
 import { useAppStore, useRefundStore } from '@store'
-import { CalendarDay } from '@daypicker/react'
 
 export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
-  const ExcelColumns: TCsvColumns = [
-    {
-      title: 'شناسه',
-      dataIndex: 'id'
-    },
-    {
-      title: 'شماره تراکنش',
-      dataIndex: 'track_number'
-    },
-
-    {
-      title: 'نوع تراکنش',
-      dataIndex: 'merchantable_type'
-    },
-
-    {
-      title: 'وضعیت تراکنش',
-      dataIndex: 'status'
-    },
-
-    {
-      title: 'تاریخ تراکنش',
-      dataIndex: 'created_at'
-    },
-
-    {
-      title: 'مبلغ',
-      dataIndex: 'amount'
-    }
-  ]
-
   const { profile } = useAppStore()
 
   const { branches, loading, setFilters } = useRefundStore()
@@ -60,8 +26,6 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
   const { control, handleSubmit, setValues } = useForm<TForm>({
     defaultValues: { ...INITIAL_FORM_VALUES }
   })
-
-  const { getDataCsv, csvLoading } = useCsvBuilder({ tableColumns: ExcelColumns })
 
   const clearAll = () => {
     setValues({ ...INITIAL_FORM_VALUES })
@@ -83,16 +47,6 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
 
     setFilters(payload)
     getData(payload)
-  }
-
-  const createExcel = () => {
-    const payload = data?.map((el) => ({
-      ...el,
-      created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
-      amount: price(el.amount || '', '')
-    }))
-
-    getDataCsv(payload, `transactions-${Date.now()}`)
   }
 
   const getBranchesOptions = () =>
@@ -172,22 +126,6 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
           </span>
         </div>
       </form>
-
-      {/* <div>
-        <Button
-          className="w-36"
-          type="button"
-          loading={csvLoading}
-          onClick={createExcel}
-          disabled={loading}
-          color="success"
-        >
-          <span className="flex items-center">
-            <ExcelIcon />
-            <span className="font-sm font-bold mr-2">خروجی Excel</span>
-          </span>
-        </Button>
-      </div> */}
     </section>
   )
 }
