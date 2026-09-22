@@ -17,19 +17,20 @@
     &__item {
       padding: 4px 8px;
       width: 100%;
-      border-radius: 999px;
       min-height: 40px;
       text-align: center;
       position: relative;
       z-index: 1;
       cursor: pointer;
       transition: color ease 200ms;
+      white-space: nowrap;
       color: rgb(174, 174, 168);
       @include flex-center();
 
       &--active {
-        color: var(--color-red-2);
+        color: #21376E;
         font-weight: var(--text-weight-semi-bold);
+        border-bottom: 1px solid currentColor;
       }
     }
 

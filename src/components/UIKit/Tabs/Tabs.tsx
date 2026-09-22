@@ -59,10 +59,7 @@ export const Tabs: FC<TTabsProps> = ({
               {item}
             </li>
           ))}
-          <li
-            className="tabs-nav__active-background"
-            style={{ width: titleWidth, transform: `translateX(${titleTranslate}%)` }}
-          ></li>
+      
         </ul>
       </div>
 

@@ -9,7 +9,7 @@ import { apis } from '@services'
 import { REFUND_STATUS } from '@constants'
 import { getUserData, handleResponseError, hasItem, price, utcToJalaali } from '@utils'
 import { useAppStore, useDeposit } from '@store'
-import { FilterTable } from '@pages/dashboard-deposit/_components'
+import { FilterTable } from '../'
 import './PaginationTable.scss'
 
 const ExcelColumns: TCsvColumns = [
@@ -198,21 +198,6 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         ...data?.merchant_store?.credit_ticket_settlement
       ]
     }
-  }
-
-  const customerInfo = (record: TCreditTickets) => {
-    const customer_id = record?.customer_id
-    setIndexLoading(customer_id)
-
-    apis.report
-      .customerInfo({ customer_id })
-      .then((res) => {
-        openDialog({ record, ...res?.data?.payload?.data })
-      })
-      .catch((e) => {
-        handleResponseError(e)
-      })
-      .finally(() => setIndexLoading(0))
   }
 
   const getDataTable = (payload?: ISettlementPayload) => {

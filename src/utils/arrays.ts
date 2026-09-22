@@ -1,4 +1,4 @@
-export function hasItem(arr?: any): boolean {
+export function hasItem(arr?: unknown): boolean {
   return Boolean(Array.isArray(arr) && arr?.length)
 }
 

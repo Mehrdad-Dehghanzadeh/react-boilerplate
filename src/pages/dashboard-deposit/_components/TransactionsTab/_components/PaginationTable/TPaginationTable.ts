@@ -1,3 +1,3 @@
 export type TPaginationTableProps = {
-  openDialog: (data: any) => void
+  openDialog?: (data: any) => void
 }
