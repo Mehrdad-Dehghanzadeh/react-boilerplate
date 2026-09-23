@@ -1,4 +1,3 @@
-import type { TCsvColumns } from '@ts/Common'
 import type { TForm, TFiltersProps } from './TFilterTable'
 import type { IHomePayload } from '@ts/services/Report'
 import { Button, CalendarField, SelectField, TextField } from '@UIKit'
@@ -6,43 +5,18 @@ import { useTransactionsStore } from '@store'
 import { type FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { removeFalseValue, jalaliToUnix } from '@utils'
-import { TICKET_STATUS_LIST,  } from '@constants'
+import { TICKET_STATUS_LIST } from '@constants'
 import TrashIcon from '@assets/svg/trash.svg?react'
 import { mobileRule } from '@assets/validationsRules'
 import { useAppStore } from '@store'
 
+const channelOptions: TSelectOptions = [
+  { title: 'آنلاین', value: 'online' },
+  { title: 'حضوری', value: 'offline' },
+  { title: 'آنلاین و حضوری', value: 'both' }
+]
+
 export const FilterTable: FC<TFiltersProps> = ({ getData }) => {
-  const ExcelColumns: TCsvColumns = [
-    {
-      title: 'شناسه',
-      dataIndex: 'id'
-    },
-    {
-      title: 'شماره تراکنش',
-      dataIndex: 'track_number'
-    },
-
-    {
-      title: 'نوع تراکنش',
-      dataIndex: 'merchantable_type'
-    },
-
-    {
-      title: 'وضعیت تراکنش',
-      dataIndex: 'status'
-    },
-
-    {
-      title: 'تاریخ تراکنش',
-      dataIndex: 'created_at'
-    },
-
-    {
-      title: 'مبلغ',
-      dataIndex: 'amount'
-    }
-  ]
-
   const { profile } = useAppStore()
 
   const { branches, loading, setFilters } = useTransactionsStore()
@@ -54,7 +28,8 @@ export const FilterTable: FC<TFiltersProps> = ({ getData }) => {
     track_number: '',
     amount: 0,
     pay_time: '',
-    create_time: ''
+    create_time: '',
+    channel: 'both'
   }
 
   const { control, handleSubmit, setValues } = useForm<TForm>({
@@ -65,16 +40,16 @@ export const FilterTable: FC<TFiltersProps> = ({ getData }) => {
     setValues({ ...INITIAL_FORM_VALUES })
   }
 
-  const submit = (data: TForm) => {
-    const createTime = data.create_time.split('-')
-    const payTime = data.pay_time.split('-')
+  const createPayload = (formData: TForm) => {
+    const createTime = formData.create_time.split('-')
+    const payTime = formData.pay_time.split('-')
 
     const payload: IHomePayload = removeFalseValue({
-      provider_branch_id: Number(data?.provider_branch_id),
-      status: data.status,
-      mobile: data.mobile,
-      track_number: data.track_number,
-      amount: data.amount ? Number(data.amount) : 0,
+      provider_branch_id: Number(formData?.provider_branch_id),
+      status: formData.status,
+      mobile: formData.mobile,
+      track_number: formData.track_number,
+      amount: formData.amount ? Number(formData.amount) : 0,
       create_time_start: createTime[1] ? jalaliToUnix(createTime[1]) : 0,
       create_time_end: createTime[0]
         ? jalaliToUnix(createTime[0], { hour: 23, minute: 59, second: 59 })
@@ -84,6 +59,22 @@ export const FilterTable: FC<TFiltersProps> = ({ getData }) => {
         ? jalaliToUnix(payTime[0], { hour: 23, minute: 59, second: 59 })
         : 0
     })
+    
+    if (formData?.channel === 'online') {
+      payload.online = true
+      payload.offline = false
+    }
+
+    if (formData?.channel === 'offline') {
+      payload.online = false
+      payload.offline = true
+    }
+
+    return payload
+  }
+
+  const submit = (data: TForm) => {
+    const payload = createPayload(data)
 
     setFilters(payload)
     getData(payload)
@@ -149,6 +140,16 @@ export const FilterTable: FC<TFiltersProps> = ({ getData }) => {
             label="شعبه"
             control={control}
             options={getBranchesOptions()}
+            disabled={loading}
+            dense
+          />
+
+          <SelectField
+            className="w-48"
+            name="channel"
+            inputLabel="کانال"
+            control={control}
+            options={channelOptions}
             disabled={loading}
             dense
           />

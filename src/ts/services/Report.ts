@@ -26,7 +26,9 @@ export interface IHomePayload {
   create_time_start?: number
   create_time_end?: number
   pay_time_start?: number
-  pay_time_end?: number
+  pay_time_end?: number,
+  online?: boolean
+  offline?: boolean
 }
 
 export interface IHomeRes {
