@@ -43,6 +43,8 @@ export type TTransactions = {
 
 export type TSettlement = {
   id: number
+  name: string
+  family: string
   identifier: string
   merchant_branch_id: number
   bank_reference: string
@@ -53,7 +55,7 @@ export type TSettlement = {
   total_payable: number
   item_count: number
   note: string | null
-  amount: number
+  net_amount: number
   status: string
   settled_at: string | null
   created_at: string | null

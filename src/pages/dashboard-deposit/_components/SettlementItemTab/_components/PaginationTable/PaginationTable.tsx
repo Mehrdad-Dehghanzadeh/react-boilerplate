@@ -13,33 +13,39 @@ import { FilterTable } from '../'
 import './PaginationTable.scss'
 
 const ExcelColumns: TCsvColumns = [
+  { title: 'ردیف', dataIndex: 'row' },
   {
     title: 'شناسه',
     dataIndex: 'id'
   },
   {
-    title: 'شماره تراکنش',
+    title: 'نام کاربر',
+    dataIndex: 'full_name'
+  },
+  { title: 'نام شعبه', dataIndex: 'store_name' },
+  {
+    title: 'شماره تماس کاربر',
+    dataIndex: 'mobile'
+  },
+
+  {
+    title: 'کد پیگیری سفارش',
     dataIndex: 'track_number'
   },
 
   {
-    title: 'نوع تراکنش',
-    dataIndex: 'merchantable_type'
+    title: 'مبلغ ناخالص',
+    dataIndex: 'gross_amount'
   },
 
   {
-    title: 'وضعیت تراکنش',
-    dataIndex: 'status'
+    title: 'مبلغ خالص',
+    dataIndex: 'net_amount'
   },
 
   {
-    title: 'تاریخ تراکنش',
+    title: 'مبلغ خالص',
     dataIndex: 'created_at'
-  },
-
-  {
-    title: 'مبلغ',
-    dataIndex: 'amount'
   }
 ]
 
@@ -74,7 +80,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     },
 
     {
-      title: 'نام کاربر',
+      title: 'نام و نام خانوادگی کاربر',
       cellFC: (record) => <span>{`${record?.name || ''} ${record?.family || ''}`}</span>
     },
 
@@ -230,11 +236,14 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     }
   }
 
-  const convertExcelData = (excelData: TSettlement[]) => {
-    return excelData?.map((el) => ({
+  const convertExcelData = (excelData: TSettlementItem[]) => {
+    return excelData?.map((el, index) => ({
       ...el,
+      row: pageSize * (page - 1) + (index + 1),
+      full_name: `${el?.name || ''} ${el?.family || ''}`,
       created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
-      amount: price(el.amount || '', '')
+      net_amount: price(el.net_amount || '', ''),
+      gross_amount: price(el.gross_amount || '', '')
     }))
   }
 

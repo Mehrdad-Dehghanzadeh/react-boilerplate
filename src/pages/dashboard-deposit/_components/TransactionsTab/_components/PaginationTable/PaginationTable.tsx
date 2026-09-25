@@ -14,32 +14,43 @@ import './PaginationTable.scss'
 
 const ExcelColumns: TCsvColumns = [
   {
+    title: 'ردیف',
+    dataIndex: 'row'
+  },
+  {
     title: 'شناسه',
     dataIndex: 'id'
   },
+  { title: 'نام شعبه', dataIndex: 'store_name' },
+
   {
-    title: 'شماره تراکنش',
-    dataIndex: 'track_number'
+    title: 'شماره تراکنش بانکی',
+    dataIndex: 'bank_reference'
   },
 
   {
-    title: 'نوع تراکنش',
-    dataIndex: 'merchantable_type'
+    title: 'شماره حساب واریزی',
+    dataIndex: 'iban_snapshot'
   },
 
   {
-    title: 'وضعیت تراکنش',
-    dataIndex: 'status'
+    title: 'مبلغ ناخالص',
+    dataIndex: 'gross_amount'
   },
 
   {
-    title: 'تاریخ تراکنش',
-    dataIndex: 'created_at'
+    title: 'مبلغ خالص',
+    dataIndex: 'total_payable'
   },
 
   {
-    title: 'مبلغ',
-    dataIndex: 'amount'
+    title: 'تعداد سفارشات تسویه شده',
+    dataIndex: 'total_payable'
+  },
+
+  {
+    title: 'تاریخ تسویه',
+    dataIndex: 'settled_at'
   }
 ]
 
@@ -223,10 +234,12 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   const convertExcelData = (excelData: TSettlement[]) => {
-    return excelData?.map((el) => ({
+    return excelData?.map((el, index) => ({
       ...el,
-      created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
-      amount: price(el.amount || '', '')
+      row: pageSize * (page - 1) + (index + 1),
+      gross_amount: price(el.gross_amount || '', ''),
+      total_payable: price(el.total_payable || '', ''),
+      settled_at: el.settled_at ? utcToJalaali(el.settled_at || '') : ''
     }))
   }
 
