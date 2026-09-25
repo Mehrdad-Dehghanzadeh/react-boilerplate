@@ -53,7 +53,7 @@ const refundedDashboard = createRoute({
 
 const depositDashboard = createRoute({
   getParentRoute: () => dashboardRoute,
-  path: '/deposit'
+  path: '/settlement'
 }).lazy(() =>
   import('@pages/dashboard-deposit/DashboardDeposit.lazy').then((d) => d.Route)
 )

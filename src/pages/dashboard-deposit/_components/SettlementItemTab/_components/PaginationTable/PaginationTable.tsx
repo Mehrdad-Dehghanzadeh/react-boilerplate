@@ -1,12 +1,12 @@
 import type { IHomeRes, ISettlementItemPayload } from '@ts/services/Report'
 import type { TCsvColumns } from '@ts/Common'
-import type { TRefundStatus, TSettlement, TSettlementItem } from '@ts/Merchant'
+import type {  TSettlement, TSettlementItem, TSettlementItemStatus } from '@ts/Merchant'
 import type { TPaginationTableProps } from './TPaginationTable'
 import { useEffect, useRef, useState, type FC } from 'react'
 import { Chip, TableGrid, type TTableGridHeaders, Clipboard } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { apis } from '@services'
-import { REFUND_STATUS } from '@constants'
+import { SETTLEMENT_STATUS } from '@constants'
 import { getUserData, handleResponseError, price, utcToJalaali } from '@utils'
 import { useAppStore, useDeposit } from '@store'
 import { FilterTable } from '../'
@@ -63,28 +63,6 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
   const pageSize = watch('pageSize')
 
-  const setStatusTitle = (
-    status: TRefundStatus,
-    amount: number,
-    requestAmount: number
-  ): string => {
-    let val = ''
-
-    if (status != 'APPROVED') {
-      val = REFUND_STATUS[status]?.title || ''
-    } else {
-      if (amount == requestAmount) {
-        val = 'استرداد کل مبلغ '
-      }
-
-      if (amount > requestAmount) {
-        val = 'استرداد بخشی از مبلغ '
-      }
-    }
-
-    return val
-  }
-
   const headers: TTableGridHeaders = [
     {
       title: 'ردیف',
@@ -100,6 +78,8 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       cellFC: (record) => <span>{`${record?.name || ''} ${record?.family || ''}`}</span>
     },
 
+    { title: 'نام شعبه', keyData: 'store_name' },
+
     {
       title: 'شماره تماس کاربر',
       keyData: 'mobile',
@@ -113,10 +93,20 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         track_number ? <Clipboard value={track_number}>{track_number}</Clipboard> : null
     },
 
-    { title: 'نام شعبه', keyData: 'store_name' },
+    {
+      title: 'مبلغ ناخالص',
+      keyData: 'gross_amount',
+      cellFC: (gross_amount) => <span>{price(gross_amount)}</span>
+    },
 
     {
-      title: 'تاریخ ثبت پرداخت',
+      title: 'مبلغ خالص',
+      keyData: 'net_amount',
+      cellFC: (net_amount) => <span>{price(net_amount)}</span>
+    },
+
+    {
+      title: 'تاریخ سفارش',
       keyData: 'created_at',
       cellFC: (created_at: string) => (
         <span className="sc-interp">
@@ -126,20 +116,14 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     },
 
     {
-      title: 'مبلغ پرداخت',
-      keyData: 'amount',
-      cellFC: (amount) => <span>{price(amount)}</span>
-    },
-
-    {
-      title: 'مبلغ استرداد',
-      keyData: 'requested_amount',
-      cellFC: (requested_amount) => <span>{price(requested_amount)}</span>
-    },
-
-    {
       title: 'وضعیت',
-      cellFC: ({ status }: TSettlement) => <Chip color={'default'}>{status}</Chip>
+      keyData: 'status',
+      cellFC: (status: TSettlementItemStatus) => (
+        //@ts-ignore
+        <Chip color={SETTLEMENT_STATUS[status]?.color}>
+          {status ? SETTLEMENT_STATUS[status]?.title : ''}
+        </Chip>
+      )
     }
 
     // {
