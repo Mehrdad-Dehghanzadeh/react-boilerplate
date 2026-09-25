@@ -264,7 +264,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         data={data}
         loading={settlementLoading}
         excelColumns={ExcelColumns}
-        excelNamePrefix="Settlement"
+        excelNamePrefix="Settlement_Item"
         convertExcelData={convertExcelData}
       />
       <div className="pagination-table">
