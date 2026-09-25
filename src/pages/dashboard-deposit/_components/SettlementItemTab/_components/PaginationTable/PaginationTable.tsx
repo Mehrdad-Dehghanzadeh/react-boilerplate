@@ -1,8 +1,8 @@
 import type { IHomeRes, ISettlementPayload } from '@ts/services/Report'
 import type { TCsvColumns } from '@ts/Common'
-import type { TCreditTickets, TRefund, TRefundStatus, TSettlement } from '@ts/Merchant'
+import type { TRefundStatus, TSettlement } from '@ts/Merchant'
 import type { TPaginationTableProps } from './TPaginationTable'
-import { act, useEffect, useRef, useState, type FC } from 'react'
+import {useEffect, useRef, useState, type FC } from 'react'
 import { Chip, TableGrid, type TTableGridHeaders, Clipboard } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { apis } from '@services'
@@ -46,8 +46,12 @@ const ExcelColumns: TCsvColumns = [
 export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const [data, setData] = useState<TSettlement[]>([])
   const [page, setPage] = useState<number>(1)
-  const [indexLoading, setIndexLoading] = useState<number>(0)
-  const { branches, setBranches, setLoading, loading, filters, setFilters } = useDeposit()
+  const {
+    setSettlementLoading,
+    settlementLoading,
+    settlementFilters,
+    setSettlementFilters
+  } = useDeposit()
 
   const { watch } = useForm({
     defaultValues: { pageSize: 50 }
@@ -165,29 +169,14 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     setData(pageData)
   }
 
-  const setBranchOptions = (data: IHomeRes) => {
-    const userData = getUserData()
-    const temp = hasItem(data?.merchant_store?.branches)
-      ? data?.merchant_store?.branches?.map((el) => ({
-          value: el?.id,
-          title: el?.store_name
-        }))
-      : []
-
-    if (Boolean(userData?.merchant_id)) {
-      temp?.unshift({ title: 'همه شعب', value: 0 })
-    }
-
-    setBranches(temp)
-  }
-
   const handleDataRes = (data: IHomeRes, branchId: number | undefined) => {
     const userData = getUserData()
-    if (branches.length <= 1) {
-      setBranchOptions(data)
-    }
 
-    if (branchId || !Boolean(userData?.merchant_id) || filters?.provider_branch_id) {
+    if (
+      branchId ||
+      !Boolean(userData?.merchant_id) ||
+      settlementFilters?.provider_branch_id
+    ) {
       const branch = data?.merchant_store?.branches[0]
       totalData.current = branch
         ? [...totalData.current, ...branch?.credit_ticket_settlement]
@@ -201,10 +190,10 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   const getDataTable = (payload?: ISettlementPayload) => {
-    setLoading(true)
+    setSettlementLoading(true)
 
     apis.report
-      .settlement(payload)
+      .settlementItem(payload)
       .then((res) => {
         handleDataRes(res?.data?.payload?.data, payload?.provider_branch_id)
         updateData(1)
@@ -213,7 +202,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         handleResponseError(e)
       })
       .finally(() => {
-        setLoading(false)
+        setSettlementLoading(false)
       })
   }
 
@@ -221,21 +210,21 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     setPage(1)
     totalData.current = []
     setData([])
-    setFilters(null)
+    setSettlementFilters(null)
     getDataTable(payload)
   }
 
   const goNextPage = async () => {
     if (page * pageSize >= totalData.current.length) {
-      setLoading(true)
+      setSettlementLoading(true)
       const last_id = totalData.current[totalData.current.length - 1]?.id
 
       const payload = {
-        ...filters,
+        ...settlementFilters,
         last_id
       }
       apis.report
-        .settlement(payload)
+        .settlementItem(payload)
         .then((res) => {
           handleDataRes(res?.data?.payload?.data, payload?.provider_branch_id)
           setPage((page) => ++page)
@@ -244,7 +233,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
           handleResponseError(e)
         })
         .finally(() => {
-          setLoading(false)
+          setSettlementLoading(false)
         })
     } else {
       setPage((page) => ++page)
@@ -280,7 +269,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         className="pagination-table-grid"
         headers={headers}
         data={data}
-        loading={loading}
+        loading={settlementLoading}
         excelColumns={ExcelColumns}
         excelNamePrefix="Settlement"
         convertExcelData={converExcelData}

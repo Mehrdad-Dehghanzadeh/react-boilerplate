@@ -9,7 +9,7 @@ export type TForm = {
   amount: 0
   pay_time: string
   create_time: string
-  channel: 'online' | 'offline' | 'both'
+  channel: 'online' | 'offline' | EmptyString
 }
 
 export type TFiltersProps = {
