@@ -17,7 +17,11 @@ const DashboardDeposit: FC = () => {
   )
   return (
     <article id="report-transactions-page" className="full-page-relative">
-      <Tabs titles={['تسویه سفارش ها', 'واریز ها']} navClassName="w-fit">
+      <Tabs
+        titles={['تسویه سفارش ها', 'واریز ها']}
+        navClassName="w-fit"
+        swiperOptions={{ allowTouchMove: false, simulateTouch: false }}
+      >
         <SettlementItemTab />
         <TransactionsTab />
       </Tabs>

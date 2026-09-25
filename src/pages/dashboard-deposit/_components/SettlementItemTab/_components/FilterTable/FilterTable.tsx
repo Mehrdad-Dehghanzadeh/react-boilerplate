@@ -86,7 +86,7 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
           <SelectField
             className="w-[196px]"
             name="status"
-            label="وضعیت"
+            label="وضعیت تسویه"
             control={control}
             options={SETTLEMENT_STATUS_LIST}
             disabled={loading}

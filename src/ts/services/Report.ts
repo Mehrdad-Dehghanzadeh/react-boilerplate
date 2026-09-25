@@ -88,7 +88,7 @@ export interface ISettlementPayload {
   count?: number
   net_amount?: number
   gross_amount?: number
-  bank_reference?: number
+  bank_reference?: string
 }
 
 export interface ISettlementItemPayload {

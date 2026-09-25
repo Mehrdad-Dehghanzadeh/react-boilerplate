@@ -4,9 +4,11 @@ import type { ISettlementPayload } from '@ts/services/Report'
 export type TForm = {
   duration_create: number
   provider_branch_id: number
-  status: TSettlementStatus | ''
-  mobile: string
-  create_time: string
+  iban: string
+  count: string
+  net_amount: string
+  gross_amount: string
+  bank_reference: string
   pay_time: string
 }
 

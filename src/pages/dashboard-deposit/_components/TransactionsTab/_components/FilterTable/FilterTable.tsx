@@ -10,7 +10,6 @@ import { mobileRule } from '@assets/validationsRules'
 import { useAppStore, useDeposit } from '@store'
 
 export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
-
   const { profile } = useAppStore()
 
   const { branches, loading, setFilters } = useDeposit()
@@ -18,10 +17,12 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
   const INITIAL_FORM_VALUES: TForm = {
     provider_branch_id: profile?.branches?.[0]?.provider_id ?? 0,
     duration_create: 0,
-    status: '',
-    mobile: '',
-    create_time: '',
-    pay_time: ''
+    pay_time: '',
+    bank_reference: '',
+    count: '',
+    gross_amount: '',
+    net_amount: '',
+    iban: ''
   }
 
   const { control, handleSubmit, setValues } = useForm<TForm>({
@@ -33,22 +34,19 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
   }
 
   const submit = (data: TForm) => {
-    const createTime = data.create_time.split('-')
     const payTime = data.pay_time.split('-')
 
     const payload: ISettlementPayload = removeFalseValue({
       provider_branch_id: Number(data?.provider_branch_id),
-      status: data.status,
-      mobile: data.mobile,
-      create_time_start: createTime[1] ? jalaliToUnix(createTime[1]) : 0,
-      create_time_end: createTime[0]
-        ? jalaliToUnix(createTime[0], { hour: 23, minute: 59, second: 59 })
-        : 0,
-
       pay_time_start: payTime[1] ? jalaliToUnix(payTime[1]) : 0,
       pay_time_end: payTime[0]
         ? jalaliToUnix(payTime[0], { hour: 23, minute: 59, second: 59 })
-        : 0
+        : 0,
+      bank_reference: data?.bank_reference,
+      count: data?.count ? Number(data?.count) : undefined,
+      gross_amount: data?.gross_amount ? Number(data?.gross_amount) : undefined,
+      net_amount: data?.net_amount ? Number(data?.net_amount) : undefined,
+      iban: data?.iban
     })
 
     setFilters(payload)
@@ -67,52 +65,72 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
     <section className="flex justify-between items-center mb-10" id="table-filter">
       <form className="flex gap-3" onSubmit={handleSubmit(submit)}>
         <div className="flex gap-3 flex-wrap">
-          <TextField
-            className="w-[196px]"
-            name="mobile"
-            label="تلفن همراه کاربر"
-            rules={{ validate: mobileRule }}
-            control={control}
-            disabled={loading}
-            dense
-            clearable
-          />
-
-          <SelectField
-            className="w-[196px]"
-            name="status"
-            label="وضعیت"
-            control={control}
-            options={REFUND_STATUS_LIST}
-            disabled={loading}
-            clearable
-            dense
-          />
-
           <SelectField
             className="w-[196px]"
             name="provider_branch_id"
-            label="شعبه"
+            label="فروشگاه"
             control={control}
             options={getBranchesOptions()}
             disabled={loading}
             dense
           />
 
-          <CalendarField
+          <TextField
+            className="w-[196px]"
+            name="bank_reference"
+            label="شماره تراکنش بانکی"
             control={control}
-            name="create_time"
-            label="تاریخ ثبت تراکنش"
             disabled={loading}
             dense
+            clearable
+          />
+
+          <TextField
+            className="w-[280px]"
+            name="iban"
+            label="شماره حساب واریزی"
+            control={control}
+            disabled={loading}
+            dense
+            clearable
           />
 
           <CalendarField
             control={control}
             name="pay_time"
-            label="تاریخ تسویه تراکنش"
+            label="تاریخ تسویه"
             disabled={loading}
             dense
+          />
+
+          <TextField
+            className="w-[196px]"
+            name="net_amount"
+            label="مبلغ خالص"
+            control={control}
+            disabled={loading}
+            dense
+            clearable
+          />
+
+          <TextField
+            className="w-[196px]"
+            name="gross_amount"
+            label="مبلغ ناخالص"
+            control={control}
+            disabled={loading}
+            dense
+            clearable
+          />
+
+          <TextField
+            className="w-[196px]"
+            name="count"
+            label="تعداد سفارشات"
+            control={control}
+            disabled={loading}
+            dense
+            clearable
           />
         </div>
 
