@@ -2,12 +2,13 @@ import type { TSettlementItemStatus, TSettlementItem } from '@ts/Merchant'
 import type { ISettlementItemPayload } from '@ts/services/Report'
 
 export type TForm = {
-  duration_create: number
   provider_branch_id: number
   status: TSettlementItemStatus | ''
   mobile: string
   create_time: string
-  pay_time: string
+  gross_amount: string
+  net_amount: string
+  track_number: string
 }
 
 export type TFiltersProps = {

@@ -102,6 +102,7 @@ export interface ISettlementItemPayload {
   track_number?: string
   mobile?: string
   settlement_id?: number
+  
 }
 
 const merchant_store = {

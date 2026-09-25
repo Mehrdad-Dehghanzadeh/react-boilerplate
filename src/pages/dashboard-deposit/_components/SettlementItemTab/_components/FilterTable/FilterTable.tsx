@@ -4,24 +4,24 @@ import { Button, CalendarField, SelectField, TextField } from '@UIKit'
 import { type FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { removeFalseValue, jalaliToUnix } from '@utils'
-import { REFUND_STATUS_LIST } from '@constants'
+import { REFUND_STATUS_LIST, SETTLEMENT_STATUS_LIST } from '@constants'
 import TrashIcon from '@assets/svg/trash.svg?react'
 import { mobileRule } from '@assets/validationsRules'
 import { useAppStore, useDeposit } from '@store'
 
 export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
-
   const { profile } = useAppStore()
 
   const { branches, loading, setSettlementFilters } = useDeposit()
 
   const INITIAL_FORM_VALUES: TForm = {
     provider_branch_id: profile?.branches?.[0]?.provider_id ?? 0,
-    duration_create: 0,
     status: '',
     mobile: '',
     create_time: '',
-    pay_time: ''
+    gross_amount: '',
+    net_amount: '',
+    track_number: ''
   }
 
   const { control, handleSubmit, setValues } = useForm<TForm>({
@@ -34,7 +34,6 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
 
   const submit = (data: TForm) => {
     const createTime = data.create_time.split('-')
-    const payTime = data.pay_time.split('-')
 
     const payload: ISettlementItemPayload = removeFalseValue({
       provider_branch_id: Number(data?.provider_branch_id),
@@ -44,11 +43,9 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
       create_time_end: createTime[0]
         ? jalaliToUnix(createTime[0], { hour: 23, minute: 59, second: 59 })
         : 0,
-
-      pay_time_start: payTime[1] ? jalaliToUnix(payTime[1]) : 0,
-      pay_time_end: payTime[0]
-        ? jalaliToUnix(payTime[0], { hour: 23, minute: 59, second: 59 })
-        : 0
+      gross_amount: data?.gross_amount ? Number(data?.gross_amount) : undefined,
+      net_amount: data?.net_amount ? Number(data?.net_amount) : undefined,
+      track_number: data?.track_number
     })
 
     setSettlementFilters(payload)
@@ -78,27 +75,6 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
             clearable
           />
 
-          <SelectField
-            className="w-[196px]"
-            name="status"
-            label="وضعیت"
-            control={control}
-            options={REFUND_STATUS_LIST}
-            disabled={loading}
-            clearable
-            dense
-          />
-
-          <SelectField
-            className="w-[196px]"
-            name="provider_branch_id"
-            label="شعبه"
-            control={control}
-            options={getBranchesOptions()}
-            disabled={loading}
-            dense
-          />
-
           <CalendarField
             control={control}
             name="create_time"
@@ -107,10 +83,53 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
             dense
           />
 
-          <CalendarField
+          <SelectField
+            className="w-[196px]"
+            name="status"
+            label="وضعیت"
             control={control}
-            name="pay_time"
-            label="تاریخ تسویه تراکنش"
+            options={SETTLEMENT_STATUS_LIST}
+            disabled={loading}
+            clearable
+            dense
+          />
+
+          <TextField
+            className="w-[196px]"
+            name="net_amount"
+            label="مبلغ خالص"
+            control={control}
+            disabled={loading}
+            dense
+            clearable
+          />
+
+          <TextField
+            className="w-[196px]"
+            name="gross_amount"
+            label="مبلغ ناخالص"
+            control={control}
+            disabled={loading}
+            dense
+            clearable
+          />
+
+          <TextField
+            className="w-[196px]"
+            name="track_number"
+            label="کد پیگیری تراکنش"
+            control={control}
+            disabled={loading}
+            dense
+            clearable
+          />
+
+          <SelectField
+            className="w-[196px]"
+            name="provider_branch_id"
+            label="فروشگاه"
+            control={control}
+            options={getBranchesOptions()}
             disabled={loading}
             dense
           />
