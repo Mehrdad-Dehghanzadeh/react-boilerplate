@@ -46,7 +46,6 @@ const ExcelColumns: TCsvColumns = [
 export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const [data, setData] = useState<TSettlement[]>([])
   const [page, setPage] = useState<number>(1)
-  const [indexLoading, setIndexLoading] = useState<number>(0)
   const { branches, setBranches, setLoading, loading, filters, setFilters } = useDeposit()
 
   const { watch } = useForm({
@@ -59,28 +58,6 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
   const pageSize = watch('pageSize')
 
-  const setStatusTitle = (
-    status: TRefundStatus,
-    amount: number,
-    requestAmount: number
-  ): string => {
-    let val = ''
-
-    if (status != 'APPROVED') {
-      val = REFUND_STATUS[status]?.title || ''
-    } else {
-      if (amount == requestAmount) {
-        val = 'استرداد کل مبلغ '
-      }
-
-      if (amount > requestAmount) {
-        val = 'استرداد بخشی از مبلغ '
-      }
-    }
-
-    return val
-  }
-
   const headers: TTableGridHeaders = [
     {
       title: 'ردیف',
@@ -91,71 +68,59 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       )
     },
 
-    {
-      title: 'نام کاربر',
-      cellFC: (record) => <span>{`${record?.name || ''} ${record?.family || ''}`}</span>
-    },
-
-    {
-      title: 'شماره تماس کاربر',
-      keyData: 'mobile',
-      cellFC: (mobile) => (mobile ? <Clipboard value={mobile}>{mobile}</Clipboard> : null)
-    },
-
-    {
-      title: 'کد پیگیری سفارش',
-      keyData: 'track_number',
-      cellFC: (track_number) =>
-        track_number ? <Clipboard value={track_number}>{track_number}</Clipboard> : null
-    },
-
     { title: 'نام شعبه', keyData: 'store_name' },
 
     {
-      title: 'تاریخ ثبت پرداخت',
-      keyData: 'created_at',
-      cellFC: (created_at: string) => (
+      title: 'شماره تراکنش بانکی',
+      keyData: 'bank_reference',
+      cellFC: (bank_reference) =>
+        bank_reference ? (
+          <Clipboard value={bank_reference}>{bank_reference}</Clipboard>
+        ) : null
+    },
+
+    {
+      title: 'شماره حساب واریزی',
+      keyData: 'iban_snapshot',
+      cellFC: (iban_snapshot) =>
+        iban_snapshot ? (
+          <Clipboard value={iban_snapshot}>{iban_snapshot}</Clipboard>
+        ) : null
+    },
+
+    {
+      title: 'مبلغ مبلغ ناخالص',
+      keyData: 'gross_amount',
+      cellFC: (gross_amount) => <span>{price(gross_amount)}</span>
+    },
+
+    {
+      title: 'مبلغ مبلغ خالص',
+      keyData: 'total_payable',
+      cellFC: (total_payable) => <span>{price(total_payable)}</span>
+    },
+
+    {
+      title: 'تعداد سفارشات تسویه شده',
+      keyData: 'item_count',
+      cellFC: (item_count) => <span>{`${item_count} سفارش`}</span>
+    },
+
+    {
+      title: 'تاریخ تسویه',
+      keyData: 'settled_at',
+      cellFC: (settled_at: string) => (
         <span className="sc-interp">
-          {created_at ? utcToJalaali(created_at || '') : ''}
+          {settled_at ? utcToJalaali(settled_at || '') : ''}
         </span>
       )
     },
 
     {
-      title: 'مبلغ پرداخت',
-      keyData: 'amount',
-      cellFC: (amount) => <span>{price(amount)}</span>
-    },
-
-    {
-      title: 'مبلغ استرداد',
-      keyData: 'requested_amount',
-      cellFC: (requested_amount) => <span>{price(requested_amount)}</span>
-    },
-
-    {
-      title: 'وضعیت',
-      cellFC: ({ status }: TSettlement) => <Chip color={'default'}>{status}</Chip>
+      title: 'جزئیات',
+      cellStyle: { width: '80px' },
+      cellFC: (record) => <button className="btn-2 block" onClick={() => {}}></button>
     }
-
-    // {
-    //   title: 'جزئیات',
-    //   cellStyle: { width: '80px' },
-    //   cellFC: (record) => (
-    //     <button
-    //       className="btn-2 block"
-    //       onClick={() => {
-    //         customerInfo(record)
-    //       }}
-    //     >
-    //       {indexLoading === record?.customer_id ? (
-    //         <SpinnerSVG className="spinner" />
-    //       ) : (
-    //         'جزئیات'
-    //       )}
-    //     </button>
-    //   )
-    // }
   ]
 
   const updateData = (p?: number) => {
@@ -266,7 +231,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   useEffect(() => {
-    getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id})
+    getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
   }, [])
 
   useEffect(() => {

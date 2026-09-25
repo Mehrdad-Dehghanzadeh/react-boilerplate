@@ -26,7 +26,7 @@ export const URLS = deepFreeze<TUrls>({
   },
 
   deposit: {
-    href: '/dashboard/deposit',
+    href: '/dashboard/settlement',
     title: 'گزارش تسویه تراکنش ها',
     subTitle: 'گزارش تسویه تراکنش ها',
     icon: 'WalletRemove'
