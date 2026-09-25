@@ -1,13 +1,13 @@
-import type { IHomeRes, ISettlementPayload } from '@ts/services/Report'
+import type { IHomeRes, ISettlementItemPayload } from '@ts/services/Report'
 import type { TCsvColumns } from '@ts/Common'
 import type { TRefundStatus, TSettlement, TSettlementItem } from '@ts/Merchant'
 import type { TPaginationTableProps } from './TPaginationTable'
-import {useEffect, useRef, useState, type FC } from 'react'
+import { useEffect, useRef, useState, type FC } from 'react'
 import { Chip, TableGrid, type TTableGridHeaders, Clipboard } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { apis } from '@services'
 import { REFUND_STATUS } from '@constants'
-import { getUserData, handleResponseError, hasItem, price, utcToJalaali } from '@utils'
+import { getUserData, handleResponseError, price, utcToJalaali } from '@utils'
 import { useAppStore, useDeposit } from '@store'
 import { FilterTable } from '../'
 import './PaginationTable.scss'
@@ -97,7 +97,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
     {
       title: 'نام کاربر',
-      cellFC: (record) => <span>{`${record?.name} ${record?.family}`}</span>
+      cellFC: (record) => <span>{`${record?.name || ''} ${record?.family || ''}`}</span>
     },
 
     {
@@ -189,7 +189,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     }
   }
 
-  const getDataTable = (payload?: ISettlementPayload) => {
+  const getDataTable = (payload?: ISettlementItemPayload) => {
     setSettlementLoading(true)
 
     apis.report
@@ -206,7 +206,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       })
   }
 
-  const refreshTable = (payload?: ISettlementPayload) => {
+  const refreshTable = (payload?: ISettlementItemPayload) => {
     setPage(1)
     totalData.current = []
     setData([])
@@ -255,7 +255,9 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   useEffect(() => {
-    getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
+    if (profile?.branches?.[0]?.provider_id) {
+      getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
+    }
   }, [])
 
   useEffect(() => {

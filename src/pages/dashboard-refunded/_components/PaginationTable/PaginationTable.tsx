@@ -20,7 +20,7 @@ const ExcelColumns: TCsvColumns = [
     dataIndex: 'id'
   },
   {
-    title: 'نام کاربر',
+    title: 'نام و نام خانوادگی کاربر',
     dataIndex: 'full_name'
   },
 
@@ -105,8 +105,8 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     },
 
     {
-      title: 'نام کاربر',
-      cellFC: (record) => <span>{`${record?.name} ${record?.family}`}</span>
+      title: 'نام و نام خانوادگی کاربر',
+      cellFC: (record) => <span>{`${record?.name || ''} ${record?.family || ''}`}</span>
     },
 
     {
@@ -296,7 +296,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
       amount: price(el.amount || '', ''),
       requested_amount: price(el.requested_amount || '', ''),
-      full_name: `${el?.name} ${el?.family}`,
+      full_name: `${el?.name || ''} ${el?.family || ''}`,
       status: setStatusTitle(el.status, el.amount, el.requested_amount)
     }))
 

@@ -1,5 +1,5 @@
 import type { TForm, TFiltersProps } from './TFilterTable'
-import type { ISettlementPayload } from '@ts/services/Report'
+import type { ISettlementItemPayload } from '@ts/services/Report'
 import { Button, CalendarField, SelectField, TextField } from '@UIKit'
 import { type FC } from 'react'
 import { useForm } from 'react-hook-form'
@@ -36,7 +36,7 @@ export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {
     const createTime = data.create_time.split('-')
     const payTime = data.pay_time.split('-')
 
-    const payload: ISettlementPayload = removeFalseValue({
+    const payload: ISettlementItemPayload = removeFalseValue({
       provider_branch_id: Number(data?.provider_branch_id),
       status: data.status,
       mobile: data.mobile,

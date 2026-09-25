@@ -6,7 +6,9 @@ import type {
   TRefund,
   TRefundStatus,
   TSettlement,
-  TSettlementItem
+  TSettlementItem,
+  TSettlementItemStatus,
+  TSettlementStatus
 } from '@ts/Merchant'
 export interface IReportPayload {
   mobile: string
@@ -34,7 +36,7 @@ export interface IHomePayload {
   create_time_start?: number
   create_time_end?: number
   pay_time_start?: number
-  pay_time_end?: number,
+  pay_time_end?: number
   online?: boolean
   offline?: boolean
 }
@@ -78,13 +80,28 @@ export interface IRefundPayload {
 
 export interface ISettlementPayload {
   last_id?: number
-  status?: TRefundStatus | ''
-  mobile?: string
   provider_branch_id?: number
+  status?: TSettlementStatus | ''
   pay_time_start?: number
   pay_time_end?: number
+  iban?: string
+  count?: number
+  net_amount?: number
+  gross_amount?: number
+  bank_reference?: number
+}
+
+export interface ISettlementItemPayload {
+  last_id?: number
+  status?: TSettlementItemStatus | ''
+  provider_branch_id?: number
   create_time_start?: number
   create_time_end?: number
+  net_amount?: number
+  gross_amount?: number
+  track_number?: string
+  mobile?: string
+  settlement_id?: number
 }
 
 const merchant_store = {

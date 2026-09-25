@@ -93,7 +93,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
     {
       title: 'نام کاربر',
-      cellFC: (record) => <span>{`${record?.name} ${record?.family}`}</span>
+      cellFC: (record) => <span>{`${record?.name || ''} ${record?.family || ''}`}</span>
     },
 
     {
@@ -266,7 +266,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   useEffect(() => {
-    getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
+    getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id})
   }, [])
 
   useEffect(() => {

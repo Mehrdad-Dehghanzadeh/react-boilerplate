@@ -1,16 +1,16 @@
-import type { TRefundStatus, TSettlementItem } from '@ts/Merchant'
-import type { ISettlementPayload } from '@ts/services/Report'
+import type { TSettlementItemStatus, TSettlementItem } from '@ts/Merchant'
+import type { ISettlementItemPayload } from '@ts/services/Report'
 
 export type TForm = {
   duration_create: number
   provider_branch_id: number
-  status: TRefundStatus | ''
+  status: TSettlementItemStatus | ''
   mobile: string
   create_time: string
   pay_time: string
 }
 
 export type TFiltersProps = {
-  getData: (payload?: ISettlementPayload) => void
+  getData: (payload?: ISettlementItemPayload) => void
   data: TSettlementItem[]
 }

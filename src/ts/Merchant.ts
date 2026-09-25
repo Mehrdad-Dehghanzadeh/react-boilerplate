@@ -95,6 +95,18 @@ export type TTicketStatus =
 
 export type TRefundStatus = 'PENDING' | 'APPROVED' | 'CANCELED' | 'REJECTED'
 
+export type TSettlementStatus =
+  | 'WAITING_FOR_SETTLEMENT'
+  | 'SETTLED'
+  | 'REJECTED'
+  | 'REPLACED'
+  | 'REFUNDED'
+  | 'PARTIAL_REFUNDED'
+  | 'PRE_SETTLEMENT_REFUNDED'
+
+
+export type TSettlementItemStatus = '1' | '2' | '3' | '4' | '5' | '6' | '7'
+
 export type TMerchantTypes = 'merchant_cashier' | 'merchant_branch'
 
 export type TBranch = {

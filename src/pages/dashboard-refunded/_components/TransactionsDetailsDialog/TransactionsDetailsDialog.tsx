@@ -135,7 +135,7 @@ export const TransactionsDetailsDialog: FC<TTransactionsDetailsDialogProps> = ({
                 <span className="sc-interp">نام مشتری</span>
               </span>
               <span className="transaction-details__field-value">
-                <span className="sc-interp">{`${data?.customer?.name} ${data?.customer?.family}`}</span>
+                <span className="sc-interp">{`${data?.customer?.name || ''} ${data?.customer?.family || ''}`}</span>
               </span>
             </div>
 

@@ -1,10 +1,10 @@
-import type { TRefundStatus, TSettlement } from '@ts/Merchant'
+import type { TSettlementStatus, TSettlement } from '@ts/Merchant'
 import type { ISettlementPayload } from '@ts/services/Report'
 
 export type TForm = {
   duration_create: number
   provider_branch_id: number
-  status: TRefundStatus | ''
+  status: TSettlementStatus | ''
   mobile: string
   create_time: string
   pay_time: string

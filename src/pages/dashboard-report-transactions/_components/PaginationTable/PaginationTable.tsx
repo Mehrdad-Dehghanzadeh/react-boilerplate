@@ -86,7 +86,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
     {
       title: 'نام و نام خانوادگی کاربر',
-      cellFC: (record) => <span>{`${record?.name} ${record?.family}`}</span>
+      cellFC: (record) => <span>{`${record?.name || ''} ${record?.family || ''}`}</span>
     },
 
     {

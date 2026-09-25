@@ -6,7 +6,9 @@ import type {
   IHomeRes,
   ICustomerInfoPayload,
   ICustomerInfoRes,
-  IRefundPayload
+  IRefundPayload,
+  ISettlementItemPayload,
+  ISettlementPayload
 } from '@ts/services/Report'
 
 export default {
@@ -38,14 +40,14 @@ export default {
     })
   },
 
-  settlement(payload?: IRefundPayload) {
+  settlement(payload?: ISettlementPayload) {
     return axiosInstance.post<IResponse>(API_RESOURCES.REPORT, {
       op_code: OP_CODES.SETTLEMENT,
       payload: JSON.stringify(payload)
     })
   },
 
-  settlementItem(payload?: IRefundPayload) {
+  settlementItem(payload?: ISettlementItemPayload) {
     return axiosInstance.post<IResponse>(API_RESOURCES.REPORT, {
       op_code: OP_CODES.SETTLEMENT_ITEM,
       payload: JSON.stringify(payload)
