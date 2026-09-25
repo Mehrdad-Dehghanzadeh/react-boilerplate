@@ -1,6 +1,6 @@
 import type { IHomeRes, ISettlementItemPayload } from '@ts/services/Report'
 import type { TCsvColumns } from '@ts/Common'
-import type {  TSettlement, TSettlementItem, TSettlementItemStatus } from '@ts/Merchant'
+import type { TSettlement, TSettlementItem, TSettlementItemStatus } from '@ts/Merchant'
 import type { TPaginationTableProps } from './TPaginationTable'
 import { useEffect, useRef, useState, type FC } from 'react'
 import { Chip, TableGrid, type TTableGridHeaders, Clipboard } from '@UIKit'
@@ -239,9 +239,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   useEffect(() => {
-    if (profile?.branches?.[0]?.provider_id) {
-      getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
-    }
+    getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })
   }, [])
 
   useEffect(() => {

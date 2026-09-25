@@ -89,13 +89,13 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     },
 
     {
-      title: 'مبلغ مبلغ ناخالص',
+      title: 'مبلغ ناخالص',
       keyData: 'gross_amount',
       cellFC: (gross_amount) => <span>{price(gross_amount)}</span>
     },
 
     {
-      title: 'مبلغ مبلغ خالص',
+      title: 'مبلغ خالص',
       keyData: 'total_payable',
       cellFC: (total_payable) => <span>{price(total_payable)}</span>
     },
