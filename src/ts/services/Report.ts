@@ -1,5 +1,12 @@
 import type { TRoles } from '@ts/Common'
-import type { TMerchantStore, TCreditTickets, TTicketStatus, TRefund, TRefundStatus } from '@ts/Merchant'
+import type {
+  TMerchantStore,
+  TCreditTickets,
+  TTicketStatus,
+  TRefund,
+  TRefundStatus,
+  TSettlement
+} from '@ts/Merchant'
 export interface IReportPayload {
   mobile: string
   branch_id: number
@@ -35,7 +42,8 @@ export interface IHomeRes {
   merchant_store: TMerchantStore & {
     credit_tickets: TCreditTickets[]
     credit_ticket_refunded: TRefund[]
-    credit_ticket_settlement: []
+    credit_ticket_settlement: TSettlement[]
+    credit_ticket_settlement_items: []
   }
 }
 

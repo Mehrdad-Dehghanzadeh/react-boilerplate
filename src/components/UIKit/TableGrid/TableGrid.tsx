@@ -54,7 +54,7 @@ export const TableGrid: FC<TTableGridProps> = ({
             type="button"
             loading={csvLoading}
             onClick={createExcel}
-            disabled={loading}
+            disabled={loading || !hasItem(data)}
             color="success"
           >
             <span className="flex items-center">

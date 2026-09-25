@@ -19,28 +19,38 @@ const ExcelColumns: TCsvColumns = [
     dataIndex: 'id'
   },
   {
-    title: 'شماره تراکنش',
-    dataIndex: 'track_number'
+    title: 'نام کاربر',
+    dataIndex: 'full_name'
   },
 
   {
-    title: 'نوع تراکنش',
-    dataIndex: 'merchantable_type'
+    title: 'شماره تماس کاربر',
+    dataIndex: 'mobile'
   },
 
   {
-    title: 'وضعیت تراکنش',
-    dataIndex: 'status'
+    title: 'نام شعبه',
+    dataIndex: 'store_name'
   },
 
   {
-    title: 'تاریخ تراکنش',
+    title: 'تاریخ ثبت پرداخت',
     dataIndex: 'created_at'
   },
 
   {
-    title: 'مبلغ',
+    title: 'مبلغ پرداخت',
     dataIndex: 'amount'
+  },
+
+  {
+    title: 'مبلغ استرداد',
+    dataIndex: 'requested_amount'
+  },
+
+  {
+    title: 'وضعیت',
+    dataIndex: 'status'
   }
 ]
 
@@ -282,7 +292,10 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     excelData?.map((el) => ({
       ...el,
       created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
-      amount: price(el.amount || '', '')
+      amount: price(el.amount || '', ''),
+      requested_amount: price(el.requested_amount || '', ''),
+      full_name: `${el?.name} ${el?.family}`,
+      status: setStatusTitle(el.status, el.amount, el.requested_amount)
     })) 
 
   useEffect(() => {

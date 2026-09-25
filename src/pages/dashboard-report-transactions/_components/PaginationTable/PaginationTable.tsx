@@ -19,25 +19,37 @@ const ExcelColumns: TCsvColumns = [
     dataIndex: 'id'
   },
   {
-    title: 'شماره تراکنش',
+    title: 'نام و نام خانوادگی کاربر',
+    dataIndex: 'full_name'
+  },
+  {
+    title: 'کد پیگیری سفارش',
     dataIndex: 'track_number'
   },
-
+  {
+    title: 'شماره تماس کاربر',
+    dataIndex: 'mobile'
+  },
+  {
+    title: 'نام شعبه',
+    dataIndex: 'store_name'
+  },
+  {
+    title: 'تاریخ ثبت پرداخت',
+    dataIndex: 'created_at'
+  },
+  {
+    title: 'تاریخ انجام پرداخت',
+    dataIndex: 'paid_at'
+  },
   {
     title: 'نوع تراکنش',
     dataIndex: 'merchantable_type'
   },
-
   {
     title: 'وضعیت تراکنش',
     dataIndex: 'status'
   },
-
-  {
-    title: 'تاریخ تراکنش',
-    dataIndex: 'created_at'
-  },
-
   {
     title: 'مبلغ',
     dataIndex: 'amount'
@@ -265,7 +277,9 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const convertExcelData = (excelData: TCreditTickets[]) => {
     return excelData?.map((el) => ({
       ...el,
+      full_name: `${el?.name || ''} ${el?.family || ''}`,
       created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
+      paid_at: el.paid_at ? utcToJalaali(el.paid_at || '') : '',
       status: TICKET_STATUS[el?.status].title,
       amount: price(el.amount || '', ''),
       merchantable_type: el.merchantable_type === 'merchant_cashier' ? 'حضوری' : 'آنلاین'

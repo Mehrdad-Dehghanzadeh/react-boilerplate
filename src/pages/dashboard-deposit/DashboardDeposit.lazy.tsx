@@ -6,11 +6,12 @@ import { useDeposit } from '@store'
 import { Tabs } from '@UIKit'
 
 const DashboardDeposit: FC = () => {
-  const { setFilters } = useDeposit()
+  const { setFilters, setSettlementFilters } = useDeposit()
 
   useEffect(
     () => () => {
       setFilters(null)
+      setSettlementFilters(null)
     },
     []
   )

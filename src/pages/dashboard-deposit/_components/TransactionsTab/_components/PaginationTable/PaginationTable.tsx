@@ -257,7 +257,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     }
   }
 
-  const converExcelData = (excelData: TSettlement[]) => {
+  const convertExcelData = (excelData: TSettlement[]) => {
     return excelData?.map((el) => ({
       ...el,
       created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
@@ -283,7 +283,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         loading={loading}
         excelColumns={ExcelColumns}
         excelNamePrefix="Settlement"
-        convertExcelData={converExcelData}
+        convertExcelData={convertExcelData}
       />
       <div className="pagination-table">
         {/* <div className="pagination-table__size">

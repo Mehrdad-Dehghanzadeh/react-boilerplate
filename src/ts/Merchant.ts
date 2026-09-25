@@ -18,6 +18,8 @@ export type TCreditTickets = {
   paid_at: null | string
   created_at: string
   updated_at: string
+  name: string
+  family: string
 }
 
 export type TRefund = {
@@ -112,6 +114,7 @@ export type TBranch = {
   transaction_offline: TTransactions | null
   credit_tickets: TCreditTickets[]
   credit_ticket_settlement: TSettlement[]
+  credit_ticket_settlement_items: TSettlement[]
 }
 
 export type TMerchantStore = {

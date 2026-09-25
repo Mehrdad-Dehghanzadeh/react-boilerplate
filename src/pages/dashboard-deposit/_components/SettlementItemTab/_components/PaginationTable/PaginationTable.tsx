@@ -179,12 +179,12 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     ) {
       const branch = data?.merchant_store?.branches[0]
       totalData.current = branch
-        ? [...totalData.current, ...branch?.credit_ticket_settlement]
+        ? [...totalData.current, ...branch?.credit_ticket_settlement_items]
         : []
     } else {
       totalData.current = [
         ...totalData.current,
-        ...data?.merchant_store?.credit_ticket_settlement
+        ...data?.merchant_store?.credit_ticket_settlement_items
       ]
     }
   }
@@ -246,7 +246,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     }
   }
 
-  const converExcelData = (excelData: TSettlement[]) => {
+  const convertExcelData = (excelData: TSettlement[]) => {
     return excelData?.map((el) => ({
       ...el,
       created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
@@ -272,7 +272,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         loading={settlementLoading}
         excelColumns={ExcelColumns}
         excelNamePrefix="Settlement"
-        convertExcelData={converExcelData}
+        convertExcelData={convertExcelData}
       />
       <div className="pagination-table">
         {/* <div className="pagination-table__size">

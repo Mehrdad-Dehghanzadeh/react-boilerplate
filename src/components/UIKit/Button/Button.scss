@@ -79,9 +79,10 @@
   }
 
   &--disabled {
-    background-color: var(--color-btm-disabled);
+    background-color: var(--color-btm-disabled) !important;
     color: #ddd;
     background-image: none;
+    box-shadow: none !important;
 
     &:active {
       opacity: 1;
