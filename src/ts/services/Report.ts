@@ -5,7 +5,8 @@ import type {
   TTicketStatus,
   TRefund,
   TRefundStatus,
-  TSettlement
+  TSettlement,
+  TSettlementItem
 } from '@ts/Merchant'
 export interface IReportPayload {
   mobile: string
@@ -43,7 +44,7 @@ export interface IHomeRes {
     credit_tickets: TCreditTickets[]
     credit_ticket_refunded: TRefund[]
     credit_ticket_settlement: TSettlement[]
-    credit_ticket_settlement_items: []
+    credit_ticket_settlement_items: TSettlementItem[]
   }
 }
 

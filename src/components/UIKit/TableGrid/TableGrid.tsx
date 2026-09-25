@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import { type THeaderItem, type TTableGridProps } from './TTableGrid'
 import { useId, type FC, type ReactNode } from 'react'
-import { hasItem, deepClone } from '@utils'
+import { hasItem, deepClone, getFormattedDate } from '@utils'
 import { useCsvBuilder } from '@/hooks'
 import { Button } from '../Button/Button'
 import ExcelIcon from '@assets/svg/excel.svg?react'
@@ -43,7 +43,7 @@ export const TableGrid: FC<TTableGridProps> = ({
     if (convertExcelData) {
       payload = convertExcelData(payload)
     }
-    getDataCsv(payload, `${excelNamePrefix}-${Date.now()}`)
+    getDataCsv(payload, `${excelNamePrefix}-${getFormattedDate()}`)
   }
   return (
     <div className={clsx('table-grid', className)} {...props}>

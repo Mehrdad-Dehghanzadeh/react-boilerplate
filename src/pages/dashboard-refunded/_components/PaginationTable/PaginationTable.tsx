@@ -14,6 +14,7 @@ import { FilterTable } from '@pages/dashboard-refunded/_components'
 import './PaginationTable.scss'
 
 const ExcelColumns: TCsvColumns = [
+  { title: 'ردیف', dataIndex: 'row' },
   {
     title: 'شناسه',
     dataIndex: 'id'
@@ -289,14 +290,15 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   }
 
   const convertExcelData = (excelData: TRefund[]) =>
-    excelData?.map((el) => ({
+    excelData?.map((el, indexRow) => ({
       ...el,
+      row: pageSize * (page - 1) + (indexRow + 1),
       created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
       amount: price(el.amount || '', ''),
       requested_amount: price(el.requested_amount || '', ''),
       full_name: `${el?.name} ${el?.family}`,
       status: setStatusTitle(el.status, el.amount, el.requested_amount)
-    })) 
+    }))
 
   useEffect(() => {
     getDataTable({ provider_branch_id: profile?.branches?.[0]?.provider_id })

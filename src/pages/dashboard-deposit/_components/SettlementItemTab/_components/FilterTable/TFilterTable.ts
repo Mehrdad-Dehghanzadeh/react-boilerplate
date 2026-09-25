@@ -1,4 +1,4 @@
-import type { TRefundStatus, TSettlement } from '@ts/Merchant'
+import type { TRefundStatus, TSettlementItem } from '@ts/Merchant'
 import type { ISettlementPayload } from '@ts/services/Report'
 
 export type TForm = {
@@ -12,5 +12,5 @@ export type TForm = {
 
 export type TFiltersProps = {
   getData: (payload?: ISettlementPayload) => void
-  data: TSettlement[]
+  data: TSettlementItem[]
 }

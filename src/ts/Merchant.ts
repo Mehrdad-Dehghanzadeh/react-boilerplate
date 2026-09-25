@@ -43,39 +43,39 @@ export type TTransactions = {
 
 export type TSettlement = {
   id: number
+  identifier: string
+  merchant_branch_id: number
+  bank_reference: string
+  iban_snapshot: string
   gross_amount: number
-  commission_rate: number
-  commission_amount: number
-  vat_rate: number
-  vat_amount: number
-  net_amount: number
+  total_commission_amount: number
+  total_vat_amount: number
+  total_payable: number
+  item_count: number
+  note: string | null
+  amount: number
   status: string
-  created_at: string
+  settled_at: string | null
+  created_at: string | null
+  updated_at: string | null
+  store_name: string | null
+}
+
+export type TSettlementItem = {
+  id: number
   name: string
   family: string
   mobile: string
-  amount: number
   track_number: string
-  settled_at: string
-  settlement_created_at: string
-  bank_reference: string
   store_name: string
-  refund_id: number | null
-  original_settled_amount: number | null
-  revised_amount: number | null
-  debt_amount: number | null
-  refund_type: string | null
-  refund_bank_reference: string | null
-  refund_status: string | null
-  refund_created_at: string | null
+  gross_amount: number
+  net_amount: number
+  status: string
+  created_at: string
   child_id: number | null
   child_gross_amount: number | null
-  child_commission_rate: number | null
-  child_commission_amount: number | null
-  child_vat_rate: number | null
-  child_vat_amount: number | null
   child_net_amount: number | null
-  child_status: number | null
+  child_status:string | null
   child_created_at: string | null
 }
 
@@ -114,7 +114,7 @@ export type TBranch = {
   transaction_offline: TTransactions | null
   credit_tickets: TCreditTickets[]
   credit_ticket_settlement: TSettlement[]
-  credit_ticket_settlement_items: TSettlement[]
+  credit_ticket_settlement_items: TSettlementItem[]
 }
 
 export type TMerchantStore = {
@@ -128,6 +128,7 @@ export type TMerchantStore = {
   created_at: string
   branches: TBranch[]
   credit_ticket_settlement: TSettlement[]
+  credit_ticket_settlement_items: TSettlementItem[]
 }
 
 export type TCustomerDetails = ICustomerInfoRes & {

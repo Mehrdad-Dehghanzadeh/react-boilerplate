@@ -1,6 +1,6 @@
 import type { IHomeRes, ISettlementPayload } from '@ts/services/Report'
 import type { TCsvColumns } from '@ts/Common'
-import type { TRefundStatus, TSettlement } from '@ts/Merchant'
+import type { TRefundStatus, TSettlement, TSettlementItem } from '@ts/Merchant'
 import type { TPaginationTableProps } from './TPaginationTable'
 import {useEffect, useRef, useState, type FC } from 'react'
 import { Chip, TableGrid, type TTableGridHeaders, Clipboard } from '@UIKit'
@@ -44,7 +44,7 @@ const ExcelColumns: TCsvColumns = [
 ]
 
 export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
-  const [data, setData] = useState<TSettlement[]>([])
+  const [data, setData] = useState<TSettlementItem[]>([])
   const [page, setPage] = useState<number>(1)
   const {
     setSettlementLoading,
@@ -59,7 +59,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
   const { profile } = useAppStore()
 
-  const totalData = useRef<TSettlement[]>([])
+  const totalData = useRef<TSettlementItem[]>([])
 
   const pageSize = watch('pageSize')
 
