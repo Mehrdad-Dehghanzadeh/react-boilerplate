@@ -72,7 +72,7 @@ export type TSettlementItem = {
   store_name: string
   gross_amount: number
   net_amount: number
-  status: string
+  status: TSettlementItemStatus
   created_at: string
   child_id: number | null
   child_gross_amount: number | null

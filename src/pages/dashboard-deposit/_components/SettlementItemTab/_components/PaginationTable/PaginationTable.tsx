@@ -44,8 +44,13 @@ const ExcelColumns: TCsvColumns = [
   },
 
   {
-    title: 'مبلغ خالص',
+    title: 'تاریخ سفارش',
     dataIndex: 'created_at'
+  },
+
+  {
+    title: 'وضعیت',
+    dataIndex: 'status'
   }
 ]
 
@@ -243,7 +248,8 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       full_name: `${el?.name || ''} ${el?.family || ''}`,
       created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
       net_amount: price(el.net_amount || '', ''),
-      gross_amount: price(el.gross_amount || '', '')
+      gross_amount: price(el.gross_amount || '', ''),
+      status: el?.status ? SETTLEMENT_STATUS[el?.status]?.title : ''
     }))
   }
 
