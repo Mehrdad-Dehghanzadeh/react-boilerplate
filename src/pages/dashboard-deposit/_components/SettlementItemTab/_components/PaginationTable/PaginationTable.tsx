@@ -10,6 +10,7 @@ import { SETTLEMENT_STATUS } from '@constants'
 import { getUserData, handleResponseError, price, utcToJalaali } from '@utils'
 import { useAppStore, useDeposit } from '@store'
 import { FilterTable } from '../'
+import ChevronDown from '@assets/svg/chevron-down.svg?react'
 import './PaginationTable.scss'
 
 const ExcelColumns: TCsvColumns = [
@@ -74,6 +75,10 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
   const pageSize = watch('pageSize')
 
+  const openRow = (rowData: TSettlementItem) => {
+    console.log(rowData)
+  }
+
   const headers: TTableGridHeaders = [
     {
       title: 'ردیف',
@@ -135,26 +140,23 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
           {status ? SETTLEMENT_STATUS[status]?.title : ''}
         </Chip>
       )
-    }
+    },
 
-    // {
-    //   title: 'جزئیات',
-    //   cellStyle: { width: '80px' },
-    //   cellFC: (record) => (
-    //     <button
-    //       className="btn-2 block"
-    //       onClick={() => {
-    //         customerInfo(record)
-    //       }}
-    //     >
-    //       {indexLoading === record?.customer_id ? (
-    //         <SpinnerSVG className="spinner" />
-    //       ) : (
-    //         'جزئیات'
-    //       )}
-    //     </button>
-    //   )
-    // }
+    {
+      title: 'جزئیات',
+      cellStyle: { width: '80px' },
+      cellFC: (record) =>
+        record?.status == '4' ? (
+          <span
+            className="text-xl"
+            onClick={() => {
+              openRow(record)
+            }}
+          >
+            <ChevronDown />
+          </span>
+        ) : null
+    }
   ]
 
   const updateData = (p?: number) => {

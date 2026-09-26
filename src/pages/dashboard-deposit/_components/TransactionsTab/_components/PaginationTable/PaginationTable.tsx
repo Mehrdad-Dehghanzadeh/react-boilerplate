@@ -3,12 +3,15 @@ import type { TCsvColumns } from '@ts/Common'
 import type { TSettlement } from '@ts/Merchant'
 import type { TPaginationTableProps } from './TPaginationTable'
 import { useEffect, useRef, useState, type FC } from 'react'
-import {  TableGrid, type TTableGridHeaders, Clipboard } from '@UIKit'
+import { TableGrid, type TTableGridHeaders, Clipboard } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { apis } from '@services'
 import { getUserData, handleResponseError, hasItem, price, utcToJalaali } from '@utils'
 import { useAppStore, useDeposit } from '@store'
 import { FilterTable } from '../'
+import ArrowRightIcon from '@assets/svg/arrow-right.svg?react'
+import { useNavigate } from '@tanstack/react-router'
+import { URLS } from '@constants'
 import './PaginationTable.scss'
 
 const ExcelColumns: TCsvColumns = [
@@ -54,6 +57,7 @@ const ExcelColumns: TCsvColumns = [
 ]
 
 export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
+  const navigate = useNavigate()
   const [data, setData] = useState<TSettlement[]>([])
   const [page, setPage] = useState<number>(1)
   const { branches, setBranches, setLoading, loading, filters, setFilters } = useDeposit()
@@ -129,7 +133,16 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     {
       title: 'جزئیات',
       cellStyle: { width: '80px' },
-      cellFC: (record) => <button className="btn-2 block" onClick={() => {}}></button>
+      cellFC: (record) => (
+        <span
+          className="text-xl block"
+          onClick={() => {
+            navigate({ to: `${URLS.deposit.href}/${record?.id}` })
+          }}
+        >
+          <ArrowRightIcon />
+        </span>
+      )
     }
   ]
 

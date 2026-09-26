@@ -3,7 +3,7 @@ import { RootRoute } from './__root'
 import { DashboardLayout } from '@layouts'
 import { isAuthentication } from '@utils'
 import { URLS } from '@constants'
-
+import { apis } from '@services'
 const dashboardRoute = createRoute({
   getParentRoute: () => RootRoute,
   path: 'dashboard',
@@ -45,11 +45,12 @@ const profileDashboard = createRoute({
   path: '/profile'
 }).lazy(() => import('@pages/dashboard-profile/Profile.lazy').then((d) => d.Route))
 
-
 const refundedDashboard = createRoute({
   getParentRoute: () => dashboardRoute,
   path: '/refunded'
-}).lazy(() => import('@pages/dashboard-refunded/DashboardRefunded.lazy').then((d) => d.Route))
+}).lazy(() =>
+  import('@pages/dashboard-refunded/DashboardRefunded.lazy').then((d) => d.Route)
+)
 
 const depositDashboard = createRoute({
   getParentRoute: () => dashboardRoute,
@@ -58,10 +59,25 @@ const depositDashboard = createRoute({
   import('@pages/dashboard-deposit/DashboardDeposit.lazy').then((d) => d.Route)
 )
 
+const settlementIdDashboard = createRoute({
+  getParentRoute: () => dashboardRoute,
+  path: '/settlement/$id',
+  loader: ({ params }: any) => {
+    return Boolean(params?.id)
+      ? apis.report.settlementId(Number(params?.id))
+      : Promise.reject(new Error('transaction_id is not found'))
+  }
+}).lazy(() =>
+  import('@pages/dashboard-settlement-[id]/dashboard-settlement.lazy').then(
+    (d) => d.Route
+  )
+)
+
 export const dashboardRouteTree = dashboardRoute.addChildren([
   reportTransactionsDashboard,
   accessUsersDashboard,
   profileDashboard,
   refundedDashboard,
-  depositDashboard
+  depositDashboard,
+  settlementIdDashboard
 ])
