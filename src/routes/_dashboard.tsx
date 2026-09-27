@@ -85,7 +85,7 @@ const settlementIdDashboard = createRoute({
           provider_branch_id: Number(deps?.provider_branch_id),
           settlement_id: Number(deps?.settlement_id)
         })
-      : Promise.reject(new Error('transaction_id is not found'))
+      : Promise.reject(new Error('provider_branch_id or settlement_id is not found'))
   }
 }).lazy(() =>
   import('@pages/dashboard-settlement-details/dashboard-settlement-details.lazy').then(
