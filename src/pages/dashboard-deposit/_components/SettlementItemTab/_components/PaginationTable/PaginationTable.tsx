@@ -147,11 +147,6 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const expandRow = (data: TSettlementItem) => (
     <span className="flex flex-wrap">
       <span className="flex items-center ml-5">
-        <strong>شناسه :</strong>
-        <span className="mr-1">{data?.child_id || ''}</span>
-      </span>
-
-      <span className="flex items-center ml-5">
         <strong>تاریخ سفارش :</strong>
         <span className="mr-1">
           {data?.child_created_at ? utcToJalaali(data?.child_created_at || '') : ''}
@@ -193,11 +188,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   const handleDataRes = (data: IHomeRes, branchId: number | undefined) => {
     const userData = getUserData()
 
-    if (
-      branchId ||
-      !userData?.merchant_id ||
-      settlementFilters?.provider_branch_id
-    ) {
+    if (branchId || !userData?.merchant_id || settlementFilters?.provider_branch_id) {
       const branch = data?.merchant_store?.branches[0]
       totalData.current = branch
         ? [...totalData.current, ...branch?.credit_ticket_settlement_items]

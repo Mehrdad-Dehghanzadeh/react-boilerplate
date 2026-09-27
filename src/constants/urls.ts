@@ -33,7 +33,7 @@ export const URLS = deepFreeze<TUrls>({
   },
 
   settlementDetails: {
-    href: '/dashboard/settlement/details',
+    href: '/dashboard/settlement-details',
     title: 'جزئیات تسویه تراکنش ها',
     subTitle: 'جزئیات تسویه تراکنش ها',
     icon: 'WalletRemove'

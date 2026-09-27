@@ -66,6 +66,10 @@
     &--open {
       display: table-row;
       border-bottom: 1px solid #f1f5f9;
+
+      .table-grid__cell {
+        padding-top: 4px;
+      }
     }
   }
 
