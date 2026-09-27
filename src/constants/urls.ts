@@ -15,20 +15,27 @@ export const URLS = deepFreeze<TUrls>({
     href: '/dashboard',
     title: 'گزارش تراکنش ها',
     subTitle: 'مشاهده و مدیریت تراکنش‌ها',
-    icon: 'FileIcon'
+    icon: 'DashboardIcon'
   },
 
   refunded: {
     href: '/dashboard/refunded',
     title: 'گزارش استرداد وجه',
     subTitle: 'گزارش استرداد وجه',
-    icon: 'MoneyTick'
+    icon: 'WalletRemove'
   },
 
   deposit: {
     href: '/dashboard/settlement',
     title: 'گزارش تسویه تراکنش ها',
     subTitle: 'گزارش تسویه تراکنش ها',
+    icon: 'MoneyTick'
+  },
+
+  settlementDetails: {
+    href: '/dashboard/settlement/details',
+    title: 'جزئیات تسویه تراکنش ها',
+    subTitle: 'جزئیات تسویه تراکنش ها',
     icon: 'WalletRemove'
   },
 
@@ -56,5 +63,5 @@ export const DASHBOARD_NAV: TUrlList = [
   URLS.dashboard,
   URLS.deposit,
   URLS.refunded,
-  URLS.accessUsers
+  URLS.accessUsers,
 ]

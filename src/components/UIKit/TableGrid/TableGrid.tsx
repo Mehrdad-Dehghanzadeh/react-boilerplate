@@ -4,7 +4,7 @@ import { useEffect, useId, useState, type FC, type ReactNode } from 'react'
 import { hasItem, deepClone, getFormattedDate, removeItem } from '@utils'
 import { useCsvBuilder } from '@/hooks'
 import { Button } from '../Button/Button'
-import ExcelIcon from '@assets/svg/excel.svg?react'
+import ExcelIcon from '@assets/svg/excel-download.svg?react'
 import ChvronDown from '@assets/svg/chevron-down.svg?react'
 import './TableGrid.scss'
 

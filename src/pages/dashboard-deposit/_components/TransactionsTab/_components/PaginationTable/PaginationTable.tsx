@@ -137,7 +137,14 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         <span
           className="text-xl block"
           onClick={() => {
-            navigate({ to: `${URLS.deposit.href}/${record?.id}` })
+            navigate({
+              to: `${URLS.settlementDetails.href}`,
+              search: {
+                settlement_id: record.settlement_id,
+                provider_branch_id:
+                  filters?.provider_branch_id || profile?.branches?.[0]?.provider_id
+              }
+            })
           }}
         >
           <ArrowRightIcon />

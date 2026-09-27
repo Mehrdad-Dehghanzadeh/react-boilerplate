@@ -53,20 +53,15 @@
       padding: 11px 12px;
       border-radius: 11px;
       font-size: 14px;
-      font-weight: 600;
-      color: rgb(69, 69, 66);
+      color: #A6A6A6;
       background: transparent;
       transition: 0.15s;
 
       &.active {
-        font-weight: 700;
-        color: rgb(0, 146, 165);
-        background: rgb(222, 247, 250);
+        color: #fff;
+        background-color: #00CEE8;
 
-        &:hover {
-          background: #f7feff !important;
-          color: #0092a5 !important;
-        }
+  
       }
     }
 

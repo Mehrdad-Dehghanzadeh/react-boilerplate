@@ -10,7 +10,6 @@ import { SETTLEMENT_STATUS } from '@constants'
 import { getUserData, handleResponseError, price, utcToJalaali } from '@utils'
 import { useAppStore, useDeposit } from '@store'
 import { FilterTable } from '../'
-import ChevronDown from '@assets/svg/chevron-down.svg?react'
 import './PaginationTable.scss'
 
 const ExcelColumns: TCsvColumns = [
@@ -196,7 +195,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
     if (
       branchId ||
-      !Boolean(userData?.merchant_id) ||
+      !userData?.merchant_id ||
       settlementFilters?.provider_branch_id
     ) {
       const branch = data?.merchant_store?.branches[0]

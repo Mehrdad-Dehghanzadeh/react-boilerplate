@@ -8,7 +8,8 @@ import type {
   ICustomerInfoRes,
   IRefundPayload,
   ISettlementItemPayload,
-  ISettlementPayload
+  ISettlementPayload,
+  ISettlementIdPayload
 } from '@ts/services/Report'
 
 export default {
@@ -54,10 +55,10 @@ export default {
     })
   },
 
-  settlementId(id: number) {
+  settlementId(payload: ISettlementIdPayload) {
     return axiosInstance.post<IResponse>(API_RESOURCES.REPORT, {
       op_code: OP_CODES.SETTLEMENT_ITEM,
-      payload: JSON.stringify({ settlement_id: id })
+      payload: JSON.stringify(payload)
     })
   }
 }

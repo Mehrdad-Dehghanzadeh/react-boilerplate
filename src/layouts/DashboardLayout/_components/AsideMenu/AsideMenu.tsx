@@ -1,7 +1,7 @@
 import { type FC } from 'react'
 import { DASHBOARD_NAV } from '@constants'
 import { Link } from '@tanstack/react-router'
-import DashboardIcon from '@assets/svg/dashboard.svg?react'
+import DashboardIcon from '@assets/svg/receipt-text.svg?react'
 import UsersIcon from '@assets/svg/users.svg?react'
 import FileIcon from '@assets/svg/file.svg?react'
 import DoorIcon from '@assets/svg/Door.svg?react'
