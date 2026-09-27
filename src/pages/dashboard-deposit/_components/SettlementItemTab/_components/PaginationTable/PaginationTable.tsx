@@ -145,7 +145,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
   ]
 
   const expandRow = (data: TSettlementItem) => (
-    <span className="flex flex-wrap">
+    <span className="flex flex-wrap w-full justify-center">
       <span className="flex items-center ml-5">
         <strong>تاریخ سفارش :</strong>
         <span className="mr-1">
