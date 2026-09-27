@@ -91,7 +91,7 @@ export const TableGrid: FC<TTableGridProps> = ({
             color="success"
           >
             <span className="flex items-center">
-              <ExcelIcon />
+              <ExcelIcon className='text-xl'/>
               <span className="font-sm font-bold mr-2">خروجی اکسل</span>
             </span>
           </Button>
