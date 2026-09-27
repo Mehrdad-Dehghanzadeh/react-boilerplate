@@ -7,6 +7,7 @@ export type THeaderItem<TTableData = any> = {
   cellFC?: (data: TTableData, indexRow: number) => ReactNode
   cellStyle?: CSSProperties
   headStyle?: CSSProperties
+  expnad?: boolean
 }
 
 export type TTableGridHeaders<T = any> = THeaderItem<T>[]
@@ -18,4 +19,5 @@ export type TTableGridProps<TTableData = any> = ComponentProps<'div'> & {
   excelColumns?: TCsvColumns
   convertExcelData?: (data: TTableData[]) => unknown[]
   excelNamePrefix?: string
+  expandRow?: (data: TTableData, indexRow?: number) => ReactNode
 }

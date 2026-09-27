@@ -53,14 +53,20 @@ const UIKitPage = () => {
     {
       title: 'عملیات',
       keyData: 'operation',
-      cellFC: () => <span>md</span>,
-      cellStyle: { width: '90px' }
+      expnad: true,
+      cellStyle: { width: '90px' },
     }
   ]
+      const expandRow = (data:any) => <span>{data?.mobile}</span>
 
   return (
     <article id="ui-kit-page" className="ui-kit-page">
-      <TableGrid className="mt-10 mx-8" headers={headers} data={data}  />
+      <TableGrid
+        expandRow={expandRow}
+        className="mt-10 mx-8"
+        headers={headers}
+        data={data}
+      />
 
       <form className="px-1" onSubmit={handleSubmit(t)}>
         <Link to={URLS.login.href}>transfers</Link>
@@ -114,7 +120,7 @@ const UIKitPage = () => {
         </Group>
       </form>
 
-      <Clipboard value='222' >سلام دنیا !</Clipboard>
+      <Clipboard value="222">سلام دنیا !</Clipboard>
     </article>
   )
 }
