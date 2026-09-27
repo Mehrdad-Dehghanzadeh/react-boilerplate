@@ -8,6 +8,7 @@ export type THeaderItem<TTableData = any> = {
   cellStyle?: CSSProperties
   headStyle?: CSSProperties
   expnad?: boolean
+  expandFC?: (data: TTableData, indexRow?: number) => boolean
 }
 
 export type TTableGridHeaders<T = any> = THeaderItem<T>[]

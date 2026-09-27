@@ -33,7 +33,7 @@ export const TableGrid: FC<TTableGridProps> = ({
   }
 
   const renderCell = (head: THeaderItem, recode: any, indexRow: number): ReactNode => {
-    if (head.expnad) {
+    if (head.expnad || head?.expandFC?.(recode, indexRow)) {
       return (
         <span
           className={clsx('table-grid__expand-icon', {

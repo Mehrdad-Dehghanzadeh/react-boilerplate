@@ -1,6 +1,6 @@
 import type { IHomeRes, ISettlementItemPayload } from '@ts/services/Report'
 import type { TCsvColumns } from '@ts/Common'
-import type { TSettlement, TSettlementItem, TSettlementItemStatus } from '@ts/Merchant'
+import type { TSettlementItem, TSettlementItemStatus } from '@ts/Merchant'
 import type { TPaginationTableProps } from './TPaginationTable'
 import { useEffect, useRef, useState, type FC } from 'react'
 import { Chip, TableGrid, type TTableGridHeaders, Clipboard } from '@UIKit'
@@ -75,10 +75,6 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
 
   const pageSize = watch('pageSize')
 
-  const openRow = (rowData: TSettlementItem) => {
-    console.log(rowData)
-  }
-
   const headers: TTableGridHeaders = [
     {
       title: 'ردیف',
@@ -145,19 +141,48 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
     {
       title: 'جزئیات',
       cellStyle: { width: '80px' },
-      cellFC: (record) =>
-        record?.status == '4' ? (
-          <span
-            className="text-xl"
-            onClick={() => {
-              openRow(record)
-            }}
-          >
-            <ChevronDown />
-          </span>
-        ) : null
+      expandFC: (record) => record?.status == '4'
     }
   ]
+
+  const expandRow = (data: TSettlementItem) => (
+    <span className="flex flex-wrap">
+      <span className="flex items-center ml-5">
+        <strong>شناسه :</strong>
+        <span className="mr-1">{data?.child_id || ''}</span>
+      </span>
+
+      <span className="flex items-center ml-5">
+        <strong>تاریخ سفارش :</strong>
+        <span className="mr-1">
+          {data?.child_created_at ? utcToJalaali(data?.child_created_at || '') : ''}
+        </span>
+      </span>
+
+      <span className="flex items-center ml-5">
+        <strong>مبلغ ناخالص :</strong>
+        <span className="mr-1">{price(data?.child_gross_amount) || ''}</span>
+      </span>
+
+      <span className="flex items-center ml-5">
+        <strong>مبلغ خالص :</strong>
+        <span className="mr-1">{price(data?.child_net_amount) || ''}</span>
+      </span>
+
+      <span className="flex items-center ml-5">
+        <strong>وضعیت :</strong>
+        {data?.child_status && (
+          //@ts-ignore
+          <Chip color={SETTLEMENT_STATUS[data?.child_status]?.color}>
+            {
+              //@ts-ignore
+              data?.child_status ? SETTLEMENT_STATUS[data?.child_status]?.title : ''
+            }
+          </Chip>
+        )}
+      </span>
+    </span>
+  )
 
   const updateData = (p?: number) => {
     const t = p || page
@@ -274,6 +299,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         excelColumns={ExcelColumns}
         excelNamePrefix="Settlement_Item"
         convertExcelData={convertExcelData}
+        expandRow={expandRow}
       />
       <div className="pagination-table">
         {/* <div className="pagination-table__size">

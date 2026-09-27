@@ -1,6 +1,5 @@
-import { Link } from '@tanstack/react-router'
+import { Link, createLazyRoute } from '@tanstack/react-router'
 import { URLS } from '@constants'
-import { createLazyRoute } from '@tanstack/react-router'
 import {
   Button,
   TextField,
@@ -23,14 +22,26 @@ import './style.scss'
 
 const UIKitPage = () => {
   const [selected, setSelected] = useState<string>('')
-  const { control, handleSubmit } = useForm({ defaultValues: { text: '', otp: '', cal: '' } })
+  const { control, handleSubmit } = useForm({
+    defaultValues: { text: '', otp: '', cal: '' }
+  })
 
   const t = (data: any) => {
     console.log(data)
   }
 
   const data = [
-    { user: 'مهرداد دهقان زاده', mobile: '09197570713', role: 'مدیر', branch: 'تهران' },
+    {
+      user: 'مهرداد دهقان زاده',
+      mobile: '09197570713',
+      role: 'مدیر',
+      branch: 'تهران',
+      child_created_at: '2',
+      child_gross_amount: '30000',
+      child_id: '222',
+      child_net_amount: '22200000',
+      child_status: 'status'
+    },
     { user: 'مهرداد دهقان زاده', mobile: '09197570713', role: 'مدیر', branch: 'تهران' },
     { user: 'مهرداد دهقان زاده', mobile: '09197570713', role: 'مدیر', branch: 'تهران' },
     { user: 'مهرداد دهقان زاده', mobile: '09197570713', role: 'مدیر', branch: 'تهران' }
@@ -53,11 +64,38 @@ const UIKitPage = () => {
     {
       title: 'عملیات',
       keyData: 'operation',
-      expnad: true,
-      cellStyle: { width: '90px' },
+      expandFC: (data) => Boolean(data?.child_created_at),
+      cellStyle: { width: '90px' }
     }
   ]
-      const expandRow = (data:any) => <span>{data?.mobile}</span>
+  const expandRow = (data: any) => (
+    <span className="flex flex-wrap">
+      <span className="flex items-center ml-5">
+        <strong>شناسه :</strong>
+        <span className="mr-1">{data?.child_id || ''}</span>
+      </span>
+
+      <span className="flex items-center ml-5">
+        <strong>تاریخ سفارش :</strong>
+        <span className="mr-1">{data?.child_created_at || ''}</span>
+      </span>
+
+      <span className="flex items-center ml-5">
+        <strong>مبلغ ناخالص :</strong>
+        <span className="mr-1">{data?.child_gross_amount || ''}</span>
+      </span>
+
+      <span className="flex items-center ml-5">
+        <strong>مبلغ خالص :</strong>
+        <span className="mr-1">{data?.child_net_amount || ''}</span>
+      </span>
+
+      <span className="flex items-center ml-5">
+        <strong>وضعیت :</strong>
+        <span className="mr-1">{data?.child_status || ''}</span>
+      </span>
+    </span>
+  )
 
   return (
     <article id="ui-kit-page" className="ui-kit-page">
