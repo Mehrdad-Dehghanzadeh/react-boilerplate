@@ -5,8 +5,7 @@ import { URLS } from '@constants'
 const RouteApi = getRouteApi(URLS.settlementDetails.href)
 
 export const SettlementTable: FC = () => {
-  const { detailsPromise } = RouteApi.useLoaderData()
-  const data = use(detailsPromise)
+  const data = RouteApi.useLoaderData()
 
   console.log(data)
   return <div></div>
