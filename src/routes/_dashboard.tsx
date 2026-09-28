@@ -70,7 +70,6 @@ const settlementIdDashboard = createRoute({
   validateSearch: (search: Record<string, unknown>): SettlementDetailsSearch => {
     return {
       settlement_id: search.settlement_id as string | number | undefined,
-      provider_branch_id: search.provider_branch_id as string | number | undefined
     }
   },
 
@@ -80,7 +79,7 @@ const settlementIdDashboard = createRoute({
   }),
 
   loader: ({ deps }) => {
-    return Boolean(deps?.settlement_id) && Boolean(deps?.provider_branch_id)
+    return Boolean(deps?.settlement_id)
       ? apis.report.settlementId({
           provider_branch_id: Number(deps?.provider_branch_id),
           settlement_id: Number(deps?.settlement_id)
