@@ -1,7 +1,7 @@
 import { createRoute, redirect, defer } from '@tanstack/react-router'
 import { RootRoute } from './__root'
 import { DashboardLayout } from '@layouts'
-import { isAuthentication } from '@utils'
+import { isAuthentication, removeFalseValue } from '@utils'
 import { URLS } from '@constants'
 import { apis } from '@services'
 
@@ -73,17 +73,21 @@ const settlementIdDashboard = createRoute({
     }
   },
 
-  loaderDeps: ({ search: { settlement_id, provider_branch_id } }) => ({
-    settlement_id,
-    provider_branch_id
-  }),
-
   loader: ({ deps }) => {
+    //@ts-ignore
     return Boolean(deps?.settlement_id)
-      ? apis.report.settlementId({
-          provider_branch_id: Number(deps?.provider_branch_id),
-          settlement_id: Number(deps?.settlement_id)
-        })
+      ? apis.report.settlementId(
+          //@ts-ignore
+          removeFalseValue({
+            //@ts-ignore
+            provider_branch_id: Number(deps?.provider_branch_id)
+              ? //@ts-ignore
+                Number(deps?.provider_branch_id)
+              : null,
+            //@ts-ignore
+            settlement_id: Number(deps?.settlement_id)
+          })
+        )
       : Promise.reject(new Error('provider_branch_id or settlement_id is not found'))
   }
 }).lazy(() =>
