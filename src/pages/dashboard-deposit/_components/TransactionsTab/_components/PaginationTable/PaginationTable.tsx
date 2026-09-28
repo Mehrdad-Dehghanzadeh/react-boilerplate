@@ -137,6 +137,8 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
         <span
           className="text-xl block"
           onClick={() => {
+            console.log(record)
+            debugger
             navigate({
               to: URLS.settlementDetails.href,
               search: {
