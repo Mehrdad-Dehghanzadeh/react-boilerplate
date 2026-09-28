@@ -138,11 +138,12 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
           className="text-xl block"
           onClick={() => {
             console.log(record)
+            console.log(profile?.branches?.[0])
             debugger
             navigate({
               to: URLS.settlementDetails.href,
               search: {
-                settlement_id: record.settlement_id,
+                settlement_id: record.id,
                 provider_branch_id:
                   filters?.provider_branch_id || profile?.branches?.[0]?.provider_id
               }
