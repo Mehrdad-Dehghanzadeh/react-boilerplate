@@ -1,4 +1,4 @@
-import { createRoute, redirect } from '@tanstack/react-router'
+import { createRoute, redirect, defer } from '@tanstack/react-router'
 import { RootRoute } from './__root'
 import { DashboardLayout } from '@layouts'
 import { isAuthentication } from '@utils'
@@ -69,7 +69,7 @@ const settlementIdDashboard = createRoute({
   path: '/settlement-details',
   validateSearch: (search: Record<string, unknown>): SettlementDetailsSearch => {
     return {
-      settlement_id: search.settlement_id as string | number | undefined,
+      settlement_id: search.settlement_id as string | number | undefined
     }
   },
 
@@ -80,10 +80,10 @@ const settlementIdDashboard = createRoute({
 
   loader: ({ deps }) => {
     return Boolean(deps?.settlement_id)
-      ? apis.report.settlementId({
+      ? defer(apis.report.settlementId({
           provider_branch_id: Number(deps?.provider_branch_id),
           settlement_id: Number(deps?.settlement_id)
-        })
+        }))
       : Promise.reject(new Error('provider_branch_id or settlement_id is not found'))
   }
 }).lazy(() =>
