@@ -145,7 +145,7 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
               search: {
                 settlement_id: record.id,
                 provider_branch_id:
-                  filters?.provider_branch_id || profile?.branches?.[0]?.provider_id
+                  filters?.provider_branch_id || profile?.branches?.[0]?.provider_id || 0
               }
             })
           }}
