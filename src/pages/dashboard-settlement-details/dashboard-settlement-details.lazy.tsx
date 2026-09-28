@@ -5,8 +5,8 @@ import { URLS } from '@constants'
 const RouteApi = getRouteApi(URLS.settlementDetails.href)
 
 const DashboardPage: FC = () => {
-  const t = use(RouteApi.useLoaderData())
-
+  const data = RouteApi.useLoaderData()
+  console.log(data)
   return <article id="dashboard-settlement-id"></article>
 }
 

@@ -38,9 +38,5 @@ export default defineConfig({
 
   optimizeDeps: {
     exclude: ['buffer', 'process', 'util', 'events']
-  },
-
-  build: {
-    sourcemap: true
   }
 })
