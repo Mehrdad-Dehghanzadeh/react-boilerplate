@@ -8,5 +8,6 @@ export const SettlementTable: FC = () => {
   const { detailsPromise } = RouteApi.useLoaderData()
   const data = use(detailsPromise)
 
+  console.log(data)
   return <div></div>
 }
