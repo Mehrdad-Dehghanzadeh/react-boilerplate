@@ -14,7 +14,11 @@ const DashboardPage: FC = () => {
 
   const goBack = () => {
     navigate({
-      to: URLS.deposit.href
+      to: URLS.deposit.href,
+
+      search: {
+        initialSlide: 1
+      }
     })
   }
 
