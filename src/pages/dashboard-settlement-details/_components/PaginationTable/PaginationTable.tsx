@@ -1,33 +1,34 @@
 import type { IHomeRes, ISettlementIdPayload } from '@ts/services/Report'
 import type { TCsvColumns } from '@ts/Common'
-import type { TSettlement } from '@ts/Merchant'
+import type { TSettlementItemStatus, TSettlementItem } from '@ts/Merchant'
 import { useEffect, useRef, useState, type FC } from 'react'
-import { TableGrid, type TTableGridHeaders, Clipboard } from '@UIKit'
+import { TableGrid, type TTableGridHeaders, Clipboard, Chip } from '@UIKit'
 import { useForm } from 'react-hook-form'
 import { apis } from '@services'
 import { getUserData, handleResponseError, hasItem, price, utcToJalaali } from '@utils'
 import { URLS } from '@constants'
 import { getRouteApi } from '@tanstack/react-router'
+import { SETTLEMENT_STATUS } from '@constants'
 
 const ExcelColumns: TCsvColumns = [
-  {
-    title: 'ردیف',
-    dataIndex: 'row'
-  },
+  { title: 'ردیف', dataIndex: 'row' },
   {
     title: 'شناسه',
     dataIndex: 'id'
   },
-  { title: 'نام شعبه', dataIndex: 'store_name' },
-
   {
-    title: 'شماره تراکنش بانکی',
-    dataIndex: 'bank_reference'
+    title: 'نام کاربر',
+    dataIndex: 'full_name'
+  },
+  { title: 'نام شعبه', dataIndex: 'store_name' },
+  {
+    title: 'شماره تماس کاربر',
+    dataIndex: 'mobile'
   },
 
   {
-    title: 'شماره حساب واریزی',
-    dataIndex: 'iban_snapshot'
+    title: 'کد پیگیری سفارش',
+    dataIndex: 'track_number'
   },
 
   {
@@ -37,17 +38,17 @@ const ExcelColumns: TCsvColumns = [
 
   {
     title: 'مبلغ خالص',
-    dataIndex: 'total_payable'
+    dataIndex: 'net_amount'
   },
 
   {
-    title: 'تعداد سفارشات تسویه شده',
-    dataIndex: 'total_payable'
+    title: 'تاریخ سفارش',
+    dataIndex: 'created_at'
   },
 
   {
-    title: 'تاریخ تسویه',
-    dataIndex: 'settled_at'
+    title: 'وضعیت',
+    dataIndex: 'status'
   }
 ]
 
@@ -56,7 +57,7 @@ const RouteApi = getRouteApi(URLS.settlementDetails.href)
 export const PaginationTable: FC = ({}) => {
   const queryParams = RouteApi.useSearch()
 
-  const [data, setData] = useState<any>([])
+  const [data, setData] = useState<TSettlementItem[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
 
@@ -64,7 +65,7 @@ export const PaginationTable: FC = ({}) => {
     defaultValues: { pageSize: 50 }
   })
 
-  const totalData = useRef<TSettlement[]>([])
+  const totalData = useRef<TSettlementItem[]>([])
 
   const pageSize = watch('pageSize')
 
@@ -78,24 +79,24 @@ export const PaginationTable: FC = ({}) => {
       )
     },
 
+    {
+      title: 'نام و نام خانوادگی کاربر',
+      cellFC: (record) => <span>{`${record?.name || ''} ${record?.family || ''}`}</span>
+    },
+
     { title: 'نام شعبه', keyData: 'store_name' },
 
     {
-      title: 'شماره تراکنش بانکی',
-      keyData: 'bank_reference',
-      cellFC: (bank_reference) =>
-        bank_reference ? (
-          <Clipboard value={bank_reference}>{bank_reference}</Clipboard>
-        ) : null
+      title: 'شماره تماس کاربر',
+      keyData: 'mobile',
+      cellFC: (mobile) => (mobile ? <Clipboard value={mobile}>{mobile}</Clipboard> : null)
     },
 
     {
-      title: 'شماره حساب واریزی',
-      keyData: 'iban_snapshot',
-      cellFC: (iban_snapshot) =>
-        iban_snapshot ? (
-          <Clipboard value={iban_snapshot}>{iban_snapshot}</Clipboard>
-        ) : null
+      title: 'کد پیگیری سفارش',
+      keyData: 'track_number',
+      cellFC: (track_number) =>
+        track_number ? <Clipboard value={track_number}>{track_number}</Clipboard> : null
     },
 
     {
@@ -106,24 +107,35 @@ export const PaginationTable: FC = ({}) => {
 
     {
       title: 'مبلغ خالص',
-      keyData: 'total_payable',
-      cellFC: (total_payable) => <span>{price(total_payable)}</span>
+      keyData: 'net_amount',
+      cellFC: (net_amount) => <span>{price(net_amount)}</span>
     },
 
     {
-      title: 'تعداد سفارشات تسویه شده',
-      keyData: 'item_count',
-      cellFC: (item_count) => <span>{`${item_count} سفارش`}</span>
-    },
-
-    {
-      title: 'تاریخ تسویه',
-      keyData: 'settled_at',
-      cellFC: (settled_at: string) => (
+      title: 'تاریخ سفارش',
+      keyData: 'created_at',
+      cellFC: (created_at: string) => (
         <span className="sc-interp">
-          {settled_at ? utcToJalaali(settled_at || '') : ''}
+          {created_at ? utcToJalaali(created_at || '') : ''}
         </span>
       )
+    },
+
+    {
+      title: 'وضعیت',
+      keyData: 'status',
+      cellFC: (status: TSettlementItemStatus) => (
+        //@ts-ignore
+        <Chip color={SETTLEMENT_STATUS[status]?.color}>
+          {status ? SETTLEMENT_STATUS[status]?.title : ''}
+        </Chip>
+      )
+    },
+
+    {
+      title: 'جزئیات',
+      cellStyle: { width: '80px' },
+      expandFC: (record) => record?.status == '4'
     }
   ]
 
@@ -140,12 +152,12 @@ export const PaginationTable: FC = ({}) => {
     if (branchId || !Boolean(userData?.merchant_id) || queryParams?.provider_branch_id) {
       const branch = data?.merchant_store?.branches[0]
       totalData.current = branch
-        ? [...totalData.current, ...branch?.credit_ticket_settlement]
+        ? [...totalData.current, ...branch?.credit_ticket_settlement_items]
         : []
     } else {
       totalData.current = [
         ...totalData.current,
-        ...data?.merchant_store?.credit_ticket_settlement
+        ...data?.merchant_store?.credit_ticket_settlement_items
       ]
     }
   }
@@ -214,15 +226,51 @@ export const PaginationTable: FC = ({}) => {
     }
   }
 
-  const convertExcelData = (excelData: TSettlement[]) => {
+  const convertExcelData = (excelData: TSettlementItem[]) => {
     return excelData?.map((el, index) => ({
       ...el,
       row: pageSize * (page - 1) + (index + 1),
+      full_name: `${el?.name || ''} ${el?.family || ''}`,
+      created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
+      net_amount: price(el.net_amount || '', ''),
       gross_amount: price(el.gross_amount || '', ''),
-      total_payable: price(el.total_payable || '', ''),
-      settled_at: el.settled_at ? utcToJalaali(el.settled_at || '') : ''
+      status: el?.status ? SETTLEMENT_STATUS[el?.status]?.title : ''
     }))
   }
+
+  const expandRow = (data: TSettlementItem) => (
+    <span className="flex flex-wrap w-full justify-center">
+      <span className="flex items-center ml-5">
+        <strong>تاریخ سفارش :</strong>
+        <span className="mr-1">
+          {data?.child_created_at ? utcToJalaali(data?.child_created_at || '') : ''}
+        </span>
+      </span>
+
+      <span className="flex items-center ml-5">
+        <strong>مبلغ ناخالص :</strong>
+        <span className="mr-1">{price(data?.child_gross_amount) || ''}</span>
+      </span>
+
+      <span className="flex items-center ml-5">
+        <strong>مبلغ خالص :</strong>
+        <span className="mr-1">{price(data?.child_net_amount) || ''}</span>
+      </span>
+
+      <span className="flex items-center ml-5">
+        <strong>وضعیت :</strong>
+        {data?.child_status && (
+          //@ts-ignore
+          <Chip color={SETTLEMENT_STATUS[data?.child_status]?.color}>
+            {
+              //@ts-ignore
+              data?.child_status ? SETTLEMENT_STATUS[data?.child_status]?.title : ''
+            }
+          </Chip>
+        )}
+      </span>
+    </span>
+  )
 
   useEffect(() => {
     getDataTable()
@@ -239,6 +287,10 @@ export const PaginationTable: FC = ({}) => {
         headers={headers}
         data={data}
         loading={loading}
+        excelColumns={ExcelColumns}
+        excelNamePrefix="Settlement_Item"
+        convertExcelData={convertExcelData}
+        expandRow={expandRow}
       />
       <div className="pagination-table">
         {/* <div className="pagination-table__size">
