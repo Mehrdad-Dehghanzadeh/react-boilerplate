@@ -20,5 +20,6 @@ export type TTableGridProps<TTableData = any> = ComponentProps<'div'> & {
   excelColumns?: TCsvColumns
   convertExcelData?: (data: TTableData[]) => unknown[]
   excelNamePrefix?: string
+  title?: string
   expandRow?: (data: TTableData, indexRow?: number) => ReactNode
 }

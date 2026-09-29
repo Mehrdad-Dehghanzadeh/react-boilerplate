@@ -17,6 +17,7 @@ export const TableGrid: FC<TTableGridProps> = ({
   excelColumns = [],
   convertExcelData,
   excelNamePrefix = 'data-table',
+  title = '',
   ...props
 }) => {
   const selfId = useId()
@@ -81,7 +82,8 @@ export const TableGrid: FC<TTableGridProps> = ({
   return (
     <div className={clsx('table-grid', className)} {...props}>
       {hasItem(excelColumns) && (
-        <div className="flex justify-end">
+        <div className="flex justify-between w-full items-center">
+          <h3 className="text-xl text-[#00B7CE]">{title}</h3>
           <Button
             className="w-[148px] bg-[#0EBB84] h-[40px] py-2 px-3 rounded-2xl mb-3"
             type="button"
@@ -91,7 +93,7 @@ export const TableGrid: FC<TTableGridProps> = ({
             color="success"
           >
             <span className="flex items-center">
-              <ExcelIcon className='text-xl'/>
+              <ExcelIcon className="text-xl" />
               <span className="font-sm font-bold mr-2">خروجی اکسل</span>
             </span>
           </Button>

@@ -104,6 +104,7 @@ const UIKitPage = () => {
         className="mt-10 mx-8"
         headers={headers}
         data={data}
+        title="سالام دخیا"
       />
 
       <form className="px-1" onSubmit={handleSubmit(t)}>

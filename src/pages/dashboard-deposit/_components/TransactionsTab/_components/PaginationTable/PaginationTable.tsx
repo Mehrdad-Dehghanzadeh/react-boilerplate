@@ -141,7 +141,8 @@ export const PaginationTable: FC<TPaginationTableProps> = () => {
               to: URLS.settlementDetails.href,
               search: {
                 settlement_id: record.id,
-                provider_branch_id: record?.merchant_branch_id
+                provider_branch_id: record?.merchant_branch_id,
+                bank_reference: record?.bank_reference
               }
             })
           }}

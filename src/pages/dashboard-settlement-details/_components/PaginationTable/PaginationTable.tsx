@@ -291,6 +291,7 @@ export const PaginationTable: FC = ({}) => {
         excelNamePrefix="Settlement_Item"
         convertExcelData={convertExcelData}
         expandRow={expandRow}
+        title={`سفارشات تسویه شده در پرداخت ${queryParams.bank_reference || ''}`}
       />
       <div className="pagination-table">
         {/* <div className="pagination-table__size">
