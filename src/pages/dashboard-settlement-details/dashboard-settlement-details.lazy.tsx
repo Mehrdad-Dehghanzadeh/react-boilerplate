@@ -1,14 +1,27 @@
-import { type FC, Suspense } from 'react'
-import { createLazyRoute } from '@tanstack/react-router'
-import { SettlementTable } from './_components'
+import { type FC, useLayoutEffect, useState } from 'react'
+import { createLazyRoute, getRouteApi } from '@tanstack/react-router'
+import { PaginationTable, NoDataSection } from './_components'
 import { URLS } from '@constants'
 
+const RouteApi = getRouteApi(URLS.settlementDetails.href)
+
 const DashboardPage: FC = () => {
+  const [section, setSection] = useState<'nodata' | 'table' | 'none'>('none')
+
+  const queryParams = RouteApi.useSearch()
+
+  useLayoutEffect(() => {
+    if (queryParams.settlement_id) {
+      setSection('table')
+    } else {
+      setSection('nodata')
+    }
+  }, [])
+
   return (
     <article id="dashboard-settlement-id">
-      <Suspense fallback={<div>در حال دریافت اطلاعات تسویه...</div>}>
-        <SettlementTable />
-      </Suspense>
+      {section == 'nodata' && <NoDataSection />}
+      {section === 'table' && <PaginationTable />}
     </article>
   )
 }

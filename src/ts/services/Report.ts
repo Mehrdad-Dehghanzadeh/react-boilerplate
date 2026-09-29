@@ -105,7 +105,8 @@ export interface ISettlementItemPayload {
 }
 
 export interface ISettlementIdPayload {
-  provider_branch_id: number
+  provider_branch_id?: number
+  last_id?: number
   settlement_id: number
 }
 

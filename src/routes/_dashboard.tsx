@@ -66,30 +66,7 @@ const depositDashboard = createRoute({
 
 const settlementIdDashboard = createRoute({
   getParentRoute: () => dashboardRoute,
-  path: '/settlement-details',
-  validateSearch: (search: Record<string, unknown>): SettlementDetailsSearch => {
-    return {
-      settlement_id: search.settlement_id as string | number | undefined
-    }
-  },
-
-  loader: ({ deps }) => {
-    //@ts-ignore
-    return Boolean(deps?.settlement_id)
-      ? apis.report.settlementId(
-          //@ts-ignore
-          removeFalseValue({
-            //@ts-ignore
-            provider_branch_id: Number(deps?.provider_branch_id)
-              ? //@ts-ignore
-                Number(deps?.provider_branch_id)
-              : null,
-            //@ts-ignore
-            settlement_id: Number(deps?.settlement_id)
-          })
-        )
-      : Promise.reject(new Error('provider_branch_id or settlement_id is not found'))
-  }
+  path: '/settlement-details'
 }).lazy(() =>
   import('@pages/dashboard-settlement-details/dashboard-settlement-details.lazy').then(
     (d) => d.Route

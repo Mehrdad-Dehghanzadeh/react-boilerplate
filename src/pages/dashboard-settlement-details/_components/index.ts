@@ -1,1 +1,2 @@
-export * from './SettlementTable/SettlementTable'
+export * from './PaginationTable/PaginationTable'
+export * from './NoDataSection/NoDataSection'
