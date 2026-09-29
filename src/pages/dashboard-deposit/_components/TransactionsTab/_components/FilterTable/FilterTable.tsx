@@ -4,9 +4,7 @@ import { Button, CalendarField, SelectField, TextField } from '@UIKit'
 import { type FC } from 'react'
 import { useForm } from 'react-hook-form'
 import { removeFalseValue, jalaliToUnix } from '@utils'
-import { REFUND_STATUS_LIST } from '@constants'
 import TrashIcon from '@assets/svg/trash.svg?react'
-import { mobileRule } from '@assets/validationsRules'
 import { useAppStore, useDeposit } from '@store'
 
 export const FilterTable: FC<TFiltersProps> = ({ getData, data }) => {

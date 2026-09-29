@@ -56,7 +56,7 @@ const ExcelColumns: TCsvColumns = [
   }
 ]
 
-export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
+export const PaginationTable: FC<TPaginationTableProps> = () => {
   const navigate = useNavigate()
   const [data, setData] = useState<TSettlement[]>([])
   const [page, setPage] = useState<number>(1)
@@ -138,7 +138,8 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
           className="text-xl block"
           onClick={() => {
             console.log(record)
-            console.log(profile?.branches?.[0])
+            console.log('profile =>',profile?.branches?.[0])
+            console.log('filters', filters)
             debugger
             navigate({
               to: URLS.settlementDetails.href,
