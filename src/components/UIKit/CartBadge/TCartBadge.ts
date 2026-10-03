@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react'
 
-export type TCartBadgeProps = ComponentProps<'div'> & {
+export type CartBadgeProps = ComponentProps<'div'> & {
   cartNumber: string | number
   size?: 'md' | 'sm'
 }

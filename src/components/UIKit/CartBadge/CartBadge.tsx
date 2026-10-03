@@ -1,11 +1,11 @@
-import type { TCartBadgeProps } from './TCartBadge'
+import type { CartBadgeProps } from './TCartBadge'
 import { type FC } from 'react'
 import clsx from 'clsx'
 import { imgSrc } from '@utils'
 import { BANKS_LIST } from '@constants'
 import './CartBadge.scss'
 
-export const CartBadge: FC<TCartBadgeProps> = ({
+export const CartBadge: FC<CartBadgeProps> = ({
   cartNumber,
   className = '',
   size = 'md',

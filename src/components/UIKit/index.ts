@@ -20,13 +20,13 @@ export * from './SelectField/SelectField'
 export * from './SelectField/TSelectField'
 
 export * from './CartNumberField/CartNumberField'
-export * from './CartNumberField/TCartNumberField'
+export * from './CartNumberField/CartNumberField'
 
 export * from './Tabs/Tabs'
 export * from './Tabs/TTabs'
 
 export * from './CartBadge/CartBadge'
-export * from './CartBadge/TCartBadge'
+export * from './CartBadge/CartBadge'
 
 export * from './DetailedCard/DetailedCard'
 export * from './DetailedCard/TDetailedCard'

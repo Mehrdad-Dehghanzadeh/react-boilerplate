@@ -1,6 +1,7 @@
 import type { ComponentProps } from 'react'
-import type { TInputProps } from '@ts/FormElements'
+import type { InputProps } from '@ts/FormElements'
 
-type TOmitted = 'size' | 'type' | 'inputMode'
+type Omitted = 'size' | 'type' | 'inputMode'
 
-export type TCartNumberFieldProps = Omit<ComponentProps<'input'>, TOmitted> & TInputProps & {}
+export type CartNumberFieldProps = Omit<ComponentProps<'input'>, Omitted> &
+  InputProps & {}

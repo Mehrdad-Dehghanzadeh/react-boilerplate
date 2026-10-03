@@ -1,12 +1,12 @@
 import type { ComponentProps, PropsWithChildren, ReactNode } from 'react'
-import type { TColor } from '@ts/Colors'
+import type { Colors } from '@ts/Colors'
 
-export type TChipVariants = 'solid' | 'outlined' | 'border-gr'
+export type ChipVariants = 'solid' | 'outlined' | 'border-gr'
 
-export type TChipProps = ComponentProps<'span'> &
+export type ChipProps = ComponentProps<'span'> &
   PropsWithChildren<{
-    variant?: TChipVariants
-    color?: TColor | 'default'
+    variant?: ChipVariants
+    color?: Colors | 'default'
     icon?: ReactNode
     iconClassName?: string
     childrenClassName?: string

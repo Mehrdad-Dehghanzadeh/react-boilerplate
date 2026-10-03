@@ -1,7 +1,7 @@
 import type { Control, RegisterOptions } from 'react-hook-form'
 import type { ClassValue } from 'clsx'
 
-export type TInputProps = {
+export type InputProps = {
   control: any
   name: string
   rules?: Omit<
@@ -17,13 +17,8 @@ export type TInputProps = {
   ltr?: boolean
 }
 
-export type TSelectInputItem<T = any> = {
-  title: string
-  value: string | number | EmptyString
-  itemData?: T
-}
 
-export type TSelectInputProps<TItem> = {
+export type SelectInputProps<TItem> = {
   fieldTextClassName?: ClassValue
   scrollTop?: number | 'middle' | 'quarterTop' | 'quarterBottom'
   itemHoc?: (item: TItem) => React.ReactNode

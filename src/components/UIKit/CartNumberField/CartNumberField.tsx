@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FC } from 'react'
 import useFormElements from '@hooks/useFormElements'
-import type { TCartNumberFieldProps } from './TCartNumberField'
+import type { CartNumberFieldProps } from './TCartNumberField'
 import { Controller } from 'react-hook-form'
 import type { RenderFC } from '@ts/Forms'
 import clsx from 'clsx'
@@ -11,7 +11,7 @@ import { $t } from '@locales'
 import { BANKS_LIST } from '@constants'
 import './CartNumberField.scss'
 
-export const CartNumberField: FC<TCartNumberFieldProps> = ({
+export const CartNumberField: FC<CartNumberFieldProps> = ({
   control,
   name,
   id,

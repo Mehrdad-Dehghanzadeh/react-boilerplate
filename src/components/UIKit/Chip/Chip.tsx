@@ -1,9 +1,9 @@
 import { type FC } from 'react'
-import type { TChipProps } from './TChip'
+import type { ChipProps } from './TChip'
 import clsx from 'clsx'
 import './Chip.scss'
 
-export const Chip: FC<TChipProps> = ({
+export const Chip: FC<ChipProps> = ({
   children,
   icon,
   iconClassName = '',

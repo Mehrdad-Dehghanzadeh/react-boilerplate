@@ -1,14 +1,14 @@
 import type { ComponentProps } from 'react'
-import type { TInputProps, TSelectInputProps, TSelectInputItem } from '@ts/FormElements'
+import type { InputProps, SelectInputProps } from '@ts/FormElements'
 
-export type TSelectSheetItem<T = any> = TSelectInputItem<T>
+export type SelectSheetItem<T = any> = SelectInputItem<T>
 
-export type TSelectSheetItems<T = any> = TSelectSheetItem<T>[]
+export type SelectSheetItems<T = any> = SelectSheetItem<T>[]
 
-export type TSelectSheetFieldProps = ComponentProps<'select'> &
-  TSelectInputProps<TSelectSheetItem> &
-  TInputProps & {
-    items?: TSelectSheetItems
+export type SelectSheetFieldProps = ComponentProps<'select'> &
+  SelectInputProps<SelectSheetItem> &
+  InputProps & {
+    items?: SelectSheetItems
     title?: string
     noItemsAction?: () => void
   }

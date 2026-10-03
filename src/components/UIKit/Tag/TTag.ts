@@ -1,8 +1,8 @@
 import type { ComponentProps, PropsWithChildren } from 'react'
-import type { TColor } from '@ts/Colors'
+import type { Colors } from '@ts/Colors'
 
-export type TProps = {
-  color?: TColor | 'default'
+export type Props = {
+  color?: Colors | 'default'
 }
 
-export type TTagProps = ComponentProps<'span'> & PropsWithChildren<TProps>
+export type TagProps = ComponentProps<'span'> & PropsWithChildren<Props>

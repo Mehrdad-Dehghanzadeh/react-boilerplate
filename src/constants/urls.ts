@@ -5,7 +5,7 @@ import HistoryRec from '@assets/svg/history-rec.svg?react'
 import CreditCard from '@assets/svg/credit-card.svg?react'
 import Question from '@assets/svg/question.svg?react'
 
-export const URLS = deepFreeze<TUrls>({
+export const URLS = deepFreeze<Urls>({
   home: {
     href: '/',
     title: 'صفحه اصلی'
@@ -57,7 +57,7 @@ export const URLS = deepFreeze<TUrls>({
   }
 })
 
-export const HOME_URLS = deepFreeze<TUrlList>([
+export const HOME_URLS = deepFreeze<UrlList>([
   {
     href: URLS.transfers.href,
     title: URLS.transfers.title || '',

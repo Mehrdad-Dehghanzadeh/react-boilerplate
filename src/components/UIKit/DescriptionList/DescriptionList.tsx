@@ -1,10 +1,10 @@
-import type { TDescriptionListProps } from './TDescriptionList'
+import type { DescriptionListProps } from './TDescriptionList'
 import { type FC } from 'react'
 import clsx from 'clsx'
 import { hasItem, randomNumber } from '@utils'
 import './DescriptionList.scss'
 
-export const DescriptionList: FC<TDescriptionListProps> = ({ dataList, className }) => {
+export const DescriptionList: FC<DescriptionListProps> = ({ dataList, className }) => {
   return (
     hasItem(dataList) && (
       <dl className={clsx('description-list', className)}>

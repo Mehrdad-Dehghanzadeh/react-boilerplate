@@ -1,9 +1,9 @@
-import type { TExpanderProps } from './TExpander'
+import type { ExpanderProps } from './TExpander'
 import { type FC } from 'react'
 import { clsx } from 'clsx'
 import './Expander.scss'
 
-export const Expander: FC<TExpanderProps> = ({
+export const Expander: FC<ExpanderProps> = ({
   expand,
   setExpand,
   innerContent,

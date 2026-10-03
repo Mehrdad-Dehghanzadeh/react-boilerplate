@@ -1,9 +1,9 @@
 import type { ComponentProps, PropsWithChildren } from 'react'
 
-export type TSVGsNOResultType = 'default' | 'cart' | 'report'
-export type TProps = PropsWithChildren<{
-  type?: TSVGsNOResultType
+export type SVGsNOResultType = 'default' | 'cart' | 'report'
+export type Props = PropsWithChildren<{
+  type?: SVGsNOResultType
   title?: string
 }>
 
-export type TNoResultProps = ComponentProps<'div'> & TProps
+export type NoResultProps = ComponentProps<'div'> & Props

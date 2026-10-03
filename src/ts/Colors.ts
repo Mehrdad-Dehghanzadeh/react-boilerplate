@@ -1,4 +1,4 @@
-export type TColor =
+export type Colors =
   | 'primary'
   | 'secondary'
   | 'green'
@@ -10,6 +10,6 @@ export type TColor =
   | 'disabled'
   | 'bg-50'
 
-export type Color = string | TColor
+export type Color = string | Colors
 
-export type TTheme = 'light' | 'dark'
+export type Theme = 'light' | 'dark'

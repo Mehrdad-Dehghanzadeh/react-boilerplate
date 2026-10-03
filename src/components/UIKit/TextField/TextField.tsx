@@ -1,5 +1,5 @@
 import { type FC } from 'react'
-import type { TTextFieldProps } from './TTextField'
+import type { TextFieldProps } from './TTextField'
 import type { RenderFC } from '@ts/Forms'
 import { Controller } from 'react-hook-form'
 import useFormElements from '@hooks/useFormElements'
@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import CrossIcon from '@assets/svg/cross.svg?react'
 import './TextField.scss'
 
-export const TextField: FC<TTextFieldProps> = ({
+export const TextField: FC<TextFieldProps> = ({
   control,
   name,
   id,

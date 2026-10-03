@@ -1,9 +1,9 @@
-import type { TDetailedCardProps } from './TDetailedCard'
+import type { DetailedCardProps } from './TDetailedCard'
 import type { FC } from 'react'
 import clsx from 'clsx'
 import './DetailedCard.scss'
 
-export const DetailedCard: FC<TDetailedCardProps> = ({
+export const DetailedCard: FC<DetailedCardProps> = ({
   className = '',
   title,
   text,

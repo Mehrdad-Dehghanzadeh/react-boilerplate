@@ -1,9 +1,9 @@
-import type { TSpinnerLoadingProps } from './TSpinnerLoading'
+import type { SpinnerLoadingProps } from './TSpinnerLoading'
 import { type FC } from 'react'
 import clsx from 'clsx'
 import './SpinnerLoading.scss'
 
-export const SpinnerLoading: FC<TSpinnerLoadingProps> = ({
+export const SpinnerLoading: FC<SpinnerLoadingProps> = ({
   loading,
   children,
   className = ''

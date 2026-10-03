@@ -1,10 +1,10 @@
 import type { ComponentProps } from 'react'
-import type { TInputProps } from '@ts/FormElements'
+import type { InputProps } from '@ts/FormElements'
 
-type TOmitted = 'size' | 'type'
+type Omitted = 'size' | 'type'
 
-export type TRangeFieldProps = Omit<ComponentProps<'input'>, TOmitted> &
-  TInputProps & {
+export type RangeFieldProps = Omit<ComponentProps<'input'>, Omitted> &
+  InputProps & {
     step?: number
     maxValue?: number
     minValue?: number

@@ -1,11 +1,11 @@
 import { type FC, Children, useRef, useState, useEffect } from 'react'
 import clsx from 'clsx'
-import type { TTabsProps } from './TTabs'
+import type { TabsProps } from './TTabs'
 import { Swiper, SwiperSlide, type SwiperRef } from 'swiper/react'
 import { hasItem } from '@utils'
 import './Tabs.scss'
 
-export const Tabs: FC<TTabsProps> = ({
+export const Tabs: FC<TabsProps> = ({
   children,
   titles,
   className = '',

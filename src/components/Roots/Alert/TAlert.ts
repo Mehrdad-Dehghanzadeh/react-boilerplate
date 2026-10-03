@@ -1,8 +1,8 @@
-export type TAlertTypes = 'success' | 'warring' | 'error'
+export type AlertTypes = 'success' | 'warring' | 'error'
 
-export type TAlert = {
+export type AlertDetails = {
   message: string
-  type?: TAlertTypes
+  type?: AlertTypes
   btnTitle?: string
   hideBtn?: boolean
   btnCb?: () => void

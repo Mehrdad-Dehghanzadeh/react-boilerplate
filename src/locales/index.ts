@@ -27,7 +27,7 @@ function checkPattern(str: string) {
   }
 }
 
-function attachDataToString(value: string, data: TData<string | number>): string {
+function attachDataToString(value: string, data: DataRecord<string | number>): string {
   const keysOfData = Object.keys(data).filter((el) => value.includes(`{${el}}`))
 
   if (keysOfData.length) {
@@ -39,9 +39,10 @@ function attachDataToString(value: string, data: TData<string | number>): string
   return value
 }
 
-function findValue(keysOfStr: string[]): string | TData<any> {
+function findValue(keysOfStr: string[]): string | DataRecord<any> {
   const value = keysOfStr.reduce(
-    (accumulator: TData, currentValue: string) => accumulator?.[currentValue] || null,
+    (accumulator: DataRecord, currentValue: string) =>
+      accumulator?.[currentValue] || null,
     messages
   )
 
@@ -53,8 +54,9 @@ function findValue(keysOfStr: string[]): string | TData<any> {
 }
 
 function findValueStr(keysOfStr: string[]): string {
-  const value: TData | string = keysOfStr.reduce(
-    (accumulator: TData, currentValue: string) => accumulator?.[currentValue] || null,
+  const value: DataRecord | string = keysOfStr.reduce(
+    (accumulator: DataRecord, currentValue: string) =>
+      accumulator?.[currentValue] || null,
     messages
   )
 
@@ -65,7 +67,7 @@ function sensitizeString(str: string): string {
   return str.replaceAll(/[\[\]\\]/g, '')
 }
 
-export function $t(str: string, data?: TData<string | number>): string {
+export function $t(str: string, data?: DataRecord<string | number>): string {
   try {
     checkPattern(str)
     const s = sensitizeString(str)

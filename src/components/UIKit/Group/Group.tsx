@@ -1,8 +1,8 @@
-import type { TGroupProps } from './TGroup'
+import type { GroupProps } from './TGroup'
 import { type FC, Children, cloneElement } from 'react'
 import clsx from 'clsx'
 
-export const Group: FC<TGroupProps> = ({
+export const Group: FC<GroupProps> = ({
   children,
   selected,
   setSelected,

@@ -1,10 +1,10 @@
 import type { ReactElement } from 'react'
 
-export type TSnackbarType = 'error' | 'info' | 'success'
+export type SnackbarType = 'error' | 'info' | 'success'
 
-export type TIcons = Record<TSnackbarType, ReactElement>
+export type IconsSnackbar = Record<SnackbarType, ReactElement>
 
-export type TSnackbarDetails = {
-  type?: TSnackbarType
+export type SnackbarDetails = {
+  type?: SnackbarType
   message: string
 }

@@ -1,7 +1,7 @@
 import { deepFreeze } from '@utils'
-import type { TBanksList } from '@ts/Banks'
+import type { BanksList } from '@ts/Banks'
 
-export const BANKS_LIST: TBanksList = deepFreeze<TBanksList>([
+export const BANKS_LIST: BanksList = deepFreeze<BanksList>([
   {
     name: 'بانک ملی ایران',
     name_en: 'Bank Melli Iran',

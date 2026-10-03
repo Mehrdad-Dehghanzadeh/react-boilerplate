@@ -1,4 +1,4 @@
-export type TPromptDetail = {
+export type PromptDetail = {
   title?: string
   applyBtnTitle?: string
   cancelBtnTitle?: string

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FC } from 'react'
 import useFormElements from '@hooks/useFormElements'
-import type { TPriceFieldProps } from './TPriceField'
+import type { PriceFieldProps } from './TPriceField'
 import { Controller } from 'react-hook-form'
 import type { RenderFC } from '@ts/Forms'
 import clsx from 'clsx'
@@ -9,7 +9,7 @@ import { price, convertNumbers2English } from '@utils'
 import CrossIcon from '@assets/svg/cross.svg?react'
 import './PriceField.scss'
 
-export const PriceField: FC<TPriceFieldProps> = ({
+export const PriceField: FC<PriceFieldProps> = ({
   control,
   name,
   id,

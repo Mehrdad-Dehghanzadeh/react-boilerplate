@@ -1,4 +1,4 @@
-import type { TAlert, TAlertTypes } from './TAlert'
+import type { AlertDetails, AlertTypes } from './TAlert'
 import { type FC, type ReactNode } from 'react'
 import clsx from 'clsx'
 import { BottomSheet, Button } from '@UIKit'
@@ -10,13 +10,13 @@ import CrossIcon from '@assets/svg/cross-octagon.svg?react'
 import './Alert.scss'
 
 export const Alert: FC = () => {
-  const { detail, show, elRef, setShow } = useRootPopUp<TAlert>({
+  const { detail, show, elRef, setShow } = useRootPopUp<AlertDetails>({
     eventName: 'showAlert',
     defaultDetails: { type: 'error' }
   })
 
   const mapIcon = (): ReactNode | null => {
-    const icons: Record<TAlertTypes, ReactNode> = {
+    const icons: Record<AlertTypes, ReactNode> = {
       error: <CrossIcon className="alert__icon alert__icon--error" />,
       warring: <InfoIcon className="alert__icon alert__icon--warring" />,
       success: <CheckIcon className="alert__icon alert__icon--success" />

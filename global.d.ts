@@ -25,9 +25,9 @@ type PxUnit = `${number}px`
 type PercentUnit = `${number}%`
 type CssSizeValue = CssAbsoluteUnit | CssRelativeUnit
 
-type TData<T = any> = object & Record<string, T>
+type DataRecord<T = any> = object & Record<string, T>
 
-type TList<T = any> = T[]
+type List<T = any> = T[]
 
 type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K]
@@ -37,12 +37,12 @@ type EnumType = {
   id: string | number
   name: string | number
   color?: string
-  [key: string]: unknown
+  [key: string]: any
 }
 
-type TMapperItem = {
+type MapperItem = {
   text: string | number
-  color?: string | TColor
+  color?: string | Colors
   icon?: any
 }
 
@@ -52,19 +52,19 @@ declare module '*.css'
 declare module '*.scss'
 declare module '*.sass'
 
-type TUrl = {
+type Url = {
   href: string
   title?: string
 }
 
-type TUrlItem = TUrl & {
+type UrlItem = Url & {
   icon?: string | ReactNode
   needKyc?: boolean
 }
 
-type TUrlList = TUrlItem[]
+type UrlList = UrlItem[]
 
-type TUrls = Record<string, TUrlItem>
+type Urls = Record<string, UrlItem>
 interface IResponse<T = any> {
   date: string
   description: string
@@ -85,24 +85,13 @@ interface IPWAResponse<T = any> {
   time: string
 }
 
-type TDataList = {
+type DataList = {
   key: string | number | ReactNode
   value: string | number | ReactNode
 }[]
 
-type TChartDataItem = {
-  avg: {
-    Int64: number | null
-    Valid: boolean
-  }
-  bucket: string
+type SelectInputItem<T = any> = {
+  title: string
+  value: string | number | EmptyString
+  itemData?: T
 }
-
-type TChartDataList = TChartDataItem[]
-
-type TChartStates = {
-  labels: string[]
-  values: (number | null)[]
-}
-
-type TChartPeriod = 'day' | 'week' | 'month' | 'year'

@@ -1,11 +1,11 @@
 import type { ComponentProps, PropsWithChildren } from 'react'
 
-export type TTypeDropBox = 'error' | 'info' | 'success'
+export type TypeDropBox = 'error' | 'info' | 'success'
 
-type TProps = PropsWithChildren<{
+type Props = PropsWithChildren<{
   show: boolean
   text?: string
-  type?: TTypeDropBox
+  type?: TypeDropBox
 }>
 
-export type TDropBoxProps = ComponentProps<'div'> & TProps
+export type DropBoxProps = ComponentProps<'div'> & Props

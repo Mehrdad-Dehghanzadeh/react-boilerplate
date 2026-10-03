@@ -1,4 +1,4 @@
-export type TBackItem = {
+export type BackItem = {
   name: string
   name_en: string
   preFix: number
@@ -6,4 +6,4 @@ export type TBackItem = {
   cdnSrc: string
 }
 
-export type TBanksList = Readonly<TBackItem[]>
+export type BanksList = Readonly<BackItem[]>

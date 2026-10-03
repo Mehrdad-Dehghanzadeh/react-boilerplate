@@ -1,4 +1,4 @@
-import type { TBottomSheetProps } from './TBottomSheet'
+import type { BottomSheetProps } from './TBottomSheet'
 import { type FC, useEffect, useDeferredValue } from 'react'
 import { createPortal } from 'react-dom'
 import Cross from '@assets/svg/cross.svg?react'
@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import { BODY_DIALOG_OPEN_CLASS_NAME } from '@constants'
 import './BottomSheet.scss'
 
-export const BottomSheet: FC<TBottomSheetProps> = ({
+export const BottomSheet: FC<BottomSheetProps> = ({
   open,
   setOpen,
   children,

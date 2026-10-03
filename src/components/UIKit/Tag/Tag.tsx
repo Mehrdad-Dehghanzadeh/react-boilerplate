@@ -1,9 +1,9 @@
-import type { TTagProps } from './TTag'
+import type { TagProps } from './TTag'
 import { type FC } from 'react'
 import clsx from 'clsx'
 import './Tag.scss'
 
-export const Tag: FC<TTagProps> = ({
+export const Tag: FC<TagProps> = ({
   color = 'default',
   className = '',
   children,

@@ -123,36 +123,3 @@ export function maxFloorCount(value: string): string {
 
   return val
 }
-
-export function filterDataListPriceChart(dataList: TChartDataList): TChartDataList {
-  return dataList.map((item) =>
-    !!item?.avg?.Valid
-      ? item
-      : { avg: { Int64: null, Valid: false }, bucket: item.bucket }
-  )
-}
-
-export function dayPriceChart(dataList: TChartDataList): TChartStates {
-  const t = filterDataListPriceChart(dataList)
-  const labels: string[] = []
-  const values: (number | null)[] = []
-
-  t.forEach((item) => {
-    labels.push(item.bucket.split('T')?.[1].replace(/:00?z/i, ''))
-    values.push(item.avg.Int64 ? priceMg2PriceG(item.avg.Int64) : null)
-  })
-  return { labels, values }
-}
-
-export function datePriceChart(dataList: TChartDataList): TChartStates {
-  const t = filterDataListPriceChart(dataList)
-  const labels: string[] = []
-  const values: (number | null)[] = []
-
-  t.forEach((item) => {
-    labels.push(utcToJalaali(item.bucket.split('T')?.[0]))
-    values.push(item.avg.Int64 ? priceMg2PriceG(item.avg.Int64) : null)
-  })
-
-  return { labels, values }
-}

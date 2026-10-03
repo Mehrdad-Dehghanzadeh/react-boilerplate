@@ -1,12 +1,11 @@
 import type { ComponentProps, Dispatch, SetStateAction } from 'react'
 
-export type TTabSelectItem = { title: string; value: any }
+export type TabSelectItem = { title: string; value: any }
 
+export type TabSelectItems = TabSelectItem[]
 
-export type TTabSelectItems = TTabSelectItem[]
-
-export type TTabSelectProps = ComponentProps<'ul'> & {
-  items: TTabSelectItems
+export type TabSelectProps = ComponentProps<'ul'> & {
+  items: TabSelectItems
   setItem: Dispatch<SetStateAction<any>>
   defaultActiveIndex?: number
   disabled?: boolean

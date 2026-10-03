@@ -1,11 +1,5 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  type FC,
-  type MouseEventHandler
-} from 'react'
-import type { TSelectSheetFieldProps, TSelectSheetItem } from './TSelectSheetField'
+import { useEffect, useRef, useState, type FC, type MouseEventHandler } from 'react'
+import type { SelectSheetFieldProps, SelectSheetItem } from './TSelectSheetField'
 import type { RenderFC } from '@ts/Forms'
 import { Controller } from 'react-hook-form'
 import useFormElements from '@hooks/useFormElements'
@@ -15,7 +9,7 @@ import ChevronDown from '@assets/svg/chevron-down.svg?react'
 import { BottomSheet } from '@UIKit'
 import './SelectSheetField.scss'
 
-export const SelectSheetField: FC<TSelectSheetFieldProps> = ({
+export const SelectSheetField: FC<SelectSheetFieldProps> = ({
   control,
   name,
   id,
@@ -88,7 +82,7 @@ export const SelectSheetField: FC<TSelectSheetFieldProps> = ({
               <div className={clsx('select-field__text', fieldTextClassName)}>
                 {hasValue
                   ? textHoc?.(
-                      items.find((el) => el.value == field.value) as TSelectSheetItem
+                      items.find((el) => el.value == field.value) as SelectSheetItem
                     ) || items.find((el) => el.value == field.value)?.title
                   : ''}
               </div>
@@ -197,7 +191,7 @@ export const SelectSheetField: FC<TSelectSheetFieldProps> = ({
       <BottomSheet open={open} setOpen={setOpen} title={title}>
         <ul className={clsx('select-sheet-field-menu', {})} ref={listRef}>
           {hasItems ? (
-            items?.map((item: TSelectSheetItem) => (
+            items?.map((item: SelectSheetItem) => (
               <li
                 key={`${item.value}-${selfId}`}
                 className={clsx('select-sheet-field-menu__item', {

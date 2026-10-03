@@ -1,4 +1,4 @@
-import type { TRangeFieldProps } from './TRangeField'
+import type { RangeFieldProps } from './TRangeField'
 import {
   useEffect,
   useRef,
@@ -14,7 +14,7 @@ import clsx from 'clsx'
 import useFormElements from '@hooks/useFormElements'
 import './RangeField.scss'
 
-export const RangeField: FC<TRangeFieldProps> = ({
+export const RangeField: FC<RangeFieldProps> = ({
   name,
   control,
   id,

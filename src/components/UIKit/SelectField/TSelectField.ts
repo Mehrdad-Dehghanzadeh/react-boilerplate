@@ -1,20 +1,20 @@
 import type { ComponentProps } from 'react'
-import type { TInputProps, TSelectInputProps, TSelectInputItem } from '@ts/FormElements'
+import type { InputProps, SelectInputProps } from '@ts/FormElements'
 
-export type TDomRect = {
+export type DomRect = {
   width: string
   top: string
   left: string
 }
 
-export type TSelectOptionItem<T = any> = TSelectInputItem<T>
+export type SelectOptionItem<T = any> = SelectInputItem<T>
 
-export type TSelectOptions<T = any> = TSelectOptionItem<T>[]
+export type SelectOptions<T = any> = SelectOptionItem<T>[]
 
-export type TSelectFieldProps = ComponentProps<'select'> &
-  TSelectInputProps<TSelectOptionItem> &
-  TInputProps & {
-    options?: TSelectOptions
+export type SelectFieldProps = ComponentProps<'select'> &
+  SelectInputProps<SelectOptionItem> &
+  InputProps & {
+    options?: SelectOptions
     menuFill?: boolean
     openBottom?: boolean
   }

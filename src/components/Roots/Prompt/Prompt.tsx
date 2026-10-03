@@ -1,4 +1,4 @@
-import type { TPromptDetail } from './TPrompt'
+import type { PromptDetail } from './TPrompt'
 import { useState, type FC } from 'react'
 import clsx from 'clsx'
 import { Button } from '@UIKit'
@@ -7,7 +7,7 @@ import InfoRecIcon from '@assets/svg/info-rec.svg?react'
 import './Prompt.scss'
 
 export const Prompt: FC = () => {
-  const { detail, show, elRef, setShow } = useRootPopUp<TPromptDetail>({
+  const { detail, show, elRef, setShow } = useRootPopUp<PromptDetail>({
     eventName: 'showPrompt'
   })
 

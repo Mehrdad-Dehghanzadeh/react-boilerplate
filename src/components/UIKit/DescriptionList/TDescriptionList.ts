@@ -1,5 +1,5 @@
-import type { ComponentProps, ReactNode } from 'react'
+import type { ComponentProps } from 'react'
 
-export type TDescriptionListProps = ComponentProps<'dl'> & {
-  dataList: TDataList
+export type DescriptionListProps = ComponentProps<'dl'> & {
+  dataList: DataList
 }

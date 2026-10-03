@@ -1,4 +1,4 @@
-export type TCart = {
+export type Cart = {
   bank_name: string
   bin: NumberString
   card_number: string

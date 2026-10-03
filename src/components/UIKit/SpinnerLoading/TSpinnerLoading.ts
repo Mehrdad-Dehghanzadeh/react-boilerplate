@@ -1,7 +1,7 @@
 import type { ComponentProps, PropsWithChildren } from 'react'
 
-type TProps = {
+type Props = {
   loading: boolean
 }
 
-export type TSpinnerLoadingProps = ComponentProps<'svg'> & PropsWithChildren<TProps>
+export type SpinnerLoadingProps = ComponentProps<'svg'> & PropsWithChildren<Props>

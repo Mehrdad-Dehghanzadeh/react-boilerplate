@@ -1,10 +1,10 @@
-import type { TTabSelectProps } from './TTabSelect'
+import type { TabSelectProps } from './TTabSelect'
 import { useState, useEffect, type FC } from 'react'
 import clsx from 'clsx'
 import { hasItem } from '@utils'
 import './TabSelect.scss'
 
-export const TabSelect: FC<TTabSelectProps> = ({
+export const TabSelect: FC<TabSelectProps> = ({
   items,
   setItem,
   disabled = false,

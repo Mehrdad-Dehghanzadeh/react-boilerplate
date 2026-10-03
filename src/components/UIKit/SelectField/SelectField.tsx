@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FC, type MouseEventHandler } from 'react'
-import type { TSelectFieldProps, TSelectOptionItem, TDomRect } from './TSelectField'
+import type { SelectFieldProps, SelectOptionItem, DomRect } from './TSelectField'
 import type { RenderFC } from '@ts/Forms'
 import { Controller } from 'react-hook-form'
 import { createPortal } from 'react-dom'
@@ -9,7 +9,7 @@ import { hasItem } from '@utils'
 import ChevronDown from '@assets/svg/chevron-down.svg?react'
 import './SelectField.scss'
 
-export const SelectField: FC<TSelectFieldProps> = ({
+export const SelectField: FC<SelectFieldProps> = ({
   control,
   name,
   id,
@@ -32,7 +32,7 @@ export const SelectField: FC<TSelectFieldProps> = ({
   const menuRoot = document.getElementById('select-menu-root') as HTMLElement
 
   const [open, setOpen] = useState<boolean>(false)
-  const [domRect, setDomRect] = useState<TDomRect | null>(null)
+  const [domRect, setDomRect] = useState<DomRect | null>(null)
   const selectRef = useRef<HTMLSelectElement>(null)
   const fieldRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
@@ -79,7 +79,7 @@ export const SelectField: FC<TSelectFieldProps> = ({
               <div className={clsx('select-field__text', fieldTextClassName)}>
                 {hasValue
                   ? textHoc?.(
-                      options.find((el) => el.value == field.value) as TSelectOptionItem
+                      options.find((el) => el.value == field.value) as SelectOptionItem
                     ) || options.find((el) => el.value == field.value)?.title
                   : ''}
               </div>
@@ -222,7 +222,7 @@ export const SelectField: FC<TSelectFieldProps> = ({
               }}
             >
               {hasOptions ? (
-                options?.map((item: TSelectOptionItem) => (
+                options?.map((item: SelectOptionItem) => (
                   <li
                     key={`${item.value}-${selfId}`}
                     className="select-field-menu__item"

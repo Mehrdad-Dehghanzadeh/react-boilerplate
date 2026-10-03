@@ -6,10 +6,10 @@ import type {
   ReactNode
 } from 'react'
 
-type TProps = PropsWithChildren<{
+type Props = PropsWithChildren<{
   expand: boolean
   innerContent: ReactNode
   setExpand?: Dispatch<SetStateAction<boolean>>
 }>
 
-export type TExpanderProps = ComponentProps<'div'> & TProps
+export type ExpanderProps = ComponentProps<'div'> & Props

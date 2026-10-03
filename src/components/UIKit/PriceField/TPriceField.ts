@@ -1,10 +1,10 @@
 import type { ComponentProps } from 'react'
-import type { TInputProps } from '@ts/FormElements'
+import type { InputProps } from '@ts/FormElements'
 
-type TOmitted = 'size' | 'type'
+type Omitted = 'size' | 'type'
 
-export type TPriceFieldProps = Omit<ComponentProps<'input'>, TOmitted> &
-  TInputProps & {
+export type PriceFieldProps = Omit<ComponentProps<'input'>, Omitted> &
+  InputProps & {
     type?: 'number' | 'text'
     suffix?: string
   }
