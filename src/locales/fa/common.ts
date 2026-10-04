@@ -1,5 +1,5 @@
 export default {
-  moneyUnit: 'ریال',
+  moneyUnit: 'تومان',
   cartNumberSeparator: ' - ',
   retry: 'تلاش مجدد',
   goBack: 'بازگشت',
