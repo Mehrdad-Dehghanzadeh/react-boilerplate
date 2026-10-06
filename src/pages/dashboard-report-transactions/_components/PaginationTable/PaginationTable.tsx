@@ -40,10 +40,6 @@ const ExcelColumns: TCsvColumns = [
     dataIndex: 'created_at'
   },
   {
-    title: 'تاریخ انجام پرداخت',
-    dataIndex: 'paid_at'
-  },
-  {
     title: 'نوع تراکنش',
     dataIndex: 'merchantable_type'
   },
@@ -110,15 +106,6 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       cellFC: (created_at: string) => (
         <span className="sc-interp">
           {created_at ? utcToJalaali(created_at || '') : ''}
-        </span>
-      )
-    },
-
-    {
-      title: 'تاریخ انجام پرداخت',
-      cellFC: (record) => (
-        <span className="sc-interp">
-          {record?.paid_at ? utcToJalaali(record?.paid_at || '') : '-'}
         </span>
       )
     },
@@ -281,7 +268,6 @@ export const PaginationTable: FC<TPaginationTableProps> = ({ openDialog }) => {
       row: pageSize * (page - 1) + (indexRow + 1),
       full_name: `${el?.name || ''} ${el?.family || ''}`,
       created_at: el.created_at ? utcToJalaali(el.created_at || '') : '',
-      paid_at: el.paid_at ? utcToJalaali(el.paid_at || '') : '',
       status: TICKET_STATUS[el?.status].title,
       amount: price(el.amount || '', ''),
       merchantable_type: el.merchantable_type === 'merchant_cashier' ? 'حضوری' : 'آنلاین'
